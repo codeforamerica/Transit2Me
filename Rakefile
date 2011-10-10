@@ -13,7 +13,7 @@ task :spec do
 end
 
 task :console do
-  exec "irb -Iapp -r pdf_archive"
+  exec "irb -Iapp -r ./lib/pdf_archive"
 end
 
 task :default => :spec
