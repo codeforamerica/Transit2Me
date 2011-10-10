@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+describe PdfArchive do
+  describe ".environment" do
+    it "should return the environment" do
+      PdfArchive.environment.should == "test"
+    end
+  end
+end
+
 describe 'PDF Archive', :type => :request do
   describe "GET /" do
     before(:each) do
