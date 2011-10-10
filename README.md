@@ -6,6 +6,7 @@ PDF Archive is a simple PDF storage and retrieval system. Uploading a PDF will s
 
     git clone git://github.com/jonmagic/pdf_archive.git
     cd pdf_archive
+    gem install bundle
     bundle
 
 ## Run the tests
