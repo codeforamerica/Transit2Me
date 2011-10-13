@@ -15,23 +15,12 @@ class PdfUploader < CarrierWave::Uploader::Base
   end
 
   def grim
-    @grim ||= Grim.reap(cache_path)
-  end
-
-  def page_count
-    @page_count ||= begin
-      cache_stored_file! unless cached?
-      grim.count
-    end
+    cache_stored_file! unless cached?
+    Grim.reap(cache_path)
   end
 
   def create_preview
     cache_stored_file! unless cached?
     grim[0].save(File.join(store_dir, 'preview.jpg'))
-  end
-
-  def extract_text(index)
-    cache_stored_file! unless cached?
-    grim[index].text
   end
 end

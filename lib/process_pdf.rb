@@ -1,14 +1,13 @@
 class ProcessPdf
   def self.perform(document_id)
     document = Document.find!(document_id)
+    pdf = document.pdf
 
-    page_count = document.pdf.page_count
+    if pdf.grim.count > 0
+      pdf.create_preview
 
-    if page_count > 0
-      document.pdf.create_preview
-
-      0.upto(page_count - 1).each do |index|
-        document.page_contents << document.pdf.grim[index].text
+      pdf.grim.each do |page|
+        document.page_contents << page.text
       end
 
       document.save!
