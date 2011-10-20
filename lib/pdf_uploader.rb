@@ -1,6 +1,6 @@
 class PdfUploader < CarrierWave::Uploader::Base
   Grim::WIDTH = 100
-  storage :file
+  storage PdfArchive.environment == "production" ? :fog : :file
 
   def cache_dir
     "#{PdfArchive.root}/tmp/cache/#{model.id}"

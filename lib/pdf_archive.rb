@@ -28,8 +28,19 @@ end
 
 # CarrierWave setup
 require 'carrierwave/orm/mongomapper'
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    :provider               => 'AWS',
+    :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],
+    :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY']
+  }
 
-# require pdf uploader and document model
+  config.fog_directory  = ENV['BUCKET_NAME']
+  config.fog_public     = true                                    # optional, defaults to true
+  config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
+end
+
+# require pdf uploader, document model, and process pdf job
 require 'pdf_uploader'
 require 'document'
 require 'process_pdf'
