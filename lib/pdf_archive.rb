@@ -23,7 +23,7 @@ MongoMapper.database = database
 
 # Qu setup
 Qu.configure do |c|
-  c.backend.namespace = "pdfarchive:qu:#{PdfArchive.environment}"
+  c.connection = MongoMapper.connection.db('qu')
 end
 
 # CarrierWave setup

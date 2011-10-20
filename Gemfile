@@ -7,7 +7,7 @@ gem 'carrierwave', :git => 'git://github.com/jnicklas/carrierwave.git' # fixes i
 gem 'mm-carrierwave'
 gem 'hunt'
 gem 'grim'
-gem 'qu-redis'
+gem 'qu-mongo'
 
 group :test do
   gem 'rspec'
