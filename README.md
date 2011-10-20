@@ -26,6 +26,7 @@ Running this on Heroku requires the following steps:
 
 ### Step 1: Create the app on the Heroku Cedar stack
 
+    gem install heroku
     heroku apps:create app_name --stack cedar
 
 ### Step 2: Add MongoHQ Addon
