@@ -3,7 +3,7 @@ require 'bundler/setup'
 require 'rspec/core/rake_task'
 
 task :console do
-  exec "irb -Iapp -r ./lib/pdf_archive"
+  exec "irb -r ./lib/pdf_archive"
 end
 
 desc "Run specs"
