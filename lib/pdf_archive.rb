@@ -38,6 +38,14 @@ CarrierWave.configure do |config|
   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
 end
 
+# Grim Production Config
+if PdfArchive.environment == "production"
+  Grim.processor = Grim::MultiProcessor.new([
+    Grim::ImageMagickProcessor.new({:ghostscript_path => PdfArchive.root.join('bin', '9.04', 'gs')}),
+    Grim::ImageMagickProcessor.new({:ghostscript_path => PdfArchive.root.join('bin', '9.02', 'gs')})
+  ])
+end
+
 # require pdf uploader, document model, and process pdf job
 require 'pdf_uploader'
 require 'document'
