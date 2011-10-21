@@ -29,6 +29,10 @@ Running this on Heroku requires the following steps:
     gem install heroku
     heroku apps:create app_name --stack cedar
 
+We also need to configure it to run in production
+
+    heroku config:add RACK_ENV=production
+
 ### Step 2: Add a MongoDB Addon
 
 The MongoHQ or MongoLab Addons will give us a small free MongoDB instance for storing our documents.
