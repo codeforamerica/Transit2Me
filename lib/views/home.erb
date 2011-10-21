@@ -12,8 +12,8 @@
   <ul>
     <% @documents.each do |document| %>
       <li>
-        <a href="<%= "/documents/#{document.id}/#{document.pdf_filename}" %>">
-          <img src="<%= "/documents/#{document.id}/preview.jpg" %>" />
+        <a href="<%= document.pdf %>" %>">
+          <img src="<%= "<%= document.preview %>" %>" />
           <%= document.pdf_filename %>
         </a>
       </li>
