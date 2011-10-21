@@ -26,7 +26,7 @@ end
 
 # Qu setup
 Qu.configure do |c|
-  c.connection = MongoMapper.connection.db('qu')
+  c.connection = MongoMapper.database
 end
 
 # CarrierWave setup
