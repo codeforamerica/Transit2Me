@@ -1,4 +1,6 @@
 class PreviewStore < CarrierWave::Uploader::Base
+  storage PdfArchive.environment == "production" ? :fog : :file
+
   def cache_dir
     "#{PdfArchive.root}/tmp/cache/#{model.id}"
   end
