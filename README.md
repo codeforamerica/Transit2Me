@@ -43,7 +43,9 @@ or
 
 First setup an Amazon AWS account, get your key, secret, and create a bucket. Then take those values and configure the environment variables on Heroku.
 
-    heroku config:add AWS_ACCESS_KEY_ID=<aws_access_key_id> AWS_SECRET_ACCESS_KEY=<aws_secret_access_key> BUCKET_NAME=<bucket_name>
+    heroku config:add AWS_ACCESS_KEY_ID=<aws_access_key_id> \
+                      AWS_SECRET_ACCESS_KEY=<aws_secret_access_key> \
+                      BUCKET_NAME=<bucket_name>
 
 ### Step 4: Deploy to Heroku
 
