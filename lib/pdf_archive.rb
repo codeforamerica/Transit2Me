@@ -20,6 +20,9 @@ uri = URI.parse(mongo_url)
 database = uri.path.gsub('/', '')
 MongoMapper.connection = Mongo::Connection.new(uri.host, uri.port, {})
 MongoMapper.database = database
+if uri.user.present? && uri.password.present?
+  MongoMapper.database.authenticate(uri.user, uri.password)
+end
 
 # Qu setup
 Qu.configure do |c|
