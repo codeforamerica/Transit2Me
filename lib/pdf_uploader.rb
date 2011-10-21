@@ -23,6 +23,8 @@ class PdfUploader < CarrierWave::Uploader::Base
 
   def create_preview
     cache_stored_file! unless cached?
-    grim[0].save(File.join(store_dir, 'preview.jpg'))
+    output_path = File.join(cache_dir, 'preview.jpg')
+    grim[0].save(output_path)
+    return output_path
   end
 end

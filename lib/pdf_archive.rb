@@ -48,6 +48,7 @@ end
 
 # require pdf uploader, document model, and process pdf job
 require 'pdf_uploader'
+require 'preview_store'
 require 'document'
 require 'process_pdf'
 

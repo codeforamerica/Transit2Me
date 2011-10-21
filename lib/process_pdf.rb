@@ -4,7 +4,7 @@ class ProcessPdf
     pdf = document.pdf
 
     if pdf.grim.count > 0
-      pdf.create_preview
+      document.preview = File.open(pdf.create_preview)
 
       pdf.grim.each do |page|
         document.page_contents << page.text

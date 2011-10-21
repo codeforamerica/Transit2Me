@@ -23,7 +23,8 @@ describe PdfUploader do
 
   describe "#create_preview" do
     it "creates a preview image" do
-      document.pdf.create_preview
+      document.preview = File.open(document.pdf.create_preview)
+      document.save!
       File.exists?(File.join(tmp_dir, 'documents', document.id, 'preview.jpg')).should be_true
     end
   end

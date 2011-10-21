@@ -5,7 +5,10 @@ describe ProcessPdf do
 
   describe ".perform" do
     it "calls create_preview on pdf" do
-      PdfUploader.any_instance.should_receive(:create_preview)
+      document.pdf.cache_stored_file!
+      output_path = File.join(document.pdf.cache_dir, 'preview.jpg')
+      document.pdf.grim[0].save(output_path)
+      PdfUploader.any_instance.should_receive(:create_preview).and_return(output_path)
       ProcessPdf.perform(document.id)
     end
 
