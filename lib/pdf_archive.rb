@@ -24,11 +24,6 @@ if uri.user.present? && uri.password.present?
   MongoMapper.database.authenticate(uri.user, uri.password)
 end
 
-# Qu setup
-Qu.configure do |c|
-  c.connection = MongoMapper.database
-end
-
 # CarrierWave setup
 require 'carrierwave/orm/mongomapper'
 CarrierWave.configure do |config|
