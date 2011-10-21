@@ -15,7 +15,7 @@ module PdfArchive
 end
 
 # MongoMapper setup
-mongo_url = ENV['MONGOHQ_URL'] || "mongodb://localhost:27017/pdf_archive-#{PdfArchive.environment}"
+mongo_url = ENV['MONGOHQ_URL'] || ENV['MONGOLAB_URI'] || "mongodb://localhost:27017/pdf_archive-#{PdfArchive.environment}"
 uri = URI.parse(mongo_url)
 database = uri.path.gsub('/', '')
 MongoMapper.connection = Mongo::Connection.new(uri.host, uri.port, {})

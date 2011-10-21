@@ -29,11 +29,15 @@ Running this on Heroku requires the following steps:
     gem install heroku
     heroku apps:create app_name --stack cedar
 
-### Step 2: Add MongoHQ Addon
+### Step 2: Add a MongoDB Addon
 
-The MongoHQ Addon will give us a small free MongoDB instance for storing our documents.
+The MongoHQ or MongoLab Addons will give us a small free MongoDB instance for storing our documents.
 
     heroku addons:add mongohq:free
+
+or
+
+    heroku addons:add mongolab:starter
 
 ### Step 3: Configure For S3
 
