@@ -9,6 +9,8 @@ class PdfUploader < CarrierWave::Uploader::Base
   def store_dir
     if PdfArchive.environment == 'test'
       "#{PdfArchive.root}/tmp/documents/#{model.id}"
+    elsif PdfArchive.environment == 'production'
+      "documents/#{model.id}"
     else
       "#{PdfArchive.root}/public/documents/#{model.id}"
     end
