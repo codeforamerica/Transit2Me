@@ -4,8 +4,8 @@ PDF Archive is a simple PDF storage and retrieval system. Uploading a PDF will s
 
 ## Setup
 
-    git clone git://github.com/jonmagic/pdf_archive.git
-    cd pdf_archive
+    git clone git://github.com/rwdaigle/demo-cedar-pdfarchive.git
+    cd demo-cedar-pdfarchive
     gem install bundle
     bundle
 
@@ -54,6 +54,8 @@ First setup an Amazon AWS account, get your key, secret, and create a bucket. Th
 ### Step 4: Deploy to Heroku
 
     git push heroku master
+    heroku scale web=1 worker=1
+    heroku open
 
 When it is finished deploying it will give you the url to your app. Visit in the browser and enjoy!
 
