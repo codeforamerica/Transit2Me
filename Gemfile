@@ -10,7 +10,9 @@ gem 'hunt'
 gem 'grim'
 gem 'qu-mongo'
 
-group :test do
+group :development, :test do
+  gem 'foreman'
+  gem 'heroku'
   gem 'rspec'
   gem 'capybara'
   gem 'ruby-debug19', :require => 'ruby-debug'
