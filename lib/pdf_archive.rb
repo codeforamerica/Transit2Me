@@ -47,6 +47,7 @@ if PdfArchive.environment == "production"
 end
 
 # require pdf uploader, document model, and process pdf job
+require 'uploader'
 require 'pdf_uploader'
 require 'preview_store'
 require 'document'
