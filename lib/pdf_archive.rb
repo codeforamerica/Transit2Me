@@ -46,6 +46,10 @@ if PdfArchive.environment == "production"
   ])
 end
 
+require 'exceptional'
+set :raise_errors, true
+use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] if ENV['RACK_ENV'] == 'production' && ENV['EXCEPTIONAL_API_KEY']
+
 # require pdf uploader, document model, and process pdf job
 require 'uploader'
 require 'pdf_uploader'

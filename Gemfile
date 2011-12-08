@@ -9,6 +9,7 @@ gem 'mm-carrierwave'
 gem 'hunt'
 gem 'grim'
 gem 'qu-mongo'
+gem "exceptional"
 
 group :development, :test do
   gem 'foreman'
