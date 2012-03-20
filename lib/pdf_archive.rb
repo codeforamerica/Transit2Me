@@ -210,7 +210,7 @@ get '/transit' do
         carbon = bartschedule.slice( bartschedule.index('strong') + 7 .. bartschedule.index('pounds') - 2 )
       end
     end
-    erb :transitposted, :locals => { :narrative => url, :carbon => carbon }
+    erb :transitposted, :locals => { :narrative => narrative, :carbon => carbon }
   else
     erb :transit
   end
