@@ -1070,7 +1070,7 @@ def nextStopOn(gotime, sched )
       stopindex = 0
       pass.each do |knownstop|
         stopindex += 1
-        if knowntime == ""
+        if knownstop == ""
           # doesn't stop here
           next
         end
