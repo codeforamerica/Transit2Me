@@ -834,11 +834,18 @@ def bart_id_to_name(bid)
 end
 
 get '/geotransit' do
+  if params['address']
+    return gogettransit(params['address'])
+  end
   erb :georequest
 end
 
 post '/geotransit' do
-  if params['address']
+  gogettransit(params['address'])
+end
+
+def gogettransit(address)
+  if(address)
     gotime = Time.now
     ### FIX THIS: setting time to 12:11PM, March 20th, 2012
     gotime = Time.new(2012, 3, 20, 12, 11, 0, "-04:00")
