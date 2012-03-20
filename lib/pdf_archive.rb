@@ -890,8 +890,8 @@ post '/geotransit' do
 ["18:00:00","18:07:00","18:20:00","18:33:00","18:38:00","18:43:00","18:55:00"]]
             sched.each do |pass|
               lasttime = pass[ pass.length-1 ].split(":")
-              if lasttime[0] >= gotime.hour
-                if lasttime[0] == gotime.hour and lasttime[1] <= gotime.minute
+              if lasttime[0].to_i >= gotime.hour
+                if lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.minute
                   next
                 end
                 # this bus is still somewhere on the road
@@ -900,12 +900,12 @@ post '/geotransit' do
                 pass.each do |knownstop|
                   stopindex += 1
                   knowntime = knownstop.split(":")
-                  if knowntime[0] >= gotime.hour
-                    if knowntime[0] == gotime.hour and knowntime[1] <= gotime.minute
+                  if knowntime[0].to_i >= gotime.hour
+                    if knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.minute
                       next
                     end
                     # this is the bus's next stop
-                    return "Route 1 next known stop: " + stations[stopindex] + " at " + knowntime.join(":")
+                    return "Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
                     break
                   end
                 end
