@@ -890,6 +890,7 @@ post '/geotransit' do
 ["18:00:00","18:07:00","18:20:00","18:33:00","18:38:00","18:43:00","18:55:00"]]
             sched.each do |pass|
               lasttime = pass[ pass.length-1 ].split(":")
+              lasttime[0] = lasttime[0].to_i - 12
               if lasttime[0].to_i >= gotime.hour
                 if lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.minute
                   next
