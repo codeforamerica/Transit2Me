@@ -150,7 +150,7 @@ get '/transit' do
     }
     bartschedule = res.body
 
-    @narrative = ''
+    narrative = ''
     trips = bartschedule.split('<trip')
     tripCount = 0
     trips.each do |trip|
@@ -158,7 +158,7 @@ get '/transit' do
       if tripCount == 1
         next
       end
-      @narrative = @narrative + '<ol>'
+      narrative = narrative + '<ol>'
       legs = trip.split('<leg')
       legCount = 0
       legs.each do |leg|
@@ -185,23 +185,23 @@ get '/transit' do
         destinationTime = destinationTime.slice( 0 .. destinationTime.index('"') - 1)
 
         if legCount == 2
-          @narrative = @narrative + '<li>Go to ' + origin + ' BART Station</li>'
-          @narrative = @narrative + '<li>Take the ' + originTime + ' train toward ' + trainhead + '</li>'
+          narrative = narrative + '<li>Go to ' + origin + ' BART Station</li>'
+          narrative = narrative + '<li>Take the ' + originTime + ' train toward ' + trainhead + '</li>'
         end
         if legCount >= legs.length
-          @narrative = @narrative + '<li>Exit at the ' + destination + ' BART Station around ' + destinationTime
+          narrative = narrative + '<li>Exit at the ' + destination + ' BART Station around ' + destinationTime
         else
-          @narrative = @narrative + '<li>Transfer at the ' + destination + ' BART Station around ' + destinationTime
+          narrative = narrative + '<li>Transfer at the ' + destination + ' BART Station around ' + destinationTime
         end
       end
-      @narrative = @narrative + '</ol>'
+      narrative = narrative + '</ol>'
     end
     if bartschedule.index('strong') != nil
       if bartschedule.index('pounds') != nil
         carbon = bartschedule.slice( bartschedule.index('strong') + 7 .. bartschedule.index('pounds') - 2 )
       end
     end
-    erb :transitposted, :locals => { :carbon => carbon}
+    erb :transitposted, :locals => { :carbon => carbon }
   else
     erb :transit
   end
