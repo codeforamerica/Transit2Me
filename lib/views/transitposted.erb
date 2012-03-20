@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+	</head>
+	<body>
+		Sample Posted
+
+<%= narrative %>
+
+Together we could prevent <%= carbon %> pounds of CO<sub>2</sub>!
+
+<% if @tevents %>
+  <h2>Search Results</h2>
+  <ul>
+    <% @tevents.each do |tevent| %>
+      <li>
+          <%= tevent.eventname %>
+          <%= tevent.dateof %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+	</body>
+</html>
