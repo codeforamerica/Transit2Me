@@ -841,7 +841,7 @@ post '/geotransit' do
   if params['address']
     gotime = Time.now
     ### FIX THIS: setting time to noon
-    gotime = Time.new(2012, 3, 20, 12, 10, 0, "-04")
+    gotime = Time.new(2012, 3, 20, 12, 10, 0, "-04:00")
     if gotime.wday == 0
       return "No Sunday buses"
     end
