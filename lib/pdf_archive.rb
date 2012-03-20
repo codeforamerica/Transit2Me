@@ -841,7 +841,7 @@ post '/geotransit' do
   if params['address']
     gotime = Time.now
     ### FIX THIS: setting time to noon
-    gotime = Time.new(2012, 3, 20, 12, 10, 0, "-04:00")
+    gotime = Time.new(2012, 3, 20, 12, 10, 0, "-04")
     if gotime.wday == 0
       return "No Sunday buses"
     end
@@ -877,65 +877,163 @@ post '/geotransit' do
             # Weekday schedule
             stations = [ "Leaves Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
             sched = [
-            ["6:20:00","6:25:00","6:35:00","6:40:00","6:43:00","6:48:00","7:00:00"],
-["7:00:00","7:07:00","7:20:00","7:33:00","7:38:00","7:43:00","8:00:00"],
-["8:00:00","8:07:00","8:20:00","8:33:00","8:38:00","8:43:00","9:00:00"],
-["9:00:00","9:07:00","9:20:00","9:33:00","9:38:00","9:43:00","10:00:00"],
-["10:00:00","10:07:00","10:20:00","10:33:00","10:38:00","10:43:00","11:00:00"],
-["11:00:00","11:07:00","11:20:00","11:33:00","11:38:00","11:43:00","12:00:00"],
-["12:00:00","12:07:00","12:20:00","12:33:00","12:38:00","12:43:00","13:00:00"],
-["13:00:00","13:07:00","13:20:00","13:33:00","13:38:00","13:43:00","14:00:00"],
-["14:00:00","14:07:00","14:20:00","14:33:00","14:38:00","14:43:00","15:00:00"],
-["15:00:00","15:07:00","15:20:00","15:33:00","15:38:00","15:43:00","16:00:00"],
-["16:00:00","16:07:00","16:20:00","16:33:00","16:38:00","16:43:00","17:00:00"],
-["17:00:00","17:07:00","17:20:00","17:33:00","17:38:00","17:43:00","18:00:00"],
-["18:00:00","18:07:00","18:20:00","18:33:00","18:38:00","18:43:00","18:55:00"]]
-            sched.each do |pass|
-              lasttime = pass[ pass.length-1 ].split(":")
-              if lasttime[0].to_i >= gotime.hour
-                if lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.min
-                  next
-                end
-                # this bus is still somewhere on the road
-                currentStation = ""
-                stopindex = 0
-                pass.each do |knownstop|
-                  stopindex += 1
-                  knowntime = knownstop.split(":")
-                  if knowntime[0].to_i >= gotime.hour
-                    if knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.min
-                      next
-                    end
-                    # this is the bus's next stop
-                    return "Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
-                    break
-                  end
-                end
-                break
-              end
-            end
+            ["6:20","6:25","6:35","6:40","6:43","6:48","7:00"],
+["7:00","7:07","7:20","7:33","7:38","7:43","8:00"],
+["8:00","8:07","8:20","8:33","8:38","8:43","9:00"],
+["9:00","9:07","9:20","9:33","9:38","9:43","10:00"],
+["10:00","10:07","10:20","10:33","10:38","10:43","11:00"],
+["11:00","11:07","11:20","11:33","11:38","11:43","12:00"],
+["12:00","12:07","12:20","12:33","12:38","12:43","13:00"],
+["13:00","13:07","13:20","13:33","13:38","13:43","14:00"],
+["14:00","14:07","14:20","14:33","14:38","14:43","15:00"],
+["15:00","15:07","15:20","15:33","15:38","15:43","16:00"],
+["16:00","16:07","16:20","16:33","16:38","16:43","17:00"],
+["17:00","17:07","17:20","17:33","17:38","17:43","18:00"],
+["18:00","18:07","18:20","18:33","18:38","18:43","18:55"]]
+            nextStopOn( sched )
           end
         elsif closest.getroute() == "2"
           if gotime.wday == 6
             # Saturday schedule
+            stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Returns to Terminal Station" ]
+            sched = [
+["","","5:45","5:50","5:55","6:10","6:20"],
+["5:45","6:05","6:15","6:20","6:30","6:45","6:55"],
+["6:20","6:35","6:41","6:50","7:00","7:10","7:25"],
+["6:55","7:15","7:30","7:40","7:43","7:50","8:05"],
+["7:25","7:41","7:48","7:58","8:08","8:25","8:40"],
+["8:05","8:21","8:28","8:38","8:48","9:05","9:20"],
+["8:40","8:56","9:03","9:13","9:23","9:40","9:55"],
+["9:20","9:36","9:43","9:53","10:03","10:20","10:35"],
+["9:55","10:11","10:18","10:28","10:38","10:55","11:10"],
+["10:35","10:51","10:58","11:08","11:18","11:35","11:50"],
+["11:10","11:26","11:33","11:43","11:53","12:10","12:25"],
+["11:50","12:06","12:13","12:23","12:33","12:50","13:05"],
+["12:25","12:41","12:48","12:58","13:08","13:25","13:40"],
+["13:05","13:21","13:28","13:38","13:48","14:05","14:20"],
+["13:40","13:56","14:03","14:13","14:23","14:40","14:55"],
+["14:20","14:36","14:43","14:53","15:03","15:20","15:35"],
+["14:55","15:11","15:18","15:28","15:38","15:55","16:10"],
+["15:35","15:51","15:58","16:08","16:18","16:35","16:50"],
+["16:10","16:26","16:33","16:43","16:53","17:10","17:25"],
+["16:50","17:06","17:13","17:23","17:33","17:50","18:05"],
+["17:25","17:40","17:48","17:56","18:10","18:25","18:40"],
+["18:05","18:20","18:26","18:34","18:42","18:55","19:05"],
+["18:40","18:53","19:00","19:08","19:16","19:30","19:45"]
+            ]
           else
             # Weekday schedule
+            stations = [ "Leaves Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Returns to Terminal Station"]
+            sched = [
+["","5:45","5:51","","5:57","6:09","6:20"],
+["5:45","6:10","6:25","","6:35","6:50","7:00"],
+["6:20","6:40","","6:47","6:52","7:05","7:25"],
+["7:00","7:25","","7:30","7:35","7:50","8:05"],
+["7:25","7:50","","8:02","8:07","8:24","8:40"],
+["8:05","8:30","","8:35","8:40","8:55","9:20"],
+["8:40","9:05","","9:12","9:17","9:32","9:55"],
+["9:20","9:45","","9:50","9:55","10:10","10:35"],
+["9:55","10:15","","10:22","10:27","10:45","11:10"],
+["10:35","11:00","","11:05","11:10","11:25","11:50"],
+["11:10","11:30","","11:37","11:43","12:00","12:25"],
+["11:50","12:15","","12:20","12:25","12:40","13:05"],
+["12:25","12:48","","12:55","13:00","13:17","13:40"],
+["13:05","13:30","","13:35","13:40","13:55","14:20"],
+["13:40","14:00","","14:07","14:12","14:29","14:55"],
+["14:20","14:45","","14:50","14:55","15:10","15:35"],
+["14:55","15:18","","15:25","15:32","15:49","16:10"],
+["15:35","16:00","","16:05","16:10","16:25","16:50"],
+["16:10","16:33","","16:40","16:45","17:05","17:25"],
+["16:50","17:12","","17:17","17:22","17:37","18:05"],
+["17:25","17:48","","17:55","18:00","18:20","18:40"],
+["18:05","18:28","","18:33","18:38","18:55","19:20"],
+["18:40","18:55","19:08","","19:22","19:32","19:45"],
+["19:45","19:55","20:13","","20:27","20:37","20:55"],
+["20:55","21:05","21:10","","21:37","21:47","22:00"],
+["22:00","22:10","22:41","","22:51","22:58", "" ] ]
+            nextStopOn( sched )
           end
         end
 
         if librarydist < stopdist
           return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
         else
-          return "Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"        
+          return "Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
         end
       else
-        # go to Terminal Station
-        return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
+        if closest.getroute() != "0"
+          # look up route schedule and next stop
+          if closest.getroute() == "3"
+        else
+          # go to Terminal Station
+          return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
+        end
       end
     end
   else
     return "no address"
   end
+end
+
+def nextStopOn( sched )
+  currentbuses = ''
+  sched.each do |pass|
+    # identify the first time this bus stops
+    firsttime = ''
+    pass.each do |knownstop|
+      if knownstop != ""
+        firsttime = knownstop.split(":")
+        break
+      end
+    end
+    
+    # determine if this bus has begun service
+    if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
+      # this bus, and all future buses in the schedule, have not yet left Terminal Station
+      if currentbuses == ''
+        # first bus has not left yet
+        return 'The first bus leaves Terminal Station at ' + pass[0]
+      else
+        return currentbuses
+      end
+    end
+    
+    # identify the last stop this bus will make
+    lasttime = ''
+    pass.reverse_each do |knownstop|
+      if knownstop != ""
+        lasttime = knownstop.split(":")
+        break
+      end
+    end
+    
+    # determine the next stop of this bus
+    if lasttime[0].to_i >= gotime.hour
+      if lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.min
+        next
+      end
+      # this bus is still somewhere on the road
+      currentStation = ""
+      stopindex = 0
+      pass.each do |knownstop|
+        stopindex += 1
+        if knowntime == ""
+          # doesn't stop here
+          next
+        end
+        knowntime = knownstop.split(":")
+        if knowntime[0].to_i >= gotime.hour
+          if knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.min
+            next
+          end
+          # this is the bus's next stop
+          currentbuses = currentbuses + "<br/>Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
+          break
+        end
+      end
+    end
+  end
+  return currentbuses
 end
 
 get '/transit' do
