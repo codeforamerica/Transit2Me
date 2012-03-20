@@ -890,7 +890,7 @@ post '/geotransit' do
 ["16:00","16:07","16:20","16:33","16:38","16:43","17:00"],
 ["17:00","17:07","17:20","17:33","17:38","17:43","18:00"],
 ["18:00","18:07","18:20","18:33","18:38","18:43","18:55"]]
-            nextStopOn( sched )
+            nextStopOn(gotime, sched )
           end
         elsif closest.getroute() == "2"
           if gotime.wday == 6
@@ -921,7 +921,7 @@ post '/geotransit' do
 ["18:05","18:20","18:26","18:34","18:42","18:55","19:05"],
 ["18:40","18:53","19:00","19:08","19:16","19:30","19:45"]
             ]
-            nextStopOn(sched)
+            nextStopOn(gotime,sched)
           else
             # Weekday schedule
             stations = [ "Leaves Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Returns to Terminal Station"]
@@ -952,7 +952,7 @@ post '/geotransit' do
 ["19:45","19:55","20:13","","20:27","20:37","20:55"],
 ["20:55","21:05","21:10","","21:37","21:47","22:00"],
 ["22:00","22:10","22:41","","22:51","22:58", "" ] ]
-            nextStopOn( sched )
+            nextStopOn(gotime, sched )
           end
         end
 
@@ -1015,7 +1015,7 @@ post '/geotransit' do
 ["22:00:00","22:08:00","22:16:00","22:27:00","22:38:00","22:46:00","22:55:00"]
               ]
             end
-            "Take bus (3) from <i>" + closest.getname() + "</i>. Next buses:" + nextStopOn( sched )
+            "Take bus (3) from <i>" + closest.getname() + "</i>. Next buses:" + nextStopOn(gotime, sched )
           end
         else
           # go to Terminal Station
@@ -1028,7 +1028,7 @@ post '/geotransit' do
   end
 end
 
-def nextStopOn( sched )
+def nextStopOn(gotime, sched )
   currentbuses = ''
   sched.each do |pass|
     # identify the first time this bus stops
