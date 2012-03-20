@@ -839,8 +839,9 @@ end
 
 post '/geotransit' do
   if params['address']
-    if params["city"] == "macon"
-      params['address'] = params['address'] + ", Macon, GA"
+    gotime = Time.now
+    if gotime.wday == 0
+      return "No Sunday buses"
     end
     url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
     url = URI.parse(url)
@@ -867,6 +868,58 @@ post '/geotransit' do
         libraryy = 32.838782
         stopdist = ( closest.getlng() - terminalx )**2 + ( closest.getlat() - terminaly )**2
         librarydist = ( libraryx - terminalx )**2 + ( libraryy - terminaly )**2
+
+        if closest.getroute() == "1"
+          # What is the 1's Saturday schedule?
+          if gotime.wday < 6
+            # Weekday schedule
+            stations = [ "Leaves Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
+            sched = [
+            ["6:20:00","6:25:00","6:35:00","6:40:00","6:43:00","6:48:00","7:00:00"],
+["7:00:00","7:07:00","7:20:00","7:33:00","7:38:00","7:43:00","8:00:00"],
+["8:00:00","8:07:00","8:20:00","8:33:00","8:38:00","8:43:00","9:00:00"],
+["9:00:00","9:07:00","9:20:00","9:33:00","9:38:00","9:43:00","10:00:00"],
+["10:00:00","10:07:00","10:20:00","10:33:00","10:38:00","10:43:00","11:00:00"],
+["11:00:00","11:07:00","11:20:00","11:33:00","11:38:00","11:43:00","12:00:00"],
+["12:00:00","12:07:00","12:20:00","12:33:00","12:38:00","12:43:00","13:00:00"],
+["13:00:00","13:07:00","13:20:00","13:33:00","13:38:00","13:43:00","14:00:00"],
+["14:00:00","14:07:00","14:20:00","14:33:00","14:38:00","14:43:00","15:00:00"],
+["15:00:00","15:07:00","15:20:00","15:33:00","15:38:00","15:43:00","16:00:00"],
+["16:00:00","16:07:00","16:20:00","16:33:00","16:38:00","16:43:00","17:00:00"],
+["17:00:00","17:07:00","17:20:00","17:33:00","17:38:00","17:43:00","18:00:00"],
+["18:00:00","18:07:00","18:20:00","18:33:00","18:38:00","18:43:00","18:55:00"]]
+            sched.each do |pass|
+              lasttime = pass[ pass.length-1 ].split(":")
+              if lasttime[0] >= gotime.hour
+                if lasttime[0] == gotime.hour and lasttime[1] <= gotime.minute
+                  next
+                end
+                # this bus is still somewhere on the road
+                currentStation = ""
+                stopindex = 0
+                pass.each do |knownstop|
+                  stopindex += 1
+                  knowntime = knownstop.split(":")
+                  if knowntime[0] >= gotime.hour
+                    if knowntime[0] == gotime.hour and knowntime[1] <= gotime.minute
+                      next
+                    end
+                    # this is the bus's next stop
+                    return "Route 1 next known stop: " + stations[stopindex] + " at " + knowntime.join(":")
+                    break
+                  end
+                end
+                break
+              end
+            end
+          end
+        elsif closest.getroute() == "2"
+          if gotime.wday == 6
+            # Saturday schedule
+          else
+            # Weekday schedule
+        end
+
         if librarydist < stopdist
           return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
         else
