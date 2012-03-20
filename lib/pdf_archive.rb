@@ -93,10 +93,10 @@ class MaconStop
      return @name
    end
    def getlat()
-     return @latlng[1]
+     return @lnglat[1]
    end
    def getlng()
-     return @latlng[0]
+     return @lnglat[0]
    end
 end
 
