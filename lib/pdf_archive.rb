@@ -1053,7 +1053,7 @@ def nextStopOn(gotime, stations, sched )
     end
     
     # determine the next stop of this bus
-    if lasttime[0].to_i > gotime.hour or (lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.min)
+    if lasttime[0].to_i > gotime.hour or (lasttime[0].to_i == gotime.hour and lasttime[1].to_i >= gotime.min)
       
       # determine if this bus has begun service
       if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
@@ -1076,7 +1076,7 @@ def nextStopOn(gotime, stations, sched )
           next
         end
         knowntime = knownstop.split(":")
-        if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.min)
+        if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
           # this is the bus's next stop
           currentbuses = currentbuses + "<br/>Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
           break
