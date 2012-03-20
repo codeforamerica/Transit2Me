@@ -143,10 +143,10 @@ get '/transit' do
     
     closestStation = 'CONC'
     
-    url = 'http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=EAH9-5Y6H-E24I-9KPH'
+    url = 'http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU'
     url = URI.parse(url)
     res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get('/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=EAH9-5Y6H-E24I-9KPH')
+      http.get('/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU')
     }
     bartschedule = res.body
 
