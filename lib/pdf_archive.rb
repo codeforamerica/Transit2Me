@@ -142,13 +142,13 @@ get '/transit' do
     eventTimeStamp = eventTimeStamp.sub(' ','')
     eventTime = ''
     if eventTimeStamp.split(":")[0].to_i == 0
-      eventTime = '12:' + eventTimeStamp.split(":")[1] + " am"
+      eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20am"
     elsif eventTimeStamp.split(":")[0].to_i < 12
-      eventTime = eventTimeStamp.split(":")[0] + ':' + eventTimeStamp.split(":")[1] + " am"      
+      eventTime = eventTimeStamp.split(":")[0] + ':' + eventTimeStamp.split(":")[1] + "%20am"      
     elsif eventTimeStamp.split(":")[0].to_i == 12
-      eventTime = '12:' + eventTimeStamp.split(":")[1] + " pm"
+      eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20pm"
     else
-      eventTime = (eventTimeStamp.split(":")[0].to_i - 12).to_s + ':' + eventTimeStamp.split(":")[1] + " pm"
+      eventTime = (eventTimeStamp.split(":")[0].to_i - 12).to_s + ':' + eventTimeStamp.split(":")[1] + "%20pm"
     end
     closestStation = 'CONC'
     
