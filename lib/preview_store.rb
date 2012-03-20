@@ -1,2 +1,0 @@
-class PreviewStore < Uploader
-end

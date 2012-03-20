@@ -221,6 +221,7 @@ post '/geotransit' do
     closest
   else
     "no address"
+  end
 end
 
 get '/transit' do
