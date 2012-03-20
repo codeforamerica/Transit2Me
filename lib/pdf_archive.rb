@@ -918,6 +918,7 @@ post '/geotransit' do
             # Saturday schedule
           else
             # Weekday schedule
+          end
         end
 
         if librarydist < stopdist
