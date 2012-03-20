@@ -876,7 +876,7 @@ post '/geotransit' do
           # What is the 1's Saturday schedule?
           if gotime.wday < 6
             # Weekday schedule
-            stations = [ "Leaves Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
+            stations = [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
             sched = [
             ["6:20","6:25","6:35","6:40","6:43","6:48","7:00"],
 ["7:00","7:07","7:20","7:33","7:38","7:43","8:00"],
@@ -896,7 +896,7 @@ post '/geotransit' do
         elsif closest.getroute() == "2"
           if gotime.wday == 6
             # Saturday schedule
-            stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Returns to Terminal Station" ]
+            stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ]
             sched = [
 ["","","5:45","5:50","5:55","6:10","6:20"],
 ["5:45","6:05","6:15","6:20","6:30","6:45","6:55"],
@@ -925,7 +925,7 @@ post '/geotransit' do
             bussum = nextStopOn(gotime, stations,sched)
           else
             # Weekday schedule
-            stations = [ "Leaves Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Returns to Terminal Station"]
+            stations = [ "Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Terminal Station"]
             sched = [
 ["","5:45","5:51","","5:57","6:09","6:20"],
 ["5:45","6:10","6:25","","6:35","6:50","7:00"],
@@ -969,7 +969,7 @@ post '/geotransit' do
             sched = [ ]
             if gotime.wday == 6
               # Saturday schedule
-              stations = [ "Leaves Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Returns to Terminal Station" ]
+              stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
               sched = [
 ["","5:37:00","","5:50:00","6:00:00","6:10:00","6:20:00"],
 ["6:20:00","6:30:00","6:40:00","6:50:00","7:00:00","7:10:00","7:25:00"],
@@ -986,7 +986,7 @@ post '/geotransit' do
               ]
             else
               # weekday schedule
-              stations = [ "Leaves Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Returns to Terminal Station" ]
+              stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
               sched = [
 ["","5:37:00","","5:50:00","6:00:00","6:10:00","6:20:00"],
 ["5:45:00","5:53:00","6:01:00","6:14:00","6:30:00","6:42:00","6:55:00"],
@@ -1078,7 +1078,7 @@ def nextStopOn(gotime, stations, sched )
         knowntime = knownstop.split(":")
         if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
           # this is the bus's next stop
-          currentbuses = currentbuses + "<br/>Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
+          currentbuses = currentbuses + "<br/>Next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
           break
         end
       end
