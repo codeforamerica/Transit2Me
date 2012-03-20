@@ -81,7 +81,7 @@ class BartStation
 end
 
 class MaconStop
-   def initialize(id, name, route lnglat)
+   def initialize(id, name, route, lnglat)
       @id=id
       @lnglat=lnglat
       @name=name
