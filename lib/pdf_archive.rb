@@ -138,9 +138,18 @@ get '/transit' do
     
     eventDest = @tevents.first.gotostation
     eventMMDDYYYY = @tevents.first.dateof
-    eventTime = @tevents.first.timeof
-    eventTime = eventTime.sub(' ','')
-    
+    eventTimeStamp = @tevents.first.timeof
+    eventTimeStamp = eventTimeStamp.sub(' ','')
+    eventTime = ''
+    if eventTimeStamp.split(":")[0].to_i == 0
+      eventTime = '12:' + eventTimeStamp.split(":")[1] + " am"
+    elsif eventTimeStamp.split(":")[0].to_i < 12
+      eventTime = eventTimeStamp.split(":")[0] + ':' + eventTimeStamp.split(":")[1] + " am"      
+    elsif eventTimeStamp.split(":")[0].to_i == 12
+      eventTime = '12:' + eventTimeStamp.split(":")[1] + " pm"
+    else
+      eventTime = (eventTimeStamp.split(":")[0].to_i - 12).to_s + ':' + eventTimeStamp.split(":")[1] + " pm"
+    end
     closestStation = 'CONC'
     
     url = 'http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU'
