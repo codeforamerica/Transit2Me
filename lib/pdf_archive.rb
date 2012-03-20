@@ -206,10 +206,10 @@ end
 
 post '/geotransit' do
   if params['address']
-    url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + params['address']
+    url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
     url = URI.parse(url)
     res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + params['address'])
+      http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address']))
     }
     response = res.body
     lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
