@@ -841,6 +841,7 @@ post '/geotransit' do
   if params['address']
     if params["city"] == "macon"
       params['address'] = params['address'] + ", Macon, GA"
+    end
     url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
     url = URI.parse(url)
     res = Net::HTTP.start(url.host, url.port) {|http|
@@ -855,7 +856,7 @@ post '/geotransit' do
     closest = ''
     if params["city"] == "sf"
       closest = closest_bart(lat, lng)
-      closest.getid()
+      return closest.getid()
     elsif params["city"] == "macon"
       closest = closest_macon(lat, lng)
       if closest.getroute() == "1" or closest.getroute() == "2" or closest.getroute() == "7"
@@ -867,17 +868,17 @@ post '/geotransit' do
         stopdist = ( closest.getlng() - terminalx )**2 + ( closest.getlat() - terminaly )**2
         librarydist = ( libraryx - terminalx )**2 + ( libraryy - terminaly )**2
         if librarydist < stopdist
-          "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
+          return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
         else
-          "Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"        
+          return "Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"        
         end
       else
         # go to Terminal Station
-        "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
+        return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
       end
     end
   else
-    "no address"
+    return "no address"
   end
 end
 
