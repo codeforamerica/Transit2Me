@@ -857,6 +857,7 @@ post '/geotransit' do
     lat = lat.slice( 0 .. lat.index('}') - 1 )
     lat = Float(lat)
     closest = ''
+    bussum = ''
     if params["city"] == "sf"
       closest = closest_bart(lat, lng)
       return closest.getid()
@@ -890,7 +891,7 @@ post '/geotransit' do
 ["16:00","16:07","16:20","16:33","16:38","16:43","17:00"],
 ["17:00","17:07","17:20","17:33","17:38","17:43","18:00"],
 ["18:00","18:07","18:20","18:33","18:38","18:43","18:55"]]
-            nextStopOn(gotime, stations, sched )
+            bussum = nextStopOn(gotime, stations, sched )
           end
         elsif closest.getroute() == "2"
           if gotime.wday == 6
@@ -921,7 +922,7 @@ post '/geotransit' do
 ["18:05","18:20","18:26","18:34","18:42","18:55","19:05"],
 ["18:40","18:53","19:00","19:08","19:16","19:30","19:45"]
             ]
-            nextStopOn(gotime, stations,sched)
+            bussum = nextStopOn(gotime, stations,sched)
           else
             # Weekday schedule
             stations = [ "Leaves Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Returns to Terminal Station"]
@@ -952,14 +953,14 @@ post '/geotransit' do
 ["19:45","19:55","20:13","","20:27","20:37","20:55"],
 ["20:55","21:05","21:10","","21:37","21:47","22:00"],
 ["22:00","22:10","22:41","","22:51","22:58", "" ] ]
-            nextStopOn(gotime, stations, sched )
+            bussum = nextStopOn(gotime, stations, sched )
           end
         end
 
         if librarydist < stopdist
-          return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
+          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
         else
-          return "Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
+          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
         end
       else
         if closest.getroute() != "0"
@@ -1015,11 +1016,11 @@ post '/geotransit' do
 ["22:00:00","22:08:00","22:16:00","22:27:00","22:38:00","22:46:00","22:55:00"]
               ]
             end
-            "Take bus (3) from <i>" + closest.getname() + "</i>. Next buses:" + nextStopOn(gotime, stations, sched )
+            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i>. Next buses:" + nextStopOn(gotime, stations, sched )
           end
         else
           # go to Terminal Station
-          return "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
+          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
         end
       end
     end
@@ -1033,22 +1034,13 @@ def nextStopOn(gotime, stations, sched )
   sched.each do |pass|
     # identify the first time this bus stops
     firsttime = ''
+    firstindex = 0
     pass.each do |knownstop|
       if knownstop != ""
         firsttime = knownstop.split(":")
         break
       end
-    end
-    
-    # determine if this bus has begun service
-    if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
-      # this bus, and all future buses in the schedule, have not yet left Terminal Station
-      if currentbuses == ''
-        # first bus has not left yet
-        return 'The first bus leaves Terminal Station at ' + pass[0]
-      else
-        return currentbuses
-      end
+      firstindex = firstindex + 1
     end
     
     # identify the last stop this bus will make
@@ -1061,10 +1053,19 @@ def nextStopOn(gotime, stations, sched )
     end
     
     # determine the next stop of this bus
-    if lasttime[0].to_i >= gotime.hour
-      if lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.min
-        next
+    if lasttime[0].to_i > gotime.hour or (lasttime[0].to_i == gotime.hour and lasttime[1].to_i <= gotime.min)
+      
+      # determine if this bus has begun service
+      if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
+        # this bus, and all future buses in the schedule, have not yet left Terminal Station
+        if currentbuses == ''
+          # first bus has not left yet
+          return 'The first bus will leave ' + stations[firstindex] + ' at ' + firsttime.join(":")
+        else
+          return currentbuses + '<br/>The next bus departs ' + stations[firstindex] + ' at ' + firsttime.join(":")
+        end
       end
+
       # this bus is still somewhere on the road
       currentStation = ""
       stopindex = 0
@@ -1075,10 +1076,7 @@ def nextStopOn(gotime, stations, sched )
           next
         end
         knowntime = knownstop.split(":")
-        if knowntime[0].to_i >= gotime.hour
-          if knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.min
-            next
-          end
+        if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i <= gotime.min)
           # this is the bus's next stop
           currentbuses = currentbuses + "<br/>Route 1 next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
           break
