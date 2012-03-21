@@ -1236,7 +1236,7 @@ get '/json' do
         sched = getSchedule("1-W")
       end
 
-    elsif closest.getroute() == "2"
+    elsif params['route'] == "2"
       if gotime.wday == 6
         # Saturday schedule
         stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ]
@@ -1247,7 +1247,7 @@ get '/json' do
         sched = getSchedule("2-W")
       end
 
-    elsif closest.getroute() == "3"
+    elsif params['route'] == "3"
       if gotime.wday == 6
         # Saturday schedule
         stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
@@ -1258,7 +1258,7 @@ get '/json' do
         sched = getSchedule("3-W")
       end
 
-    elsif closest.getroute() == "4"
+    elsif params['route'] == "4"
       if gotime.wday == 6
         stations = [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ]
         sched = getSchedule("4-S")
@@ -1267,7 +1267,7 @@ get '/json' do
         sched = getSchedule("4-W")
       end
 
-    elsif closest.getroute() == "5"
+    elsif params['route'] == "5"
       if gotime.wday == 6
         # Saturday schedule
         stations = ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"]
@@ -1278,7 +1278,7 @@ get '/json' do
         sched = getSchedule("5-W")
       end
             
-    elsif closest.getroute() == "6"
+    elsif params['route'] == "6"
       if gotime.wday == 6
         stations = [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ]
         sched = getSchedule("6-S")
@@ -1287,7 +1287,7 @@ get '/json' do
         sched = getSchedule("6-W")
       end
 
-    elsif closest.getroute() == "9"
+    elsif params['route'] == "9"
       if gotime.wday == 6
         # Saturday schedule
         stations = ["Terminal Station","College St at Mercer Blvd Outbound","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Mercer Blvd at College St Inbound","Terminal Station"]
@@ -1298,7 +1298,7 @@ get '/json' do
         sched = getSchedule("9-W")
       end
 
-    elsif closest.getroute() == "11"
+    elsif params['route'] == "11"
       if gotime.wday == 6
         # Saturday schedule
         stations = [ "Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station" ]
@@ -1309,7 +1309,7 @@ get '/json' do
         sched = getSchedule("11-W")
       end
 
-    elsif closest.getroute() == "12"
+    elsif params['route'] == "12"
       if gotime.wday == 6
         # Saturday schedule
         stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station" ]
