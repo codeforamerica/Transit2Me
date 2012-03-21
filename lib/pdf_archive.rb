@@ -835,7 +835,10 @@ end
 
 def getSchedule(route)
   if route == "1-W"
-    return { "turnaround" => 3, "times" => [
+    # turnaround is the index of the furthest stop on the route
+    # once the bus is past the turnaround stop, it changes from outbound to inbound
+    # Here it is the 3rd stop (6:35 at Kroger) so we use the array index, 2
+    return { "turnaround" => 2, "times" => [
 ["6:20","6:25","6:35","6:40","6:43","6:48","7:00"],
 ["7:00","7:07","7:20","7:33","7:38","7:43","8:00"],
 ["8:00","8:07","8:20","8:33","8:38","8:43","9:00"],
@@ -1004,7 +1007,7 @@ def getSchedule(route)
 ["18:40","18:50","18:57","19:06","19:14","19:21","19:26","19:45"]
               ]}
   elsif route == "5-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 4, "times" => [
 ["","","5:41","5:48","","5:55","6:00","6:05","6:20"],
 ["","6:04","6:12","6:20","6:20","6:27","6:32","6:37","6:50"],
 ["6:20","6:30","6:37","6:45","6:45","6:53","7:01","7:06","7:25"],
@@ -1033,7 +1036,7 @@ def getSchedule(route)
 ["22:00","22:08","22:16","22:26","","22:32","22:38","22:44", ""]
               ]}
   elsif route == "6-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 4, "times" => [
 ["","","","5:45","5:55","","6:11","6:20"],
 ["6:20","6:28","","6:48","6:58","","7:13","7:25"],
 ["7:25","7:35","7:40","7:52","8:07","8:21","8:27","8:40"],
@@ -1048,7 +1051,7 @@ def getSchedule(route)
 ["18:40","18:47","18:52","19:04","19:17","19:27","19:32","19:45"]
               ]}
   elsif route == "6-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 4, "times" => [
 ["","","","5:45","5:55","","6:11","6:20"],
 ["6:20","6:28","","6:48","6:58","","7:13","7:25"],
 ["7:25","7:35","7:40","7:52","8:07","8:21","8:27","8:40"],
@@ -1066,7 +1069,7 @@ def getSchedule(route)
 ["22:00","22:05","22:09","22:17","22:29","22:41","22:47","22:55"]
               ]}
   elsif route == "9-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 4, "times" => [
 ["5:50","5:58","","6:15","","6:27","6:38"],
 ["6:10","6:25","","6:35","","6:45","6:56"],
 ["6:40","6:50","","7:19","7:23","7:37","7:55"],
@@ -1087,7 +1090,7 @@ def getSchedule(route)
 ["18:40","18:48","19:05","19:15","19:20","19:40","19:55"]
               ]}
   elsif route == "9-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 5, "times" => [
 ["5:20","5:28","","","5:50","","","6:05","6:18"],
 ["5:50","5:58","","","6:15","","","6:27","6:38"],
 ["6:00","6:13","","","6:36","","","6:47","6:58"],
@@ -1384,7 +1387,11 @@ get '/json' do
             else
               wroteABus = 1
             end
-            currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", time:\"" + knowntime.join(":") + "\"}"
+            if stopindex > sched["turnaround"] + 1
+              currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
+            else
+              currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
+            end
             break
           end
         end
