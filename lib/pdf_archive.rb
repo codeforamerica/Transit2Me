@@ -841,6 +841,13 @@ get '/geotransit' do
     else
       return gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
     end
+  elsif params['route']
+    if params['date']
+      timestamp = params['date'].split(",")
+      return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-4:00" ))
+    else
+      return gogettransit('Route:' + params['route'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
+    end
   end
   erb :georequest
 end
@@ -849,7 +856,7 @@ post '/geotransit' do
   gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
 end
 
-def gogettransit(address, gottime)
+def gogettransit(address, gotime)
   if(address)
     #gotime = Time.now
     if gotime.wday == 0
