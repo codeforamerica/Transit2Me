@@ -1430,7 +1430,7 @@ def nextStopOn(gotime, stations, sched )
     end
   end
   if currentbuses == ''
-    return "The next bus will be tomorrow"
+    return "<br/>The next bus will be tomorrow"
   end
   return currentbuses
 end
