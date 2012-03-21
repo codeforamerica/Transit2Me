@@ -1335,6 +1335,7 @@ get '/json' do
       return currentbuses + "],\nerror:\"No Sunday buses\"\n}"
     end
 
+    wroteABus = 0
     sched.each do |pass|
       # identify the first time this bus stops
       firsttime = ''
@@ -1369,7 +1370,6 @@ get '/json' do
         # this bus is still somewhere on the road
         currentStation = ""
         stopindex = 0
-        wroteABus = 0
         pass.each do |knownstop|
           stopindex += 1
           if knownstop == ""
@@ -1379,7 +1379,7 @@ get '/json' do
           knowntime = knownstop.split(":")
           if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
             # this is the bus's next stop
-            if(wroteABus == 1)
+            if wroteABus == 1
               currentbuses = currentbuses + ",\n"
             else
               wroteABus = 1
