@@ -862,24 +862,31 @@ def gogettransit(address, gotime)
     if gotime.wday == 0
       return "No Sunday buses"
     end
-    url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
-    url = URI.parse(url)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address']))
-    }
-    response = res.body
-    lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
-    lng = Float(lng)
-    lat = response.slice( response.index('"lat":') + 6 .. response.length )
-    lat = lat.slice( 0 .. lat.index('}') - 1 )
-    lat = Float(lat)
-    closest = ''
-    bussum = ''
-    if params["city"] == "sf"
-      closest = closest_bart(lat, lng)
-      return closest.getid()
-    elsif params["city"] == "macon"
-      closest = closest_macon(lat, lng)
+    if address.index('Route:') == nil:
+      url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
+      url = URI.parse(url)
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address']))
+      }
+      response = res.body
+      lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
+      lng = Float(lng)
+      lat = response.slice( response.index('"lat":') + 6 .. response.length )
+      lat = lat.slice( 0 .. lat.index('}') - 1 )
+      lat = Float(lat)
+
+      closest = ''
+      bussum = ''
+      if params["city"] == "sf"
+        closest = closest_bart(lat, lng)
+        return closest.getid()
+      elsif params["city"] == "macon"
+        closest = closest_macon(lat, lng)
+      end
+    else
+      closest = MaconStop.new("000","Null",address.split(":")[1],[0,0])
+    end
+    if(address)
       if closest.getroute() == "1" or closest.getroute() == "2" or closest.getroute() == "7"
         # library routes
         terminalx = -83.623976
