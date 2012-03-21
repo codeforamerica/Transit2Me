@@ -1363,6 +1363,7 @@ get '/json' do
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
           currentbuses = currentbuses + "],\nnext_new_bus: { station:\"" + stations[firstindex] + "\", time: \"" + firsttime.join(":") + "\" },\n"
+          break
         end
 
         # this bus is still somewhere on the road
