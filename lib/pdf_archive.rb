@@ -863,10 +863,10 @@ def gogettransit(address, gotime)
       return "No Sunday buses"
     end
     if address.index('Route:') == nil
-      url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
+      url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address)
       url = URI.parse(url)
       res = Net::HTTP.start(url.host, url.port) {|http|
-        http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address']))
+        http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address))
       }
       response = res.body
       lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
@@ -982,9 +982,9 @@ def gogettransit(address, gotime)
         end
 
         if librarydist < stopdist
-          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
+          return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
         else
-          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
+          return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
         end
       else
         if closest.getroute() != "0"
@@ -1032,7 +1032,7 @@ def gogettransit(address, gotime)
 ["22:00","22:07","22:23","22:29","22:44","22:51","22:55"]              
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
             
           elsif closest.getroute() == "6"
             if gotime.wday == 6
@@ -1071,7 +1071,7 @@ def gogettransit(address, gotime)
 ["22:00","22:05","22:09","22:17","22:29","22:41","22:47","22:55"]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
           
           elsif closest.getroute() == "11"
             if gotime.wday == 6
@@ -1122,7 +1122,7 @@ def gogettransit(address, gotime)
 ["22:00","22:08","22:25","22:35","22:42","22:50",""]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
 
           elsif closest.getroute() == "12"
             if gotime.wday == 6
@@ -1188,7 +1188,7 @@ def gogettransit(address, gotime)
 ["22:00","22:10","22:20","22:25","22:30","22:36","22:40"]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
 
           elsif closest.getroute() == "5"
             if gotime.wday == 6
@@ -1240,7 +1240,7 @@ def gogettransit(address, gotime)
 ["22:00","22:08","22:16","22:26","","22:32","22:38","22:44", ""]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
 
           elsif closest.getroute() == "9"
             if gotime.wday == 6
@@ -1305,7 +1305,7 @@ def gogettransit(address, gotime)
 ["22:00","","22:08","22:18","22:26","22:31","","22:45","22:55"]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
 
           elsif closest.getroute() == "3"
             if gotime.wday == 6
@@ -1357,11 +1357,11 @@ def gogettransit(address, gotime)
 ["22:00","22:08","22:16","22:27","22:38","22:46","22:55"]
               ]
             end
-            return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
           end
         else
           # go to Terminal Station
-          return "<h3>" + params['address'] + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
+          return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
         end
       end
     end
