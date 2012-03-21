@@ -835,20 +835,23 @@ end
 
 get '/geotransit' do
   if params['address']
-    return gogettransit(params['address'])
+    if params['date']
+      timestamp = params['date'].split(",")
+      return gogettransit(params['address'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-4:00" ))
+    else
+      return gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
+    end
   end
   erb :georequest
 end
 
 post '/geotransit' do
-  gogettransit(params['address'])
+  gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
 end
 
-def gogettransit(address)
+def gogettransit(address, gottime)
   if(address)
-    gotime = Time.now
-    ### FIX THIS: setting time to 12:11PM, March 20th, 2012
-    gotime = Time.new(2012, 3, 20, 12, 11, 0, "-04:00")
+    #gotime = Time.now
     if gotime.wday == 0
       return "No Sunday buses"
     end
