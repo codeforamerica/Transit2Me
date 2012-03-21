@@ -862,7 +862,7 @@ def gogettransit(address, gotime)
     if gotime.wday == 0
       return "No Sunday buses"
     end
-    if address.index('Route:') == nil:
+    if address.index('Route:') == nil
       url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(params['address'])
       url = URI.parse(url)
       res = Net::HTTP.start(url.host, url.port) {|http|
