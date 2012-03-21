@@ -1366,7 +1366,7 @@ get '/json' do
         # determine if this bus has begun service
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
-          currentbuses = currentbuses + "],\nnext_new_bus: { station:\"" + stations[firstindex] + "\", time: \"" + firsttime.join(":") + "\" }\n}"
+          currentbuses = currentbuses + "],\nnext_new_bus: { next_station:\"" + stations[firstindex] + "\", time: \"" + firsttime.join(":") + "\" }\n}"
           return currentbuses
         end
 
@@ -1388,9 +1388,9 @@ get '/json' do
               wroteABus = 1
             end
             if stopindex > sched["turnaround"] + 1
-              currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
+              currentbuses = currentbuses + "{ next_station:\"" + stations[stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
             else
-              currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
+              currentbuses = currentbuses + "{ next_station:\"" + stations[stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
             end
             break
           end
