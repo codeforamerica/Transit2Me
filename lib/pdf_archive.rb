@@ -1330,6 +1330,7 @@ get '/json' do
     # no Sunday buses
     if gotime.wday == 0
       return currentbuses + '],\nerror:"No Sunday buses"\n}'
+    end
 
     sched.each do |pass|
       # identify the first time this bus stops
