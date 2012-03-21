@@ -1228,6 +1228,13 @@ end
 
 get '/json' do
   if params['route']
+
+    gotime = Time.now
+    if(params['date'])
+      timestamp = params['date'].split(",")
+      gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
+    end
+
     if params['route'] == "1"
       # What is the 1's Saturday schedule?
       if gotime.wday < 6
@@ -1319,12 +1326,6 @@ get '/json' do
         stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station"]
         sched = getSchedule("12-W")
       end
-    end
-    
-    gotime = Time.now
-    if(params['date'])
-      timestamp = params['date'].split(",")
-      gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
     end
     
     currentbuses = '{\nroute: ' + params['route'] + ',\ntimestamp:"' + gotime.to_s + '",\nactive_buses: [\n'
