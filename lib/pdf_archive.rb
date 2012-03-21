@@ -1328,11 +1328,11 @@ get '/json' do
       end
     end
     
-    currentbuses = '{\nroute: ' + params['route'] + ',\ntimestamp:"' + gotime.to_s + '",\nactive_buses: [\n'
+    currentbuses = "{\nroute: " + params['route'] + ",\ntimestamp:\"" + gotime.to_s + "\",\nactive_buses: [\n"
     
     # no Sunday buses
     if gotime.wday == 0
-      return currentbuses + '],\nerror:"No Sunday buses"\n}'
+      return currentbuses + "],\nerror:\"No Sunday buses\"\n}"
     end
 
     sched.each do |pass|
@@ -1348,7 +1348,7 @@ get '/json' do
       end
     
       # identify the last stop this bus will make
-      lasttime = ''
+      lasttime = ""
       pass.reverse_each do |knownstop|
         if knownstop != ""
           lasttime = knownstop.split(":")
@@ -1362,7 +1362,7 @@ get '/json' do
         # determine if this bus has begun service
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
-          currentbuses = currentbuses + '],\nnext_new_bus: { station:"' + stations[firstindex] + '", time: "' + firsttime.join(":") + '" },\n'
+          currentbuses = currentbuses + "],\nnext_new_bus: { station:\"" + stations[firstindex] + "\", time: \"" + firsttime.join(":") + "\" },\n"
         end
 
         # this bus is still somewhere on the road
@@ -1383,14 +1383,14 @@ get '/json' do
             else
               wroteABus = 1
             end
-            currentbuses = currentbuses + '{ station:"' + stations[stopindex-1] + '", time:"' + knowntime.join(":") + '"}'
+            currentbuses = currentbuses + "{ station:\"" + stations[stopindex-1] + "\", time:\"" + knowntime.join(":") + "\"}"
             break
           end
         end
       end
     end
     if currentbuses.index("next_new_bus") == nil
-      return '],\nerror:"The next bus leaves tomorrow"\n}'
+      return currentbuses + "],\nerror:\"The next bus leaves tomorrow\"\n}"
     end
     return currentbuses
   end
