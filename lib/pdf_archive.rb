@@ -1369,6 +1369,7 @@ get '/json' do
         # this bus is still somewhere on the road
         currentStation = ""
         stopindex = 0
+        wroteABus = 0
         pass.each do |knownstop|
           stopindex += 1
           if knownstop == ""
@@ -1376,7 +1377,6 @@ get '/json' do
             next
           end
           knowntime = knownstop.split(":")
-          wroteABus = 0
           if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
             # this is the bus's next stop
             if(wroteABus == 1)
