@@ -885,7 +885,10 @@ def gogettransit(address, gotime)
       end
     else
       closest = MaconStop.new("000","No Place",address.split(":")[1],[0,0])
-      return address.split(":")[1]
+      lat = 0
+      lng = 0
+      bussum = ''
+      #return closest.getroute()
     end
     if(address)
       if closest.getroute() == "1" or closest.getroute() == "2" or closest.getroute() == "7"
