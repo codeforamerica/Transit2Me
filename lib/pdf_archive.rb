@@ -844,7 +844,7 @@ get '/geotransit' do
   elsif params['route']
     if params['date']
       timestamp = params['date'].split(",")
-      return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-4:00" ))
+      return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
       return gogettransit('Route:' + params['route'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
     end
