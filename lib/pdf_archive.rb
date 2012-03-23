@@ -1260,6 +1260,19 @@ def getSchedule(route)
 ["21:10","21:20","","21:35","21:40","21:50","21:55"],
 ["22:00","22:10","22:20","22:25","22:30","22:36","22:40"]
               ]}
+  elsif route == "13-S"
+    return { "turnaround" => 6,
+    "stations" => ["Terminal Station","Riverside and Spring","Riverside and Baxter","Riverside and Pierce","I-75 and Arkwright","Sheraton Dr. and Riverside","Bass Road","I-75 Exit 171","I-75 Pierce","Terminal Station"],
+    "times" => [
+["5:55","6:04","6:08","6:16","6:24","6:34","6:40","6:43","6:45","6:50"],
+["6:55","7:05","7:10","7:15","7:25","7:30","7:35","7:38","7:45","8:00"],
+["8:05","8:15","8:20","8:25","8:35","8:40","8:45","8:48","8:55","9:15"],
+["9:20","9:25","9:30","9:35","9:45","9:50","9:55","9:58","10:10","10:30"],
+["14:20","14:30","14:35","14:40","14:50","14:55","15:00","15:03","15:10","15:30"],
+["15:35","15:45","15:50","15:55","16:05","16:10","16:15","16:18","16:25","16:45"],
+["16:50","17:00","17:05","17:10","17:20","17:25","17:30","17:33","17:40","18:00"],
+["18:05","18:15","18:20","18:25","18:25","18:35","18:40","18:45","18:55","19:17"]
+              ]}
   end
 end
 
@@ -1345,6 +1358,12 @@ get '/json' do
       else
         # weekday schedule
         sched = getSchedule("12-W")
+      end
+
+    elsif params['route'] == "13"
+      if gotime.wday == 6
+        # Saturday schedule
+        sched = getSchedule("13-S")
       end
     end
     
@@ -1580,6 +1599,13 @@ def gogettransit(address, gotime)
               sched = getSchedule("12-W")
             end
             return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+
+          elsif closest.getroute() == "13"
+            if gotime.wday == 6
+              # Saturday schedule
+              sched = getSchedule("13-S")
+            end
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           end
         else
