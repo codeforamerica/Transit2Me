@@ -838,7 +838,9 @@ def getSchedule(route)
     # turnaround is the index of the furthest stop on the route
     # once the bus is past the turnaround stop, it changes from outbound to inbound
     # Here it is the 3rd stop (6:35 at Kroger) so we use the array index, 2
-    return { "turnaround" => 2, "times" => [
+    return { "turnaround" => 2,
+    "stations" => [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ],
+    "times" => [
 ["6:20","6:25","6:35","6:40","6:43","6:48","7:00"],
 ["7:00","7:07","7:20","7:33","7:38","7:43","8:00"],
 ["8:00","8:07","8:20","8:33","8:38","8:43","9:00"],
@@ -854,7 +856,9 @@ def getSchedule(route)
 ["18:00","18:07","18:20","18:33","18:38","18:43","18:55"]] }
 
   elsif route == "2-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ],
+    "times" => [
 ["","","5:45","5:50","5:55","6:10","6:20"],
 ["5:45","6:05","6:15","6:20","6:30","6:45","6:55"],
 ["6:20","6:35","6:41","6:50","7:00","7:10","7:25"],
@@ -880,7 +884,9 @@ def getSchedule(route)
 ["18:40","18:53","19:00","19:08","19:16","19:30","19:45"]
             ] }
   elsif route == "2-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Terminal Station"],
+    "times" => [
 ["","5:45","5:51","","5:57","6:09","6:20"],
 ["5:45","6:10","6:25","","6:35","6:50","7:00"],
 ["6:20","6:40","","6:47","6:52","7:05","7:25"],
@@ -909,7 +915,9 @@ def getSchedule(route)
 ["22:00","22:10","22:41","","22:51","22:58", "" ] ] }
 
   elsif route == "3-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ],
+    "times" => [
 ["","5:37","","5:50","6:00","6:10","6:20"],
 ["6:20","6:30","6:40","6:50","7:00","7:10","7:25"],
 ["7:25","7:35","7:45","8:00","8:15","8:25","8:40"],
@@ -924,7 +932,9 @@ def getSchedule(route)
 ["18:40","18:48","18:58","19:10","19:20","19:30","19:45"]
               ] }
   elsif route == "3-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ],
+    "times" => [
 ["","5:37","","5:50","6:00","6:10","6:20"],
 ["5:45","5:53","6:01","6:14","6:30","6:42","6:55"],
 ["6:20","6:30","6:40","6:50","7:00","7:10","7:25"],
@@ -953,7 +963,9 @@ def getSchedule(route)
 ["22:00","22:08","22:16","22:27","22:38","22:46","22:55"]
               ]}
   elsif route == "4-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ],
+    "times" => [
 ["","5:53","6:04","","6:10","6:15","6:20"],
 ["6:20","6:25","6:40","","6:50","6:55","7:00"],
 ["7:00","7:07","7:23","7:29","7:44","7:51","8:00"],
@@ -971,7 +983,9 @@ def getSchedule(route)
 ["19:00","19:07","19:23","19:29","19:44","19:51","20:00"]
               ]}
   elsif route == "4-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ],
+    "times" => [
 ["","5:53","6:04","","6:10","6:15","6:20"],
 ["6:20","6:25","6:40","","6:50","6:55","7:00"],
 ["7:00","7:07","7:23","7:29","7:44","7:51","8:00"],
@@ -992,7 +1006,9 @@ def getSchedule(route)
 ["22:00","22:07","22:23","22:29","22:44","22:51","22:55"]              
               ]}
   elsif route == "5-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
+    "times" => [
 ["","","5:41","5:48","5:55","6:00","6:05","6:20"],
 ["6:20","6:30","6:37","6:45","6:53","7:01","7:06","7:25"],
 ["7:25","7:40","7:48","8:00","8:10","8:15","8:23","8:40"],
@@ -1007,7 +1023,9 @@ def getSchedule(route)
 ["18:40","18:50","18:57","19:06","19:14","19:21","19:26","19:45"]
               ]}
   elsif route == "5-W"
-    return { "turnaround" => 4, "times" => [
+    return { "turnaround" => 4,
+    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Connect to North Macon","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
+    "times" => [
 ["","","5:41","5:48","","5:55","6:00","6:05","6:20"],
 ["","6:04","6:12","6:20","6:20","6:27","6:32","6:37","6:50"],
 ["6:20","6:30","6:37","6:45","6:45","6:53","7:01","7:06","7:25"],
@@ -1036,7 +1054,9 @@ def getSchedule(route)
 ["22:00","22:08","22:16","22:26","","22:32","22:38","22:44", ""]
               ]}
   elsif route == "6-S"
-    return { "turnaround" => 4, "times" => [
+    return { "turnaround" => 4,
+    "stations" => [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ],
+    "times" => [
 ["","","","5:45","5:55","","6:11","6:20"],
 ["6:20","6:28","","6:48","6:58","","7:13","7:25"],
 ["7:25","7:35","7:40","7:52","8:07","8:21","8:27","8:40"],
@@ -1051,7 +1071,9 @@ def getSchedule(route)
 ["18:40","18:47","18:52","19:04","19:17","19:27","19:32","19:45"]
               ]}
   elsif route == "6-W"
-    return { "turnaround" => 4, "times" => [
+    return { "turnaround" => 4,
+    "stations" => [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ],
+    "times" => [
 ["","","","5:45","5:55","","6:11","6:20"],
 ["6:20","6:28","","6:48","6:58","","7:13","7:25"],
 ["7:25","7:35","7:40","7:52","8:07","8:21","8:27","8:40"],
@@ -1069,7 +1091,9 @@ def getSchedule(route)
 ["22:00","22:05","22:09","22:17","22:29","22:41","22:47","22:55"]
               ]}
   elsif route == "9-S"
-    return { "turnaround" => 4, "times" => [
+    return { "turnaround" => 4,
+    "stations" => ["Terminal Station","College St at Mercer Blvd Outbound","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Mercer Blvd at College St Inbound","Terminal Station"],
+    "times" => [
 ["5:50","5:58","","6:15","","6:27","6:38"],
 ["6:10","6:25","","6:35","","6:45","6:56"],
 ["6:40","6:50","","7:19","7:23","7:37","7:55"],
@@ -1090,7 +1114,9 @@ def getSchedule(route)
 ["18:40","18:48","19:05","19:15","19:20","19:40","19:55"]
               ]}
   elsif route == "9-W"
-    return { "turnaround" => 5, "times" => [
+    return { "turnaround" => 5,
+    "stations" => ["Terminal Station","College St at Mercer Blvd","Central Georgia Tech at Eisenhower Prkway","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Central Georgia Tech at Eisenhower Prkway","Mercer Blvd at College St","Terminal Station"],
+    "times" => [
 ["5:20","5:28","","","5:50","","","6:05","6:18"],
 ["5:50","5:58","","","6:15","","","6:27","6:38"],
 ["6:00","6:13","","","6:36","","","6:47","6:58"],
@@ -1126,7 +1152,9 @@ def getSchedule(route)
 ["22:00","","22:08","22:18","22:26","22:31","","22:45","22:55"]
               ]}
   elsif route == "11-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => [ "Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station" ],
+    "times" => [
 ["","5:25","5:42","5:50","6:00","6:08","6:20"],
 ["6:20","6:27","6:42","6:50","7:00","7:10","7:25"],
 ["7:25","7:35","7:52","8:05","8:15","8:25","8:40"],
@@ -1141,7 +1169,9 @@ def getSchedule(route)
 ["18:40","18:50","19:07","19:17","19:26","19:35","19:45"]
               ]}
   elsif route == "11-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => ["Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station"],
+    "times" => [
 ["","5:25","5:42","5:50","6:00","6:08","6:20"],
 ["5:45","5:55","6:12","6:20","6:30","6:40","6:55"],
 ["6:20","6:27","6:42","6:50","7:00","7:10","7:25"],
@@ -1169,7 +1199,9 @@ def getSchedule(route)
 ["22:00","22:08","22:25","22:35","22:42","22:50",""]
               ]}
   elsif route == "12-S"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station" ],
+    "times" => [
 ["5:40","5:50","","5:58","6:04","6:14","6:18"],
 ["6:20","6:30","","6:40","6:45","6:55","6:58"],
 ["7:00","7:10","7:20","7:25","7:30","7:40","7:45"],
@@ -1189,7 +1221,9 @@ def getSchedule(route)
 ["18:40","18:50","","19:05","19:10","19:20","19:25"]              
               ]}
   elsif route == "12-W"
-    return { "turnaround" => 3, "times" => [
+    return { "turnaround" => 3,
+    "stations" => ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station"],
+    "times" => [
 ["5:40","5:50","","5:58","6:04","6:14","6:18"],
 ["5:45","6:00","6:15","6:20","6:25","6:35","6:38"],
 ["6:20","6:30","","6:40","6:45","6:55","6:58"],
@@ -1242,91 +1276,74 @@ get '/json' do
       # What is the 1's Saturday schedule?
       if gotime.wday < 6
         # Weekday schedule
-        stations = [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
         sched = getSchedule("1-W")
       end
 
     elsif params['route'] == "2"
       if gotime.wday == 6
         # Saturday schedule
-        stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ]
         sched = getSchedule("2-S")
       else
         # Weekday schedule
-        stations = [ "Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Terminal Station"]
         sched = getSchedule("2-W")
       end
 
     elsif params['route'] == "3"
       if gotime.wday == 6
         # Saturday schedule
-        stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
         sched = getSchedule("3-S")
       else
         # weekday schedule
-        stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
         sched = getSchedule("3-W")
       end
 
     elsif params['route'] == "4"
       if gotime.wday == 6
-        stations = [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ]
         sched = getSchedule("4-S")
       else
-        stations = [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ]
         sched = getSchedule("4-W")
       end
 
     elsif params['route'] == "5"
       if gotime.wday == 6
         # Saturday schedule
-        stations = ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"]
         sched = getSchedule("5-S")
       else
         # weekday schedule
-        stations = ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Connect to North Macon","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"]
         sched = getSchedule("5-W")
       end
             
     elsif params['route'] == "6"
       if gotime.wday == 6
-        stations = [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ]
         sched = getSchedule("6-S")
       else
-        stations = [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ]
         sched = getSchedule("6-W")
       end
 
     elsif params['route'] == "9"
       if gotime.wday == 6
         # Saturday schedule
-        stations = ["Terminal Station","College St at Mercer Blvd Outbound","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Mercer Blvd at College St Inbound","Terminal Station"]
         sched = getSchedule("9-S")
       else
         # weekday schedule
-        stations = ["Terminal Station","College St at Mercer Blvd","Central Georgia Tech at Eisenhower Prkway","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Central Georgia Tech at Eisenhower Prkway","Mercer Blvd at College St","Terminal Station"]
         sched = getSchedule("9-W")
       end
 
     elsif params['route'] == "11"
       if gotime.wday == 6
         # Saturday schedule
-        stations = [ "Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station" ]
         sched = getSchedule("11-S")
       else
         # weekday schedule
-        stations = ["Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station"]
         sched = getSchedule("11-W")
       end
 
     elsif params['route'] == "12"
       if gotime.wday == 6
         # Saturday schedule
-        stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station" ]
         sched = getSchedule("12-S")
       else
         # weekday schedule
-        stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station"]
         sched = getSchedule("12-W")
       end
     end
@@ -1366,7 +1383,7 @@ get '/json' do
         # determine if this bus has begun service
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
-          currentbuses = currentbuses + "],\nnext_new_bus: { next_station:\"" + stations[firstindex] + "\", time: \"" + firsttime.join(":") + "\" }\n}"
+          currentbuses = currentbuses + "],\nnext_new_bus: { next_station:\"" + sched["stations"][firstindex] + "\", time: \"" + firsttime.join(":") + "\" }\n}"
           return currentbuses
         end
 
@@ -1388,9 +1405,9 @@ get '/json' do
               wroteABus = 1
             end
             if stopindex > sched["turnaround"] + 1
-              currentbuses = currentbuses + "{ next_station:\"" + stations[stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
+              currentbuses = currentbuses + "{ next_station:\"" + sched["stations"][stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
             else
-              currentbuses = currentbuses + "{ next_station:\"" + stations[stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
+              currentbuses = currentbuses + "{ next_station:\"" + sched["stations"][stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
             end
             break
           end
@@ -1475,21 +1492,18 @@ def gogettransit(address, gotime)
           # What is the 1's Saturday schedule?
           if gotime.wday < 6
             # Weekday schedule
-            stations = [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ]
             sched = getSchedule("1-W")
-            bussum = nextStopOn(gotime, stations, sched )
+            bussum = nextStopOn(gotime, sched )
           end
         elsif closest.getroute() == "2"
           if gotime.wday == 6
             # Saturday schedule
-            stations = [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ]
             sched = getSchedule("2-S")
-            bussum = nextStopOn(gotime, stations,sched)
+            bussum = nextStopOn(gotime,sched)
           else
             # Weekday schedule
-            stations = [ "Terminal Station","N Napier Apartments Outbound","Zebulon Rd at Kroger","Forsyth Rd at Park St","N Napier Apartments Inbound","Napier at Pio Nono","Terminal Station"]
             sched = getSchedule("2-W")
-            bussum = nextStopOn(gotime, stations, sched )
+            bussum = nextStopOn(gotime, sched )
           end
         end
 
@@ -1504,82 +1518,68 @@ def gogettransit(address, gotime)
           if closest.getroute() == "3"
             if gotime.wday == 6
               # Saturday schedule
-              stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
               sched = getSchedule("3-S")
             else
               # weekday schedule
-              stations = [ "Terminal Station","Montpelier Av at Pio Nono Ave Outbound","Wren Ave at Mallard Av Outbound","Thomaston Rd at Food Lion","Wren Ave at Mallard Av Inbound","Pio Nono at Montpelier Av Inbound","Terminal Station" ]
               sched = getSchedule("3-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "4"
             if gotime.wday == 6
-              stations = [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ]
               sched = getSchedule("4-S")
             else
-              stations = [ "Terminal Station","Spring St at Riverside Dr Outbound","Walnut Hills","Walmart","McAfee Towers","Spring St at Riverside Dr Inbound","Terminal Station" ]
               sched = getSchedule("4-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "5"
             if gotime.wday == 6
               # Saturday schedule
-              stations = ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"]
               sched = getSchedule("5-S")
             else
               # weekday schedule
-              stations = ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Connect to North Macon","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"]
               sched = getSchedule("5-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
             
           elsif closest.getroute() == "6"
             if gotime.wday == 6
-              stations = [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ]
               sched = getSchedule("6-S")
             else
-              stations = [ "Terminal Station","Murphy Homes Outbound","Westgate Mall Outbound","Nisbet Rd at Nisbet Dr","Leone Dr at Bloomfield Rd","Westgate Mall Inbound","Murphy Homes Inbound","Terminal Station" ]
               sched = getSchedule("6-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "9"
             if gotime.wday == 6
               # Saturday schedule
-              stations = ["Terminal Station","College St at Mercer Blvd Outbound","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Mercer Blvd at College St Inbound","Terminal Station"]
               sched = getSchedule("9-S")
             else
               # weekday schedule
-              stations = ["Terminal Station","College St at Mercer Blvd","Central Georgia Tech at Eisenhower Prkway","Macon Mall","Chambers Rd at Eisenhower Prkway","Macon College","Central Georgia Tech at Eisenhower Prkway","Mercer Blvd at College St","Terminal Station"]
               sched = getSchedule("9-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "11"
             if gotime.wday == 6
               # Saturday schedule
-              stations = [ "Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station" ]
               sched = getSchedule("11-S")
             else
               # weekday schedule
-              stations = ["Terminal Station","Fort Hill & Woodfolk Street","Laney Ave and Stratford Drive","Queen's Drive and King Park Drive","Jeffersonville Road and Millerfield Road","Fellowship at Coliseum","Terminal Station"]
               sched = getSchedule("11-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "12"
             if gotime.wday == 6
               # Saturday schedule
-              stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station" ]
               sched = getSchedule("12-S")
             else
               # weekday schedule
-              stations = ["Terminal Station","Ponce DeLeon Outbound","5 Points","Houston / Chatman","Ponce DeLeon Inbound","MLK / Oglethorpe","Terminal Station"]
               sched = getSchedule("12-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, stations, sched )
+            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           end
         else
@@ -1593,7 +1593,7 @@ def gogettransit(address, gotime)
   end
 end
 
-def nextStopOn(gotime, stations, sched )
+def nextStopOn(gotime, sched )
   currentbuses = ''
   sched["times"].each do |pass|
     # identify the first time this bus stops
@@ -1624,9 +1624,9 @@ def nextStopOn(gotime, stations, sched )
         # this bus, and all future buses in the schedule, have not yet left Terminal Station
         if currentbuses == ''
           # first bus has not left yet
-          return '<br/>The first bus will leave ' + stations[firstindex] + ' at ' + firsttime.join(":")
+          return '<br/>The first bus will leave ' + sched["stations"][firstindex] + ' at ' + firsttime.join(":")
         else
-          return currentbuses + '<br/>The next bus departs ' + stations[firstindex] + ' at ' + firsttime.join(":")
+          return currentbuses + '<br/>The next bus departs ' + sched["stations"][firstindex] + ' at ' + firsttime.join(":")
         end
       end
 
@@ -1642,7 +1642,7 @@ def nextStopOn(gotime, stations, sched )
         knowntime = knownstop.split(":")
         if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
           # this is the bus's next stop
-          currentbuses = currentbuses + "<br/>Next known stop: " + stations[stopindex-1] + " at " + knowntime.join(":")
+          currentbuses = currentbuses + "<br/>Next known stop: " + sched["stations"][stopindex-1] + " at " + knowntime.join(":")
           break
         end
       end
