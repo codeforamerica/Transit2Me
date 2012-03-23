@@ -1260,7 +1260,7 @@ def getSchedule(route)
 ["21:10","21:20","","21:35","21:40","21:50","21:55"],
 ["22:00","22:10","22:20","22:25","22:30","22:36","22:40"]
               ]}
-  elsif route == "13"
+  elsif route == "13-W"
     return { "turnaround" => 3,
     "stations" => ["Kmart","I-75 Arkwright","Sheraton Riverside Dr","River Walk Bass Rd","I-75 Exit 171","Kmart I-75","Terminal Station Garage"],
     "times" => [
@@ -1385,6 +1385,9 @@ get '/json' do
       if gotime.wday == 6
         # Saturday schedule
         sched = getSchedule("13-S")
+      else
+        # weekday schedule
+        sched = getSchedule("13-W")
       end
     end
     
@@ -1625,6 +1628,9 @@ def gogettransit(address, gotime)
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("13-S")
+            else
+              # weekday schedule
+              sched = getSchedule("13-W")
             end
             return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
