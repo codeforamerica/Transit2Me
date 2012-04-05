@@ -13,6 +13,68 @@ var day = 0;
 var hour = 0;
 var minute = 0;
 
+var busref = {
+  "Terminal Station": [ 32.833641,-83.623866 ],
+  "Pio Nono Ave at Vineville Ave": [ 32.846135,-83.662378 ],
+  "Zebulon Rd at Kroger": [ 32.879605,-83.759251 ],
+  "Coliseum Northside Hospital": [ 32.870775,-83.693622 ],
+  "Ridge Ave at Ingleside Ave": [ 32.856171,-83.678473 ],
+  "Log Cabin Dr at Hollingsworth Rd": [ 32.835521,-83.700757 ],
+  "N Napier Apartments": [ 32.857446,-83.688322 ],
+  "Napier at Pio Nono": [ 32.836125,-83.662546 ],
+  "Forsyth Rd at Park St": [ 32.862646,-83.689116 ],
+  "Montpelier Av at Pio Nono Ave": [32.832154,-83.662509],
+  "Wren Ave at Mallard Av": [ 32.817679,-83.681137 ],
+  "Thomaston Rd at Food Lion": [ 32.834006,-83.743463 ],
+  "Spring St at Riverside Dr": [ 32.843278,-83.630408 ],
+  "Walnut Hills": [ 32.866386,-83.602642 ],
+  "Walmart": [ 32.865526,-83.61181 ],
+  "McAfee Towers": [ 32.857536,-83.617217 ],
+  "2nd Ave at I-75": [ 32.843386,-83.64287 ],
+  "Pierce Ave at Riverside Dr": [ 32.873127,-83.662455 ],
+  "Kmart at Kroger": [ 32.900745,-83.687121 ],
+  "Riverside Dr at Kroger": [ 32.898898,-83.688982 ],
+  "Baxter Ave at Riverside Dr": [ 32.852552,-83.642816 ],
+  "3rd Ave at I-75": [ 32.84517,-83.643642 ],
+  "Connect to North Macon": [ 32.84747, -83.63749 ],
+  "Murphy Homes": [ 32.814843,-83.652638 ],
+  "Westgate Mall": [ 32.811065,-83.663549 ],
+  "Nisbet Rd at Nisbet Dr": [ 32.797259,-83.714179 ],
+  "Leone Dr at Bloomfield Rd": [ 32.779211,-83.707865 ],
+   "College St at Mercer Blvd": [ 32.826003,-83.650914 ],
+   "Macon Mall": [ 32.817476,-83.693075 ],
+   "Chambers Rd at Eisenhower Prkway": [ 32.810073,-83.7242 ],
+   "Macon College": [ 32.808549,-83.733083 ],
+   "Central Georgia Tech at Eisenhower Prkway": [ 32.815335,-83.690629 ],
+    "Fort Hill & Woodfolk Street": [ 32.849515,-83.6127 ],
+    "Laney Ave and Stratford Drive": [ 32.86795,-83.571019 ],
+    "Queen's Drive and King Park Drive": [ 32.84796,-83.549792 ],
+    "Jeffersonville Road and Millerfield Road": [ 32.852273,-83.588689 ],
+    "Fellowship at Coliseum": [ 32.846426,-83.6169 ],
+    "Ponce DeLeon": [ 32.80687,-83.648392 ],
+    "5 Points": [ 32.786693,-83.658544 ],  // no idea...
+    "Houston / Chatman": [ 32.786693,-83.658544 ],
+    "MLK / Oglethorpe": [ 32.82843,-83.631327 ],
+    "Kmart": [ 32.900619,-83.687319 ],
+    "I-75 Arkwright": [ 32.902916,-83.686262 ],
+    "Sheraton Riverside Dr": [ 32.923897,-83.710274 ], // not sure about this one
+    "River Walk Bass Rd": [ 32.936396,-83.716378 ], // not sure about this one
+    "I-75 Exit 171": [ 32.917611,-83.707924 ],
+    "Kmart I-75": [ 32.900619,-83.687319 ],
+    "Terminal Station Garage": [ 32.833641,-83.623866 ],
+    "Riverside and Spring": [ 32.843278,-83.630408 ],
+    "Riverside and Baxter": [ 32.852552,-83.642816 ],
+    "Riverside and Pierce": [ 32.873127,-83.662455 ],
+    "I-75 and Arkwright": [ 32.902916,-83.686262 ],
+    "Sheraton Dr. and Riverside": [ 32.923897,-83.710274 ],
+    "Bass Road": [ 32.936396,-83.716378 ],
+    "I-75 Pierce": [ 32.872667,-83.662348 ]
+};
+
+function locStation(stationName){
+  return busref[ stationName.replace(" Inbound","").replace(" Outbound","") ]
+}
+
 $(document).ready(function() {
   $("#slider").slider();
   $("#slider").bind("slidechange", function(event, ui) {
@@ -57,7 +119,6 @@ function init(){
 function checkRoute(){
   var route = $("#route").val();
   $.getJSON('/json?route=' + route + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
-    console.log("hello world");
     if(data.active_buses.length == 0){
       $("#roadnow").html("No buses on the road");
     }
@@ -102,7 +163,7 @@ html, body {
 <body>
   <div id="map"></div>
   <div id="overlay">
-    <h3 id="datetime">Monday, 12:00 AM</h3>
+    <h3 id="datetime">Monday, 12:00 am</h3>
     <div id="slider">
     </div>
     <select id="route">

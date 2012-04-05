@@ -839,7 +839,7 @@ def getSchedule(route)
     # once the bus is past the turnaround stop, it changes from outbound to inbound
     # Here it is the 3rd stop (6:35 at Kroger) so we use the array index, 2
     return { "turnaround" => 2,
-    "stations" => [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave (Inbound)","Returns Terminal Station" ],
+    "stations" => [ "Terminal Station", "Pio Nono Ave at Vineville Ave Outbound", "Zebulon Rd at Kroger", "Coliseum Northside Hospital", "Ridge Ave at Ingleside Ave", "Pio Nono Ave at Vineville Ave Inbound","Terminal Station" ],
     "times" => [
 ["6:20","6:25","6:35","6:40","6:43","6:48","7:00"],
 ["7:00","7:07","7:20","7:33","7:38","7:43","8:00"],
@@ -857,7 +857,7 @@ def getSchedule(route)
 
   elsif route == "2-S"
     return { "turnaround" => 3,
-    "stations" => [ "Departs Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ],
+    "stations" => [ "Terminal Station","Log Cabin Dr at Hollingsworth Rd","N Napier Apartments Outbound","Zebulon Rd at Kroger","N Napier Apartments Inbound","Napier at Pio Nono", "Terminal Station" ],
     "times" => [
 ["","","5:45","5:50","5:55","6:10","6:20"],
 ["5:45","6:05","6:15","6:20","6:30","6:45","6:55"],
@@ -1007,7 +1007,7 @@ def getSchedule(route)
               ]}
   elsif route == "5-S"
     return { "turnaround" => 3,
-    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
+    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kmart at Kroger","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
     "times" => [
 ["","","5:41","5:48","5:55","6:00","6:05","6:20"],
 ["6:20","6:30","6:37","6:45","6:53","7:01","7:06","7:25"],
@@ -1024,7 +1024,7 @@ def getSchedule(route)
               ]}
   elsif route == "5-W"
     return { "turnaround" => 4,
-    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kamart at Kroger","Connect to North Macon","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
+    "stations" => ["Terminal Station","2nd Ave at I-75","Pierce Ave at Riverside Dr","Kmart at Kroger","Connect to North Macon","Riverside Dr at Kroger","Baxter Ave at Riverside Dr","3rd Ave at I-75","Terminal Station"],
     "times" => [
 ["","","5:41","5:48","","5:55","6:00","6:05","6:20"],
 ["","6:04","6:12","6:20","6:20","6:27","6:32","6:37","6:50"],
