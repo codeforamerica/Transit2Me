@@ -12,6 +12,8 @@ var busdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday
 var day = 0;
 var hour = 0;
 var minute = 0;
+var busMarkers = [ ];
+var baseIcon;
 
 var busref = {
   "Terminal Station": [ 32.833641,-83.623866 ],
@@ -114,11 +116,22 @@ function init(){
   });
   map.addLayer(maconbus);
   map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
+  baseIcon = L.Icon.extend({
+    iconUrl: "/images/marker.png",
+    shadowUrl: "/images/marker-shadow.png",
+    iconSize: new L.Point(30, 36),
+    shadowSize: new L.Point(42, 30),
+    iconAnchor: new L.Point(15, 18),
+    popupAnchor: new L.Point(0, -12)
+  });
 }
 
 function checkRoute(){
   var route = $("#route").val();
   $.getJSON('/json?route=' + route + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
+    for(var b=0;b<busMarkers.length;b++){
+      map.removeLayer(busMarkers[b]);
+    }
     if(data.active_buses.length == 0){
       $("#roadnow").html("No buses on the road");
     }
@@ -126,6 +139,11 @@ function checkRoute(){
       $("#roadnow").html("");
       for(var b=0;b<data.active_buses.length;b++){
         $("#roadnow").append('<li>Bus headed ' + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + data.active_buses[b].time + '</li>');
+        var stop = locStation(data.active_buses[b].next_station);
+        var latlng = new L.LatLng( stop[0], stop[1] );
+        var marker = new L.Marker(latlng, { icon: new baseIcon("http://i.imgur.com/O44Ml.png") });
+        map.addLayer(marker);
+        busMarkers.push(marker);
       }
     }
   });
