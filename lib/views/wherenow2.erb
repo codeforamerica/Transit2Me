@@ -140,7 +140,7 @@ function checkRoute(){
       $("#roadnow").html("No buses on the road");
     }
     else{
-      $("#roadnow").append('<li><b>Route ' + data.route + '</b></li>');
+      $("#roadnow").append('<li class="routename"><b>Route ' + data.route + '</b></li>');
       for(var b=0;b<data.active_buses.length;b++){
         var comptime = data.active_buses[b].time.split(":");
         var printtime = ":" + comptime[1];
@@ -203,6 +203,9 @@ html, body {
   font-size: 8pt;
   max-height: 300px;
   overflow-y: scroll;
+}
+.routename{
+  list-style-type: none;
 }
   </style>
 </head>
