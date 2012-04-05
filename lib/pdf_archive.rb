@@ -1318,8 +1318,8 @@ get '/json' do
         sched = getSchedule("1-W")
       else
         # 1 does not run on Saturdays
-        currentbuses = "{route: " + params['route'] + ",timestamp:\"" + gotime.to_s + "\",active_buses: ["
-        return currentbuses + "],error:\"No Saturday buses\"}"
+        currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
+        return currentbuses + "],\"error\":\"No Saturday buses\"}"
       end
 
     elsif params['route'] == "2"
@@ -1400,11 +1400,11 @@ get '/json' do
       end
     end
     
-    currentbuses = "{route: " + params['route'] + ",timestamp:\"" + gotime.to_s + "\",active_buses: ["
+    currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
     
     # no Sunday buses
     if gotime.wday == 0
-      return currentbuses + "],error:\"No Sunday buses\"}"
+      return currentbuses + "],\"error\":\"No Sunday buses\"}"
     end
 
     wroteABus = 0
@@ -1435,7 +1435,7 @@ get '/json' do
         # determine if this bus has begun service
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
-          currentbuses = currentbuses + "],next_new_bus: { next_station:\"" + sched["stations"][firstindex] + "\", time: \"" + firsttime.join(":") + "\" }}"
+          currentbuses = currentbuses + "],\"next_new_bus\": { \"next_station\":\"" + sched["stations"][firstindex] + "\", \"time\": \"" + firsttime.join(":") + "\" }}"
           return currentbuses
         end
 
@@ -1457,9 +1457,9 @@ get '/json' do
               wroteABus = 1
             end
             if stopindex > sched["turnaround"] + 1
-              currentbuses = currentbuses + "{ next_station:\"" + sched["stations"][stopindex-1] + "\", direction:\"inbound\", time:\"" + knowntime.join(":") + "\"}"          
+              currentbuses = currentbuses + "{ \"next_station\":\"" + sched["stations"][stopindex-1] + "\", \"direction\":\"inbound\", \"time\":\"" + knowntime.join(":") + "\"}"          
             else
-              currentbuses = currentbuses + "{ next_station:\"" + sched["stations"][stopindex-1] + "\", direction:\"outbound\", time:\"" + knowntime.join(":") + "\"}"
+              currentbuses = currentbuses + "{ \"next_station\":\"" + sched["stations"][stopindex-1] + "\", \"direction\":\"outbound\", \"time\":\"" + knowntime.join(":") + "\"}"
             end
             break
           end
@@ -1467,7 +1467,7 @@ get '/json' do
       end
     end
     if currentbuses.index("next_new_bus") == nil
-      return currentbuses + "],error:\"The next bus leaves tomorrow\"}"
+      return currentbuses + "],\"error\":\"The next bus leaves tomorrow\"}"
     end
     return currentbuses
   end
