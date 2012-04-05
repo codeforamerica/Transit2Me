@@ -1494,17 +1494,26 @@ def gogettransit(address, gotime)
       return "<br/>No Sunday buses"
     end
     if address.index('Route:') == nil
-      url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address)
+      # url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address)
+      # url = URI.parse(url)
+      # res = Net::HTTP.start(url.host, url.port) {|http|
+      #  http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address))
+      # }
+      # response = res.body
+      # lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
+      # lng = Float(lng)
+      # lat = response.slice( response.index('"lat":') + 6 .. response.length )
+      # lat = lat.slice( 0 .. lat.index('}') - 1 )
+      # lat = Float(lat) */
+
+      url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(address)
       url = URI.parse(url)
       res = Net::HTTP.start(url.host, url.port) {|http|
-        http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address))
+       http.get('/service/csv/geocode?address=' + URI.escape(address))
       }
-      response = res.body
-      lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
-      lng = Float(lng)
-      lat = response.slice( response.index('"lat":') + 6 .. response.length )
-      lat = lat.slice( 0 .. lat.index('}') - 1 )
-      lat = Float(lat)
+      response = res.body.split(",")
+      lat = Float( response[0] )
+      lng = Float( response[1] )
 
       closest = ''
       bussum = ''
