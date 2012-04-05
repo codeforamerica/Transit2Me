@@ -1,6 +1,10 @@
 <head>
   <title>Where are they now?</title>
-  <link rel="stylesheet" href="/leaflet.css" />
+  <link rel="stylesheet" href="/jquery-ui.css" type="text/css"/>
+  <script type="text/javascript" src="/jquery.min.js"></script>
+  <script type="text/javascript" src="/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/leaflet.css" type="text/css"/>
   <!--[if lte IE 8]><link rel="stylesheet" href="/leaflet.ie.css" /><![endif]-->
   <script type="text/javascript" src="/leaflet.js"></script>
   <script type="text/javascript">
@@ -14,6 +18,10 @@ function init(){
   map.addLayer(maconbus);
   map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
 }
+$(document).ready(function() {
+  $("#slider").slider();
+  init();
+});
   </script>
   <style type="text/css">
 html, body {
@@ -28,8 +36,23 @@ html, body {
   padding: 0;
   margin: 0;
 }
+#overlay{
+  position: absolute;
+  left: 30px;
+  top: 150px;
+  background-color: #fff;
+  padding: 20px;
+}
+#slider{
+  margin: 10px;
+  width: 300px;
+}
   </style>
 </head>
-<body onload="init()">
+<body>
   <div id="map"></div>
+  <div id="overlay">
+    <div id="slider">
+    </div>
+  </div>
 </body>
