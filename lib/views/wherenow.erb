@@ -16,10 +16,10 @@ var minute = 0;
 $(document).ready(function() {
   $("#slider").slider();
   $("#slider").bind("slidechange", function(event, ui) {
-    var datetime = ui.value;
-    var day = Math.floor(ui.value / 16.667);
-    var time = ui.value - day * 16.667;
-    var hour = Math.floor(time * 24 / 16.667);
+    var time = ui.value;
+    day = Math.floor(ui.value / 16.667);
+    time -= day * 16.667;
+    hour = Math.floor(time * 24 / 16.667);
     time -= hour * 16.667 / 24;
     var printhour = hour;
     var ampm = "am";
@@ -32,7 +32,7 @@ $(document).ready(function() {
         printhour = hour-12;
       }
     }
-    var minute = Math.floor(time * 24 * 60 / 16.667);
+    minute = Math.floor(time * 24 * 60 / 16.667);
     var printminute = minute;
     if(minute < 10){
       printminute = "0" + minute;
@@ -113,8 +113,9 @@ html, body {
       <option value="12">12 - Houston/Peach Orchard</option>
       <option value="13">13 - North Macon/Industrial</option>      
     </select>
-    <input type="button" onclick="checkRoute()"/>
+    <input type="button" onclick="checkRoute()" value="&rarr;"/>
+    <br/>
+    <ul id="roadnow">
+    </ul>
   </div>
-  <ul id="roadnow">
-  </ul>
 </body>
