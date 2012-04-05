@@ -8,19 +8,10 @@
   <!--[if lte IE 8]><link rel="stylesheet" href="/leaflet.ie.css" /><![endif]-->
   <script type="text/javascript" src="/leaflet.js"></script>
   <script type="text/javascript">
-function init(){
-  var map = new L.Map('map');
-  var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; OpenStreetMap contributors. Tiles by Code for America',
-    minZoom: 14,
-    maxZoom: 17
-  });
-  map.addLayer(maconbus);
-  map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
-}
-
 var busdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-var day, hour, minute;
+var day = 0;
+var hour = 0;
+var minute = 0;
 
 $(document).ready(function() {
   $("#slider").slider();
@@ -51,6 +42,32 @@ $(document).ready(function() {
   });
   init();
 });
+
+function init(){
+  var map = new L.Map('map');
+  var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; OpenStreetMap contributors. Tiles by Code for America',
+    minZoom: 14,
+    maxZoom: 17
+  });
+  map.addLayer(maconbus);
+  map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
+}
+
+function checkRoute(){
+  var route = $("#route").val();
+  $.getJSON('/json?date=' + route + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
+    if(data.active_buses.length == 0){
+      $("#roadnow").html("No buses on the road");
+    }
+    else{
+      $("#roadnow").html("");
+      for(var b=0;b<data.active_buses.length;b++){
+        $("#roadnow").append('<li>Bus headed ' + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + data.active_buses[b].time + '</li>');
+      }
+    }
+  });
+}
   </script>
   <style type="text/css">
 html, body {
@@ -84,5 +101,20 @@ html, body {
     <h3 id="datetime">Monday, 12:00 AM</h3>
     <div id="slider">
     </div>
+    <select id="route">
+      <option value="1" selected="selected">1 - Vineville/Zebulon</option>
+      <option value="2">2 - Bellevue/Log Cabin/Zebulon</option>
+      <option value="3">3 - West Macon/Thomaston Rd.</option>
+      <option value="4">4 - North Highland</option>
+      <option value="5">5 - Ocmulgee/Tom Hill, Sr. Blvd.</option>
+      <option value="6">6 - Westgate/Bloomfield</option>
+      <option value="9">9 - Macon Mall/Chambers Rd./Macon College</option>
+      <option value="11">11 - East Macon/King Park</option>
+      <option value="12">12 - Houston/Peach Orchard</option>
+      <option value="13">13 - North Macon/Industrial</option>      
+    </select>
+    <input type="button" onclick="checkRoute()"/>
   </div>
+  <ul id="roadnow">
+  </ul>
 </body>
