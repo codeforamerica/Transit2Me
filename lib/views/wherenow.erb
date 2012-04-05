@@ -20,6 +20,7 @@ function init(){
 }
 
 var busdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var day, hour, minute;
 
 $(document).ready(function() {
   $("#slider").slider();
@@ -29,12 +30,24 @@ $(document).ready(function() {
     var time = ui.value - day * 16.667;
     var hour = Math.floor(time * 24 / 16.667);
     time -= hour * 16.667 / 24;
-    var minute = Math.floor(time * 24 * 60 / 16.667);
-    if(minute < 10){
-      minute = "0" + minute;
+    var printhour = hour;
+    var ampm = "am";
+    if(hour == 0){
+      printhour = "12";
     }
-    var bustime = hour + ":" + minute;
-    $("#datetime").html( busdays[day] + ", " + bustime );
+    else if(hour >= 12){
+      ampm = "pm";
+      if(hour > 12){
+        printhour = hour-12;
+      }
+    }
+    var minute = Math.floor(time * 24 * 60 / 16.667);
+    var printminute = minute;
+    if(minute < 10){
+      printminute = "0" + minute;
+    }
+    var bustime = printhour + ":" + printminute;
+    $("#datetime").html( busdays[day] + ", " + bustime + " " + ampm );
   });
   init();
 });
