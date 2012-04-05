@@ -1311,6 +1311,13 @@ get '/json' do
       timestamp = params['date'].split(",")
       gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
     end
+    
+    currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
+    
+    # no Sunday buses
+    if gotime.wday == 0
+      return currentbuses + "],\"error\":\"No Sunday buses\"}"
+    end
 
     if params['route'] == "1"
       if gotime.wday < 6
@@ -1318,8 +1325,7 @@ get '/json' do
         sched = getSchedule("1-W")
       else
         # 1 does not run on Saturdays
-        currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
-        return currentbuses + "],\"error\":\"No Saturday buses\"}"
+        return currentbuses + "],\"error\":\"No Saturday buses on Route 1.\"}"
       end
 
     elsif params['route'] == "2"
@@ -1398,13 +1404,6 @@ get '/json' do
         # weekday schedule
         sched = getSchedule("13-W")
       end
-    end
-    
-    currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
-    
-    # no Sunday buses
-    if gotime.wday == 0
-      return currentbuses + "],\"error\":\"No Sunday buses\"}"
     end
 
     wroteABus = 0
