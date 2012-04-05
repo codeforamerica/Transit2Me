@@ -1806,6 +1806,10 @@ post '/transit' do
   end
 end
 
+get '/wherenow' do
+  erb :wherenow
+end
+
 get '/' do
   erb :transit
 end
