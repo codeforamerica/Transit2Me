@@ -13,7 +13,7 @@ var day = 0;
 var hour = 0;
 var minute = 0;
 var busMarkers = [ ];
-var baseIcon;
+var baseIcon, map;
 
 var busref = {
   "Terminal Station": [ 32.833641,-83.623866 ],
@@ -108,7 +108,7 @@ $(document).ready(function() {
 });
 
 function init(){
-  var map = new L.Map('map');
+  map = new L.Map('map');
   var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; OpenStreetMap contributors. Tiles by Code for America',
     minZoom: 14,
