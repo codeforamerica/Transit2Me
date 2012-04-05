@@ -18,8 +18,24 @@ function init(){
   map.addLayer(maconbus);
   map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
 }
+
+var busdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 $(document).ready(function() {
   $("#slider").slider();
+  $("#slider").bind("slidechange", function(event, ui) {
+    var datetime = ui.value;
+    var day = Math.floor(ui.value / 16.667);
+    var time = ui.value - day * 16.667;
+    var hour = Math.floor(time * 24 / 16.667);
+    time -= hour * 16.667 / 24;
+    var minute = Math.floor(time * 24 * 60 / 16.667);
+    if(minute < 10){
+      minute = "0" + minute;
+    }
+    var bustime = hour + ":" + minute;
+    $("#datetime").html( busdays[day] + ", " + bustime );
+  });
   init();
 });
   </script>
@@ -52,6 +68,7 @@ html, body {
 <body>
   <div id="map"></div>
   <div id="overlay">
+    <h3 id="datetime">Monday, 12:00 AM</h3>
     <div id="slider">
     </div>
   </div>
