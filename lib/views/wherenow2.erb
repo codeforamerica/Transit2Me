@@ -133,13 +133,13 @@ function checkRoute(){
  for(var b=0;b<busMarkers.length;b++){
   map.removeLayer(busMarkers[b]);
  }
+ var wideBounds = new L.LatLngBounds( L.LatLng(32.832172,-83.62631), L.LatLng(32.83512,-83.620774) );
  for(var r=0;r<routes.length;r++){
   $.getJSON('/json?route=' + r + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
     if(data.active_buses.length == 0){
       $("#roadnow").html("No buses on the road");
     }
     else{
-      var wideBounds = new L.LatLngBounds( L.LatLng(32.832172,-83.62631), L.LatLng(32.83512,-83.620774) );
       $("#roadnow").append('<li><b>Route ' + data.route + '</b></li>');
       for(var b=0;b<data.active_buses.length;b++){
         var comptime = data.active_buses[b].time.split(":");
