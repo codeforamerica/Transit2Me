@@ -1318,8 +1318,8 @@ get '/json' do
         sched = getSchedule("1-W")
       else
         # 1 does not run on Saturdays
-        currentbuses = "{\nroute: " + params['route'] + ",\ntimestamp:\"" + gotime.to_s + "\",\nactive_buses: [\n"
-        return currentbuses + "],\nerror:\"No Saturday buses\"\n}"
+        currentbuses = "{route: " + params['route'] + ",timestamp:\"" + gotime.to_s + "\",active_buses: ["
+        return currentbuses + "],error:\"No Saturday buses\"}"
       end
 
     elsif params['route'] == "2"
@@ -1400,11 +1400,11 @@ get '/json' do
       end
     end
     
-    currentbuses = "{\nroute: " + params['route'] + ",\ntimestamp:\"" + gotime.to_s + "\",\nactive_buses: [\n"
+    currentbuses = "{route: " + params['route'] + ",timestamp:\"" + gotime.to_s + "\",active_buses: ["
     
     # no Sunday buses
     if gotime.wday == 0
-      return currentbuses + "],\nerror:\"No Sunday buses\"\n}"
+      return currentbuses + "],error:\"No Sunday buses\"}"
     end
 
     wroteABus = 0
@@ -1435,7 +1435,7 @@ get '/json' do
         # determine if this bus has begun service
         if firsttime[0].to_i > gotime.hour or (firsttime[0].to_i == gotime.hour and firsttime[1].to_i >= gotime.min)
           # this bus, and all future buses in the schedule, have not yet left Terminal Station
-          currentbuses = currentbuses + "],\nnext_new_bus: { next_station:\"" + sched["stations"][firstindex] + "\", time: \"" + firsttime.join(":") + "\" }\n}"
+          currentbuses = currentbuses + "],next_new_bus: { next_station:\"" + sched["stations"][firstindex] + "\", time: \"" + firsttime.join(":") + "\" }}"
           return currentbuses
         end
 
@@ -1452,7 +1452,7 @@ get '/json' do
           if knowntime[0].to_i > gotime.hour or (knowntime[0].to_i == gotime.hour and knowntime[1].to_i >= gotime.min)
             # this is the bus's next stop
             if wroteABus == 1
-              currentbuses = currentbuses + ",\n"
+              currentbuses = currentbuses + ","
             else
               wroteABus = 1
             end
@@ -1467,7 +1467,7 @@ get '/json' do
       end
     end
     if currentbuses.index("next_new_bus") == nil
-      return currentbuses + "],\nerror:\"The next bus leaves tomorrow\"\n}"
+      return currentbuses + "],error:\"The next bus leaves tomorrow\"}"
     end
     return currentbuses
   end
