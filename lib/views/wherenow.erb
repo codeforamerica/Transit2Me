@@ -140,7 +140,25 @@ function checkRoute(){
       $("#roadnow").html("");
       var wideBounds = new L.LatLngBounds( L.LatLng(32.832172,-83.62631), L.LatLng(32.83512,-83.620774) );
       for(var b=0;b<data.active_buses.length;b++){
-        $("#roadnow").append('<li>Bus headed ' + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + data.active_buses[b].time + '</li>');
+        var comptime = data.active_buses[b].time.split(":");
+        var printtime = ":" + comptime[1];
+        if(comptime[0] * 1 < 12){
+          if(comptime[0] * 1 == 0){
+            printtime = "12" + printtime + " am";          
+          }
+          else{
+            printtime = comptime[0] + printtime + " am";
+          }
+        }
+        else if(comptime[0] * 1 >= 12){
+          if(comptime[0] * 1 == 12){
+            printtime = "12" + printtime + " pm";          
+          }
+          else{
+            printtime = (comptime[0]*1-12) + printtime + " pm";
+          }
+        }
+        $("#roadnow").append('<li>Bus headed ' + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + printtime + '</li>');
         var stop = locStation(data.active_buses[b].next_station);
         var latlng = new L.LatLng( stop[0], stop[1] );
         wideBounds.extend(latlng);
