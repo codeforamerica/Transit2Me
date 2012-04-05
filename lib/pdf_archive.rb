@@ -1818,6 +1818,10 @@ get '/wherenow' do
   erb :wherenow
 end
 
+get '/wherenow2' do
+  erb :wherenow2
+end
+
 get '/' do
   erb :transit
 end
