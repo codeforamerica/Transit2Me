@@ -1297,7 +1297,13 @@ def getSchedule(route)
   end
 end
 
+configure do
+  mime_type :json, 'application/json'
+end
+
 get '/json' do
+  content_type :json
+
   if params['route']
 
     gotime = Time.now
