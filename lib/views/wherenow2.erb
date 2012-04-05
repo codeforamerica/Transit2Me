@@ -165,6 +165,7 @@ function checkRoute(){
         var latlng = new L.LatLng( stop[0], stop[1] );
         wideBounds.extend(latlng);
         var marker = new L.Marker(latlng, { icon: new baseIcon("http://i.imgur.com/O44Ml.png") });
+        marker.bind("Route " + data.route + "bus headed " + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + printtime);
         map.addLayer(marker);
         busMarkers.push(marker);
       }
