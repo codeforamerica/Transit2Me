@@ -1307,10 +1307,13 @@ get '/json' do
     end
 
     if params['route'] == "1"
-      # What is the 1's Saturday schedule?
       if gotime.wday < 6
         # Weekday schedule
         sched = getSchedule("1-W")
+      else
+        # 1 does not run on Saturdays
+        currentbuses = "{\nroute: " + params['route'] + ",\ntimestamp:\"" + gotime.to_s + "\",\nactive_buses: [\n"
+        return currentbuses + "],\nerror:\"No Saturday buses\"\n}"
       end
 
     elsif params['route'] == "2"
