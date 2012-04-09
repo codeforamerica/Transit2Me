@@ -1564,7 +1564,7 @@ def gogettransit(address, gotime)
               end
               stopdex = stopdex + 1
             end
-            if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
+            if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
               dothispass = pass
               break
             end
@@ -1586,7 +1586,7 @@ def gogettransit(address, gotime)
                 break
               end
             end
-            if firsttime[0].to_i() * 60 + firsttime[1].to_i() >= gotime.hour * 60 + gotime.min
+            if firsttime[0].to_i * 60 + firsttime[1].to_i >= gotime.hour * 60 + gotime.min
               dothispass = pass
               break
             end
@@ -1693,7 +1693,7 @@ def gogettransit(address, gotime)
               end
               stopdex = stopdex + 1
             end
-            if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
+            if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
               dothispass = pass
               break
             end
@@ -1722,7 +1722,7 @@ def gogettransit(address, gotime)
                 break
               end
             end
-            if firsttime[0].to_i() * 60 + firsttime[1].to_i() >= endtime[0].to_i() * 60 + endtime[1].to_i()
+            if firsttime[0].to_i * 60 + firsttime[1].to_i >= endtime[0].to_i * 60 + endtime[1].to_i
               dothispass = pass
               break
             end
