@@ -1502,17 +1502,6 @@ def gogettransit(address, gotime)
       return "<br/>No Sunday buses"
     end
     if address.index('Route:') == nil
-      # url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address)
-      # url = URI.parse(url)
-      # res = Net::HTTP.start(url.host, url.port) {|http|
-      #  http.get('/geocoding/v1/address?key=Fmjtd%7Cluua2l07nq%2C22%3Do5-hyy0g&location=' + URI.escape(address))
-      # }
-      # response = res.body
-      # lng = response.slice( response.index('"lng":') + 6 .. response.index('"lat"') - 2 )
-      # lng = Float(lng)
-      # lat = response.slice( response.index('"lat":') + 6 .. response.length )
-      # lat = lat.slice( 0 .. lat.index('}') - 1 )
-      # lat = Float(lat) */
 
       url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(address)
       url = URI.parse(url)
@@ -1539,7 +1528,7 @@ def gogettransit(address, gotime)
       #return closest.getroute()
     end
     if(address)
-      if closest.getroute() == "1" or closest.getroute() == "2" or closest.getroute() == "7"
+      if (closest.getroute() == "1" and gotime.wday < 6) or closest.getroute() == "2" or closest.getroute() == "7"
         # library routes
         terminalx = -83.623976
         terminaly = 32.833738
@@ -1549,28 +1538,64 @@ def gogettransit(address, gotime)
         librarydist = ( libraryx - terminalx )**2 + ( libraryy - terminaly )**2
 
         if closest.getroute() == "1"
-          # What is the 1's Saturday schedule?
           if gotime.wday < 6
             # Weekday schedule
             sched = getSchedule("1-W")
-            bussum = nextStopOn(gotime, sched )
           end
         elsif closest.getroute() == "2"
           if gotime.wday == 6
             # Saturday schedule
             sched = getSchedule("2-S")
-            bussum = nextStopOn(gotime,sched)
           else
             # Weekday schedule
             sched = getSchedule("2-W")
-            bussum = nextStopOn(gotime, sched )
           end
         end
 
         if librarydist < stopdist
-          return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station"
+          busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
+          dothispass = -1
+          sched["times"].each do |pass|
+            stopdex = 0
+            pass.each do |stop|
+              if stopdex >= sched["turnaround"]
+                turntime = sched["times"][ sched["turnaround"] ].split(":")
+                break
+              end
+              stopdex++
+            end
+            if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
+              dothispass = pass
+              break
+            end
+          end
+          if dothispass == -1
+            busout += "<br/>There are no more inbound buses today"
+          else
+            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":")
+          end
+          return busout
         else
-          return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> away from Terminal Station"
+          busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
+          dothispass = -1
+          sched["times"].each do |pass|
+            pass.each do |stop|
+              if stop != ""
+                firsttime = stop
+                break
+              end
+            end
+            if firsttime[0].to_i() * 60 + firsttime[1].to_i() >= gotime.hour * 60 + gotime.min
+              dothispass = pass
+              break
+            end
+          end
+          if dothispass == -1
+            busout += "<br/>There are no more outbound buses today"
+          else
+            busout += "<br/>The next bus will go outbound on this route at " + firsttime.join(":")
+          end
+          return busout
         end
       else
         if closest.getroute() != "0"
@@ -1583,7 +1608,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("3-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "4"
             if gotime.wday == 6
@@ -1591,7 +1616,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("4-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "5"
             if gotime.wday == 6
@@ -1601,7 +1626,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("5-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
             
           elsif closest.getroute() == "6"
             if gotime.wday == 6
@@ -1609,7 +1634,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("6-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "9"
             if gotime.wday == 6
@@ -1619,7 +1644,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("9-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "11"
             if gotime.wday == 6
@@ -1629,7 +1654,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("11-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "12"
             if gotime.wday == 6
@@ -1639,7 +1664,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("12-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
 
           elsif closest.getroute() == "13"
             if gotime.wday == 6
@@ -1649,9 +1674,62 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("13-W")
             end
-            return "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
-
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+          
           end
+          
+          dothispass = -1
+          sched["times"].each do |pass|
+            stopdex = 0
+            turntime = ""
+            pass.each do |stop|
+              if stopdex >= sched["turnaround"]
+                if turntime == ""
+                  turntime = sched["times"][ sched["turnaround"] ].split(":")
+                elsif stop != ""
+                  endtime = stop
+                end
+              end
+              stopdex++
+            end
+            if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
+              dothispass = pass
+              break
+            end
+          end
+          if dothispass == -1
+            busout += "<br/>There are no more inbound buses on that route today"
+          else
+            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":") + " and arrive at Terminal Station at " + endtime
+          end
+          
+          
+          # Now catch the next 2 bus from Terminal Station
+          if gotime.wday == 6
+            # Saturday schedule
+            sched = getSchedule("2-S")
+          else
+            # Weekday schedule
+            sched = getSchedule("2-W")
+          end
+          
+          endtime = endtime.split(":")
+          sched.each do |pass|
+            pass.each do |stop|
+              if stop != ""
+                firsttime = stop
+                break
+              end
+            end
+            if firsttime[0].to_i() * 60 + firsttime[1].to_i() >= endtime[0].to_i() * 60 + endtime[1].to_i()
+              dothispass = pass
+              break
+            end
+          end
+          busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + firsttime.join(":")
+          
+          return busout
+          
         else
           # go to Terminal Station
           return "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station, then take the next Vineville (1) bus."
