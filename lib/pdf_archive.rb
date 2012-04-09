@@ -1528,6 +1528,10 @@ def gogettransit(address, gotime)
       #return closest.getroute()
     end
     if(address)
+      turntime = [ ]
+      endtime = [ ]
+      firsttime = [ ]
+
       if (closest.getroute() == "1" and gotime.wday < 6) or closest.getroute() == "2" or closest.getroute() == "7"
         # library routes
         terminalx = -83.623976
@@ -1551,10 +1555,6 @@ def gogettransit(address, gotime)
             sched = getSchedule("2-W")
           end
         end
-
-        turntime = [ ]
-        endtime = [ ]
-        firsttime = [ ]
 
         if librarydist < stopdist
           busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
