@@ -166,7 +166,7 @@ function checkRoute(){
             printtime = (comptime[0]*1-12) + printtime + " pm";
           }
         }
-        $("#col-" + data.route).append('<table><tr><td><img src="http://i.imgur.com/O44Ml.png" style="display:inline;width:40px;"/></td><td>Bus headed ' + data.active_buses[b].direction + '<br/><span style="color:' + offcolor + '">Next stop in ' + offby + '</span> at ' + data.active_buses[b].next_station + ' at ' + printtime + '</td></tr></table>');
+        $("#col-" + data.route).append('<table><tr><td><img src="http://i.imgur.com/O44Ml.png" style="display:inline;width:40px;"/></td><td>Bus headed ' + data.active_buses[b].direction + '<br/><span style="color:' + offcolor + '">Next known stop in ' + offby + '</span> (' + data.active_buses[b].next_station + ') at ' + printtime + '</td></tr></table>');
         var stop = locStation(data.active_buses[b].next_station);
       }
     }
