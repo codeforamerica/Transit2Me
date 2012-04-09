@@ -1562,7 +1562,7 @@ def gogettransit(address, gotime)
                 turntime = sched["times"][ sched["turnaround"] ].split(":")
                 break
               end
-              stopdex++
+              stopdex = stopdex + 1
             end
             if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
               dothispass = pass
@@ -1575,6 +1575,7 @@ def gogettransit(address, gotime)
             busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":")
           end
           return busout
+        
         else
           busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
           dothispass = -1
@@ -1690,7 +1691,7 @@ def gogettransit(address, gotime)
                   endtime = stop
                 end
               end
-              stopdex++
+              stopdex = stopdex + 1
             end
             if turntime[0].to_i() * 60 + turntime[1].to_i() >= gotime.hour * 60 + gotime.min
               dothispass = pass
