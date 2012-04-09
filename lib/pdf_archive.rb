@@ -1552,9 +1552,9 @@ def gogettransit(address, gotime)
           end
         end
 
-        turntime = ""
-        endtime = ""
-        firsttime = ""
+        turntime = [ ]
+        endtime = [ ]
+        firsttime = [ ]
 
         if librarydist < stopdist
           busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
@@ -1586,7 +1586,7 @@ def gogettransit(address, gotime)
           sched["times"].each do |pass|
             pass.each do |stop|
               if stop != ""
-                firsttime = stop
+                firsttime = stop.split(":")
                 break
               end
             end
@@ -1686,13 +1686,12 @@ def gogettransit(address, gotime)
           dothispass = -1
           sched["times"].each do |pass|
             stopdex = 0
-            turntime = ""
             pass.each do |stop|
               if stopdex >= sched["turnaround"] and stop != ""
-                if turntime == ""
+                if turntime.length == 0
                   turntime = stop.split(":")
                 end
-                endtime = stop
+                endtime = stop.split(":")
               end
               stopdex = stopdex + 1
             end
@@ -1704,7 +1703,7 @@ def gogettransit(address, gotime)
           if dothispass == -1
             busout += "<br/>There are no more inbound buses on that route today"
           else
-            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":") + " and arrive at Terminal Station at " + endtime
+            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":") + " and arrive at Terminal Station at " + endtime.join(":")
           end
           
           
@@ -1717,11 +1716,10 @@ def gogettransit(address, gotime)
             sched = getSchedule("2-W")
           end
           
-          endtime = endtime.split(":")
           sched.each do |pass|
             pass.each do |stop|
               if stop != ""
-                firsttime = stop
+                firsttime = stop.split(":")
                 break
               end
             end
