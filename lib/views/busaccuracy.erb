@@ -79,7 +79,15 @@ var routes = [ 1, 2, 3, 4, 5, 6, 9, 11, 12, 13 ];
 function checkRoute(){
 
  for(var r=0;r<routes.length;r++){
-  $.getJSON('/json?route=' + routes[r] + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
+  var time = new Date();
+  $("time").html(time);
+  var year = time.getUTCFullYear();
+  var month = time.getMonth() + 1;
+  var day = time.getDate();
+  var hour = time.getHours();
+  var minute = time.getMinutes();
+  
+  $.getJSON('/json?route=' + routes[r] + '&date=' + year + ',' + month + ',' + day + ',' + hour + ',' + minute, function(data){
     $("#col-" + data.route).html("");
 
     if(data.active_buses.length == 0){
