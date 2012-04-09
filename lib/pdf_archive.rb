@@ -1553,6 +1553,7 @@ def gogettransit(address, gotime)
         end
 
         if librarydist < stopdist
+          turntime = ""
           busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
           dothispass = -1
           sched["times"].each do |pass|
