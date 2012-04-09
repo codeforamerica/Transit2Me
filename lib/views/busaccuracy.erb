@@ -2,7 +2,7 @@
   <title>Macon: Bus Accuracy</title>
   <script type="text/javascript" src="/jquery.min.js"></script>
   <script type="text/javascript">
-var busdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+var busdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 var day = 0;
 var hour = 0;
 var minute = 0;
@@ -71,8 +71,32 @@ function locStation(stationName){
 }
 
 function init(){
-    var time = new Date();
-    $("time").html(time);
+  var time = new Date();
+  $("#time").html(ttranslate(time));
+}
+function ttranslate(time){
+  var printtime = (time + "").split(" ");
+  var printday = printtime[2] * 1;
+  var printhhmm = printtime[4];
+  if(printhhmm.split(":")[0] * 1 >= 12){
+    if(printhhmm.split(":")[0] == 12){
+      printhhmm = "12:" + printhhmm.split(":")[1];
+    }
+    else{
+      printhhmm = printhhmm.split(":")[0] * 1 % 12 + ":" + printhhmm.split(":")[1];
+    }
+    printhhmm += " pm";
+  }
+  else{
+    if(printhhmm.split(":")[0] == 0){
+      printhhmm = "12:" + printhhmm.split(":")[1];
+    }
+    else{
+      printhhmm = printhhmm.split(":")[0] + ":" + printhhmm.split(":")[1];
+    }
+    printhhmm += " am";
+  }
+  return busdays[time.getDay() + ", " + printtime[1] + " " + printday + " at " + printhhmm ]
 }
 
 var routes = [ 1, 2, 3, 4, 5, 6, 9, 11, 12, 13 ];
@@ -80,7 +104,7 @@ function checkRoute(){
 
  for(var r=0;r<routes.length;r++){
   var time = new Date();
-  $("time").html(time);
+  $("#time").html(ttranslate(time));
   var year = time.getUTCFullYear();
   var month = time.getMonth() + 1;
   var day = time.getDate();
@@ -92,7 +116,7 @@ function checkRoute(){
 
     if(data.active_buses.length == 0){
       //$("#roadnow").append('<li class="routename"><b>Route ' + data.route + '</b> - None</li>');
-      $("#col-" + data.route).append('<li class="routename">No buses</li>');
+      $("#col-" + data.route).append('<div>No buses</div>');
     }
     else{
       //$("#roadnow").append('<li class="routename"><b>Route ' + data.route + '</b></li>');
@@ -115,7 +139,7 @@ function checkRoute(){
             printtime = (comptime[0]*1-12) + printtime + " pm";
           }
         }
-        $("#col-" + data.route).append('<li>Bus headed ' + data.active_buses[b].direction + ', next stop ' + data.active_buses[b].next_station + ' at ' + printtime + '</li>');
+        $("#col-" + data.route).append('<div>Bus headed ' + data.active_buses[b].direction + '<br/>Next stop ' + data.active_buses[b].next_station + ' at ' + printtime + '</div>');
         var stop = locStation(data.active_buses[b].next_station);
       }
     }
