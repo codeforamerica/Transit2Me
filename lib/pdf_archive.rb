@@ -1721,7 +1721,7 @@ def gogettransit(address, gotime)
             sched = getSchedule("2-W")
           end
           
-          sched.each do |pass|
+          sched["times"].each do |pass|
             pass.each do |stop|
               if stop != ""
                 firsttime = stop.split(":")
