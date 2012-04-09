@@ -1554,6 +1554,7 @@ def gogettransit(address, gotime)
 
         turntime = ""
         endtime = ""
+        firsttime = ""
 
         if librarydist < stopdist
           busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
