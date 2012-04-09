@@ -73,6 +73,7 @@ function locStation(stationName){
 function init(){
   var time = new Date();
   $("#time").html(ttranslate(time));
+  checkRoute();
 }
 function ttranslate(time){
   var printtime = (time + "").split(" ");
