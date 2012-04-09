@@ -1899,6 +1899,10 @@ post '/transit' do
   end
 end
 
+get '/busnow' do
+  erb :busaccuracy
+end
+
 get '/wherenow' do
   erb :wherenow
 end
