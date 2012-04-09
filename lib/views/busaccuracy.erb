@@ -72,15 +72,16 @@ function locStation(stationName){
 
 function init(){
     var time = new Date();
-    document.getElementById("time").innerHTML = time;
+    $("time").html(time);
 }
 
 var routes = [ 1, 2, 3, 4, 5, 6, 9, 11, 12, 13 ];
 function checkRoute(){
- document.getElementById("col").innerHTML = "";
 
  for(var r=0;r<routes.length;r++){
   $.getJSON('/json?route=' + routes[r] + '&date=2012,2,2' + day + ',' + hour + ',' + minute, function(data){
+    $("#col-" + data.route).html("");
+
     if(data.active_buses.length == 0){
       //$("#roadnow").append('<li class="routename"><b>Route ' + data.route + '</b> - None</li>');
       $("#col-" + data.route).append('<li class="routename">No buses</li>');
