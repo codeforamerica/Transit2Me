@@ -1610,7 +1610,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("3-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "4"
             if gotime.wday == 6
@@ -1618,7 +1618,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("4-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "5"
             if gotime.wday == 6
@@ -1628,7 +1628,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("5-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
             
           elsif closest.getroute() == "6"
             if gotime.wday == 6
@@ -1636,7 +1636,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("6-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "9"
             if gotime.wday == 6
@@ -1646,7 +1646,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("9-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "11"
             if gotime.wday == 6
@@ -1656,7 +1656,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("11-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "12"
             if gotime.wday == 6
@@ -1666,7 +1666,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("12-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute() == "13"
             if gotime.wday == 6
@@ -1676,7 +1676,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("13-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station. Then take the next Vineville (1) bus." + nextStopOn(gotime, sched )
+            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
           
           end
           
