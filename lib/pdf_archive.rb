@@ -1558,8 +1558,8 @@ def gogettransit(address, gotime)
           sched["times"].each do |pass|
             stopdex = 0
             pass.each do |stop|
-              if stopdex >= sched["turnaround"]
-                turntime = sched["times"][ sched["turnaround"] ].split(":")
+              if stopdex >= sched["turnaround"] and stop != ""
+                turntime = stop.split(":")
                 break
               end
               stopdex = stopdex + 1
@@ -1684,12 +1684,11 @@ def gogettransit(address, gotime)
             stopdex = 0
             turntime = ""
             pass.each do |stop|
-              if stopdex >= sched["turnaround"]
+              if stopdex >= sched["turnaround"] and stop != ""
                 if turntime == ""
-                  turntime = sched["times"][ sched["turnaround"] ].split(":")
-                elsif stop != ""
-                  endtime = stop
+                  turntime = stop.split(":")
                 end
+                endtime = stop
               end
               stopdex = stopdex + 1
             end
