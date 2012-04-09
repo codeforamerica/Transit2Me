@@ -1688,12 +1688,16 @@ def gogettransit(address, gotime)
             stopdex = 0
             pass.each do |stop|
               if stopdex >= sched["turnaround"] and stop != ""
-                if turntime.length == 0
-                  turntime = stop.split(":")
-                end
-                endtime = stop.split(":")
+                turntime = stop.split(":")
+                break
               end
               stopdex = stopdex + 1
+            end
+            pass.reverse_each do |stop|
+              if stop != ""
+                endtime = stop.split(":")
+                break
+              end
             end
             if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
               dothispass = pass
@@ -1702,6 +1706,7 @@ def gogettransit(address, gotime)
           end
           if dothispass == -1
             busout += "<br/>There are no more inbound buses on that route today"
+            return busout
           else
             busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":") + " and arrive at Terminal Station at " + endtime.join(":")
           end
