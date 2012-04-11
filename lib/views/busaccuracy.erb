@@ -101,6 +101,10 @@ function ttranslate(time){
 }
 
 var routes = [ 1, 2, 3, 4, 5, 6, 9, 11, 12, 13 ];
+var directionFix = {
+	"inbound": "inbound to Terminal Station",
+	"outbound": "outbound from Terminal Station"
+}
 function checkRoute(){
 
  for(var r=0;r<routes.length;r++){
@@ -166,7 +170,7 @@ function checkRoute(){
             printtime = (comptime[0]*1-12) + printtime + " pm";
           }
         }
-        $("#col-" + data.route).append('<table><tr><td><img src="http://i.imgur.com/O44Ml.png" style="display:inline;width:40px;"/></td><td>Bus headed ' + data.active_buses[b].direction + '<br/><span style="color:' + offcolor + '">Next known stop in ' + offby + '</span> (' + data.active_buses[b].next_station + ')</td></tr></table>');
+        $("#col-" + data.route).append('<table><tr><td><img src="http://i.imgur.com/O44Ml.png" style="display:inline;width:40px;"/></td><td>Bus headed ' + directionFix[data.active_buses[b].direction] + '<br/><span style="color:' + offcolor + '">Next known stop in ' + offby + '</span> (' + data.active_buses[b].next_station + ')</td></tr></table>');
         var stop = locStation(data.active_buses[b].next_station);
       }
     }
@@ -196,34 +200,34 @@ html, body {
   <div id="time">
   </div>
   <div id="col">
-  	<h3>Route 1</h3>
+  	<h3>Route 1 - Vineville/Zebulon</h3>
   	<div id="col-1">
   	</div>
-  	<h3>Route 2</h3>
+  	<h3>Route 2 - Bellevue/Log Cabin/Zebulon</h3>
   	<div id="col-2">
   	</div>
-  	<h3>Route 3</h3>
+  	<h3>Route 3 - West Macon/Thomaston Rd.</h3>
   	<div id="col-3">
   	</div>
-  	<h3>Route 4</h3>
+  	<h3>Route 4 - North Highland</h3>
   	<div id="col-4">
   	</div>
-  	<h3>Route 5</h3>
+  	<h3>Route 5 - Ocmulgee/Tom Hill, Sr. Blvd.</h3>
   	<div id="col-5">
   	</div>
-  	<h3>Route 6</h3>
+  	<h3>Route 6 - Westgate/Bloomfield</h3>
   	<div id="col-6">
   	</div>
-  	<h3>Route 9</h3>
+  	<h3>Route 9 - Macon Mall/Chambers Rd./Macon College</h3>
   	<div id="col-9">
   	</div>
-  	<h3>Route 11</h3>
+  	<h3>Route 11 - East Macon/King Park</h3>
   	<div id="col-11">
   	</div>
-  	<h3>Route 12</h3>
+  	<h3>Route 12 - Houston/Peach Orchard</h3>
   	<div id="col-12">
   	</div>
-  	<h3>Route 13</h3>
+  	<h3>Route 13 - North Macon/Industrial</h3>
   	<div id="col-13">
   	</div>
   </div>
