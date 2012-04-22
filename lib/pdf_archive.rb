@@ -1524,6 +1524,9 @@ def gogettransit(address, gotime)
       return "<br/>No Sunday buses"
     end
     if address.index('Route:') == nil
+      if(address.downcase.index('macon') == nil)
+        address += ",Macon,GA"
+      end
 
       url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(address)
       url = URI.parse(url)
