@@ -1621,7 +1621,7 @@ def gogettransit(address, gotime)
           else
             busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime)
           end
-          return busout
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
         
         else
           busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
@@ -1643,7 +1643,7 @@ def gogettransit(address, gotime)
           else
             busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
           end
-          return busout
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
         end
       else
         if closest.getroute().index("0") == nil  # this route is assigned when none are known
