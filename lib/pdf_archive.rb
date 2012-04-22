@@ -1499,7 +1499,7 @@ post '/geotransit' do
   gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
 end
 
-get '/stopnear'
+get '/stopnear' do
   url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(params["address"])
   url = URI.parse(url)
   res = Net::HTTP.start(url.host, url.port) {|http|
