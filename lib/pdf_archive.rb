@@ -837,6 +837,20 @@ def bart_id_to_name(bid)
   return bid
 end
 
+def hmarray_to_time(hm)
+  eventTime = ''
+  if hm[0].to_i == 0
+    eventTime = '12:' + hm[1] + "%20am"
+  elsif hm[0].to_i < 12
+    eventTime = hm[0] + ':' + hm[1] + "%20am"      
+  elsif hm[0].to_i == 12
+    eventTime = '12:' + hm[1] + "%20pm"
+  else
+    eventTime = (hm[0].to_i - 12).to_s + ':' + hm[1] + "%20pm"
+  end
+  return eventTime
+end
+
 def getSchedule(route)
   if route == "1-W"
     # turnaround is the index of the furthest stop on the route
@@ -1605,7 +1619,7 @@ def gogettransit(address, gotime)
           if dothispass == -1
             busout += "<br/>There are no more inbound buses today"
           else
-            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":")
+            busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime)
           end
           return busout
         
@@ -1627,7 +1641,7 @@ def gogettransit(address, gotime)
           if dothispass == -1
             busout += "<br/>There are no more outbound buses today"
           else
-            busout += "<br/>The next bus will go outbound on this route at " + firsttime.join(":")
+            busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
           end
           return busout
         end
@@ -1737,7 +1751,7 @@ def gogettransit(address, gotime)
             busout += "<br/>There are no more inbound buses on that route today"
             return busout
           else
-            busout += "<br/>The next bus will go inbound on this route at " + turntime.join(":") + " and arrive at Terminal Station at " + endtime.join(":")
+            busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime) + " and arrive at Terminal Station at " + hmarray_to_time(endtime)
           end
           
           
@@ -1762,7 +1776,7 @@ def gogettransit(address, gotime)
               break
             end
           end
-          busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + firsttime.join(":")
+          busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + hmarray_to_time(firsttime)
           
           return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
           
