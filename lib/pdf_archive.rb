@@ -1500,6 +1500,8 @@ post '/geotransit' do
 end
 
 get '/stopnear' do
+  content_type :json
+
   url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(params["address"])
   url = URI.parse(url)
   res = Net::HTTP.start(url.host, url.port) {|http|
