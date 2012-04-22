@@ -10,6 +10,7 @@ gem 'hunt'
 gem 'grim'
 gem 'qu-mongo'
 gem "exceptional"
+gem "TZInfo"
 
 group :development, :test do
   gem 'foreman'

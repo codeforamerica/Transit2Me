@@ -1323,8 +1323,8 @@ get '/json' do
   content_type :json
 
   if params['route']
-
-    gotime = Time.now
+	Time.zone = "New York"
+    gotime = Time.zone.now
     if(params['date'])
       timestamp = params['date'].split(",")
       gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
@@ -1496,15 +1496,16 @@ get '/geotransit' do
       timestamp = params['date'].split(",")
       return gogettransit(params['address'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      #return gogettransit(params['address'], Time.now() ) # needs to be real EST/EDT
-      return gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00") )
+      Time.zone = "New York"
+      return gogettransit(params['address'], Time.zone.now() )
     end
   elsif params['route']
     if params['date']
       timestamp = params['date'].split(",")
       return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      return gogettransit('Route:' + params['route'], Time.now() ) # needs to be real EST/EDT
+      Time.zone = "New York"
+      return gogettransit('Route:' + params['route'], Time.zone.now() ) # needs to be real EST/EDT
     end
   end
   erb :georequest, :locals => { :event => params['event'] }
