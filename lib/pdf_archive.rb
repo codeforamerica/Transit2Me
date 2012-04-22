@@ -707,6 +707,7 @@ def closest_macon(lat, lng, weekday)
     # if it's Saturday, don't count stops where bus is not running on Saturday
     if(weekday == 6 and station.getroute() == "1")
       next
+    end
     dist = (station.getlat() - lat )**2 + ( station.getlng() - lng )**2
     if(dist < closestDistance)
       closestDistance = dist
