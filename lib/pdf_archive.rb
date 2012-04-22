@@ -1503,12 +1503,11 @@ get '/stopnear' do
   url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(params["address"])
   url = URI.parse(url)
   res = Net::HTTP.start(url.host, url.port) {|http|
-    http.get('/service/csv/geocode?address=' + URI.escape(address))
+    http.get('/service/csv/geocode?address=' + URI.escape(params["address"]))
   }
   response = res.body.split(",")
   lat = Float( response[0] )
   lng = Float( response[1] )
-  return lat
 
   closest = ''
   closest = closest_macon(lat, lng, 1)  # send Monday so we see all stops
