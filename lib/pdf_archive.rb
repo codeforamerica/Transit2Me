@@ -1510,7 +1510,7 @@ get '/stopnear'
 
   closest = ''
   closest = closest_macon(lat, lng, 1)  # send Monday so we see all stops
-  return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s ' ] }'
+  return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ] }'
 end
 
 def gogettransit(address, gotime)
