@@ -6,6 +6,7 @@ Bundler.require
 # for URL fetching
 require 'uri'
 require 'net/http'
+require 'tzinfo'
 
 # Application module
 module Transit2Me
@@ -1323,8 +1324,8 @@ get '/json' do
   content_type :json
 
   if params['route']
-	Time.zone = "New York"
-    gotime = Time.zone.now
+	tz = TZInfo::Timezone.get("America/New York")
+    gotime = tz.utc_to_local(Time.now())
     if(params['date'])
       timestamp = params['date'].split(",")
       gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
@@ -1496,7 +1497,8 @@ get '/geotransit' do
       timestamp = params['date'].split(",")
       return gogettransit(params['address'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      Time.zone = "New York"
+  	  tz = TZInfo::Timezone.get("America/New York")
+      gotime = tz.utc_to_local(Time.now())
       return gogettransit(params['address'], Time.zone.now() )
     end
   elsif params['route']
@@ -1504,7 +1506,8 @@ get '/geotransit' do
       timestamp = params['date'].split(",")
       return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      Time.zone = "New York"
+   	  tz = TZInfo::Timezone.get("America/New York")
+      gotime = tz.utc_to_local(Time.now())
       return gogettransit('Route:' + params['route'], Time.zone.now() ) # needs to be real EST/EDT
     end
   end
