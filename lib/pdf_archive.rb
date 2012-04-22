@@ -1482,21 +1482,21 @@ get '/geotransit' do
       timestamp = params['date'].split(",")
       return gogettransit(params['address'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      return gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
+      return gogettransit(params['address'], Time.now() ) # needs to be real EST/EDT
     end
   elsif params['route']
     if params['date']
       timestamp = params['date'].split(",")
       return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
     else
-      return gogettransit('Route:' + params['route'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
+      return gogettransit('Route:' + params['route'], Time.now() ) # needs to be real EST/EDT
     end
   end
-  erb :georequest
+  erb :georequest, :locals => { :event => params['event'] }
 end
 
 post '/geotransit' do
-  gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00"))
+  gogettransit(params['address'], Time.new(2012, 3, 20, 12, 11, 0, "-04:00") )  # needs to be real EST/EDT
 end
 
 get '/stopnear' do
@@ -1535,12 +1535,14 @@ def gogettransit(address, gotime)
 
       closest = ''
       bussum = ''
-      if params["city"] == "sf"
-        closest = closest_bart(lat, lng)
-        return closest.getid()
-      elsif params["city"] == "macon"
-        closest = closest_macon(lat, lng, gotime.wday)
-      end
+      #if params["city"] == "sf"
+      #  closest = closest_bart(lat, lng)
+      #  return closest.getid()
+      #else # macon
+      #  closest = closest_macon(lat, lng, gotime.wday)
+      #end
+      # assume Macon for now
+      closest = closest_macon(lat, lng, gotime.wday)
     else
       closest = MaconStop.new("000","No Place",address.split(":")[1],[0,0])
       lat = 0
@@ -1552,6 +1554,8 @@ def gogettransit(address, gotime)
       turntime = [ ]
       endtime = [ ]
       firsttime = [ ]
+      
+      busout = "<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to library from:</div>"
 
       if (closest.getroute().index("1") != nil and gotime.wday < 6) or (closest.getroute().index("2") != nil) or (closest.getroute().index("7") != nil)
         # library routes
@@ -1578,7 +1582,7 @@ def gogettransit(address, gotime)
         end
 
         if librarydist < stopdist
-          busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
+          busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at library."
           dothispass = -1
           sched["times"].each do |pass|
             stopdex = 0
@@ -1602,7 +1606,7 @@ def gogettransit(address, gotime)
           return busout
         
         else
-          busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
+          busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
           dothispass = -1
           sched["times"].each do |pass|
             pass.each do |stop|
@@ -1634,7 +1638,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("3-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("4") != nil
             if gotime.wday == 6
@@ -1642,7 +1646,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("4-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("5") != nil
             if gotime.wday == 6
@@ -1652,7 +1656,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("5-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
             
           elsif closest.getroute().index("6") != nil
             if gotime.wday == 6
@@ -1660,7 +1664,7 @@ def gogettransit(address, gotime)
             else
               sched = getSchedule("6-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("9") != nil
             if gotime.wday == 6
@@ -1670,7 +1674,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("9-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("11") != nil
             if gotime.wday == 6
@@ -1680,7 +1684,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("11-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("12") != nil
             if gotime.wday == 6
@@ -1690,7 +1694,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("12-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
 
           elsif closest.getroute().index("13") != nil
             if gotime.wday == 6
@@ -1700,7 +1704,7 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("13-W")
             end
-            busout = "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
+            busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
           
           end
           
@@ -1756,7 +1760,7 @@ def gogettransit(address, gotime)
           end
           busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + firsttime.join(":")
           
-          return busout
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
           
         else
           # go to Terminal Station

@@ -3,7 +3,9 @@
 Organizers list events, and receive a badge which they can embed on their website.
 Visitors see a box where they can enter their address and receive transit directions to arrive at your event.
 
-Roadmap: Track pledges to take public transit, importing events from Google Calendar, support for any transit system with GTFS
+DEBUG: change time zone to local, not UTC or fixed time
+
+Roadmap: Track pledges to take public transit, importing events from Google Calendar, support for GTFS
 
 The project supports these transit systems:
 <ul>
