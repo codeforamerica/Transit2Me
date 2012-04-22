@@ -1533,7 +1533,7 @@ def gogettransit(address, gotime)
   if(address)
     #gotime = Time.now
     if gotime.wday == 0
-      return "<br/>No Sunday buses"
+      return "<!DOCTYPE html>\n<html><body style='font-family:arial'>No Sunday buses</body></html>"
     end
     if address.index('Route:') == nil
       if(address.downcase.index('macon') == nil)
