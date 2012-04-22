@@ -1621,7 +1621,7 @@ def gogettransit(address, gotime)
           else
             busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime)
           end
-          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<br/><a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
         
         else
           busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
@@ -1643,7 +1643,7 @@ def gogettransit(address, gotime)
           else
             busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
           end
-          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
         end
       else
         if closest.getroute().index("0") == nil  # this route is assigned when none are known
@@ -1778,12 +1778,12 @@ def gogettransit(address, gotime)
           end
           busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + hmarray_to_time(firsttime)
           
-          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
           
         else
           # go to Terminal Station
           busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station."
-          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n</body>\n</html>"
+          return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
         end
       end
     end
