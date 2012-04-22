@@ -840,13 +840,13 @@ end
 def hmarray_to_time(hm)
   eventTime = ''
   if hm[0].to_i == 0
-    eventTime = '12:' + hm[1] + "%20am"
+    eventTime = '12:' + hm[1] + "am"
   elsif hm[0].to_i < 12
-    eventTime = hm[0] + ':' + hm[1] + "%20am"      
+    eventTime = hm[0] + ':' + hm[1] + "am"      
   elsif hm[0].to_i == 12
-    eventTime = '12:' + hm[1] + "%20pm"
+    eventTime = '12:' + hm[1] + "pm"
   else
-    eventTime = (hm[0].to_i - 12).to_s + ':' + hm[1] + "%20pm"
+    eventTime = (hm[0].to_i - 12).to_s + ':' + hm[1] + "pm"
   end
   return eventTime
 end
