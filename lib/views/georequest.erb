@@ -4,18 +4,15 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-family: arial;
+	font-size: 14pt;
 }
 		</style>
 		<h1 style="color:green;font-size:16pt;">Get here by bus, take MTA!</h1>
 		Address:
 		<form action="/geotransit" method="GET">
 			<input name="eventname" type="hidden" value="<%= event %>"/>
-			<input name="address" type="text"/>
+			<input name="address" type="text" size="30"/>
+			<br/>
 			<input type="submit" value="Get Directions"/>
-			<!--<br/>
-			<select name="city">
-				<option value="sf">San Francisco</option>
-				<option value="macon" selected="selected">Macon</option>
-			</select>-->
 		</form>
 	</body>
