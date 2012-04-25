@@ -1779,6 +1779,7 @@ def gogettransit(address, gotime)
 
           sched["times"].each do |pass|
             if sendMeOutbound == 1
+              return "know I am an outbound bus"
               pass.each do |stop|
                 if stop != ""
                   turntime = stop.split(":")
@@ -1797,6 +1798,7 @@ def gogettransit(address, gotime)
               end
               
             else
+              return "know I am an inbound bus"
               pass.each do |stop|
                 stopdex = 0
                 if stopdex >= sched["turnaround"] and stop != ""
