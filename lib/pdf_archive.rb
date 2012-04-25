@@ -157,8 +157,8 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("43","Jeffersonville Road and Finneydale Drive",["0"],[-83.562255,32.84195]),
   MaconStop.new("44","Lexington Street and Woolfolk Street",["11-O"],[-83.617612,32.849637]),
   MaconStop.new("45","Woolfolk Street and Center Street",["11-O"],[-83.615950,32.849630]),
-  MaconStop.new("46","Lexington Street and Womack Street",["11-O"],[-83.614289,32.849648]),
-  MaconStop.new("47","Wolfolk Street and Maynard Street",["11-O"],[-83.610997,32.849634]),
+  MaconStop.new("46","Woolfolk Street and Womack Street",["11-O"],[-83.614289,32.849648]),
+  MaconStop.new("47","Woolfolk Street and Maynard Street",["11-O"],[-83.610997,32.849634]),
   MaconStop.new("48","Jordan Avenue NB",["0"],[-83.573493,32.855718]),
   MaconStop.new("49","Jordan Avenue SB",["0"],[-83.573982,32.855454]),
   MaconStop.new("50","Jordan Avenue and Recreation Road",["11"],[-83.571406,32.853555]),
@@ -1805,6 +1805,11 @@ def gogettransit(address, gotime)
                   break
                 end
               end
+              
+            end
+            if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
+              dothispass = pass
+              break
             end
           end
             
