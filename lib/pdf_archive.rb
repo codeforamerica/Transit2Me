@@ -1775,9 +1775,10 @@ def gogettransit(address, gotime)
           
           dothispass = -1
           turntime = ""
+          endtime = ""
 
           sched["times"].each do |pass|
-            if sendMeOutbound
+            if sendMeOutbound == true
               pass.each do |stop|
                 if stop != ""
                   turntime = stop.split(":")
@@ -1789,6 +1790,10 @@ def gogettransit(address, gotime)
                   endtime = stop.split(":")
                   break
                 end
+              end
+              if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
+                dothispass = pass
+                break
               end
               
             else
@@ -1806,11 +1811,10 @@ def gogettransit(address, gotime)
                   break
                 end
               end
-              
-            end
-            if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
-              dothispass = pass
-              break
+              if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
+                dothispass = pass
+                break
+              end
             end
           end
             
