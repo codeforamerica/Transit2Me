@@ -1813,6 +1813,7 @@ def gogettransit(address, gotime)
               end
               if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
                 dothispass = pass
+                return dothispass
                 break
               end
             end
