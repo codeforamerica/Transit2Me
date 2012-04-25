@@ -1774,9 +1774,10 @@ def gogettransit(address, gotime)
           end
           
           dothispass = -1
+          turntime = ""
+
           sched["times"].each do |pass|
             if sendMeOutbound
-              starttime = ""
               pass.each do |stop|
                 if stop != ""
                   turntime = stop.split(":")
