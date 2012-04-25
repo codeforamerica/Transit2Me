@@ -104,7 +104,7 @@ class MaconStop
    end
    def hasroute(askroute)
      # checks for this route and any code -I for Inbound, -O for Outbound, etc
-     if route.index(askroute) != nil or route.index(askroute + "-O") != nil or route.index(askroute + "-I") != nil or route.index(askroute + "B") != nil or route.index(askroute + "C") != nil
+     if @route.index(askroute) != nil or @route.index(askroute + "-O") != nil or @route.index(askroute + "-I") != nil or @route.index(askroute + "B") != nil or @route.index(askroute + "C") != nil
        return true
      end
      return false
