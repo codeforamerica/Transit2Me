@@ -1670,7 +1670,7 @@ def gogettransit(address, gotime)
       else
         if closest.getroute().index("0") == nil  # this route is assigned when none are known
           # look up non-library-connected routes
-          sendMeOutbound = false # for stops only going outbound
+          sendMeOutbound = 0 # for stops only going outbound
           if closest.hasroute("3")
             if gotime.wday == 6
               # Saturday schedule
@@ -1680,7 +1680,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("3-W")
             end
             if closest.hasroute("3-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1691,7 +1691,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("4-W")
             end
             if closest.hasroute("4-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1704,7 +1704,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("5-W")
             end
             if closest.hasroute("5-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
             
@@ -1715,7 +1715,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("6-W")
             end
             if closest.hasroute("6-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1728,7 +1728,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("9-W")
             end
             if closest.hasroute("9-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1741,7 +1741,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("11-W")
             end
             if closest.hasroute("11-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1754,7 +1754,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("12-W")
             end
             if closest.hasroute("12-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
 
@@ -1767,7 +1767,7 @@ def gogettransit(address, gotime)
               sched = getSchedule("13-W")
             end
             if closest.hasroute("13-O")
-              sendMeOutbound = true
+              sendMeOutbound = 1
             end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
           
@@ -1778,7 +1778,7 @@ def gogettransit(address, gotime)
           endtime = ""
 
           sched["times"].each do |pass|
-            if sendMeOutbound == true
+            if sendMeOutbound == 1
               pass.each do |stop|
                 if stop != ""
                   turntime = stop.split(":")
@@ -1801,7 +1801,6 @@ def gogettransit(address, gotime)
                 stopdex = 0
                 if stopdex >= sched["turnaround"] and stop != ""
                   turntime = stop.split(":")
-                  return turntime
                   break
                 end
                 stopdex = stopdex + 1
@@ -1823,7 +1822,7 @@ def gogettransit(address, gotime)
             busout += "<br/>There are no more buses on that route today"
             return busout
           else
-            if sendMeOutbound == true
+            if sendMeOutbound == 1
               busout += "<br/>The next bus will leave Terminal Station on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
             else
               busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
