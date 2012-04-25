@@ -102,6 +102,13 @@ class MaconStop
    def getroute()
      return @route
    end
+   def hasroute(askroute)
+     # checks for this route and any code -I for Inbound, -O for Outbound, etc
+     if route.index(askroute) != nil or route.index(askroute + "-O") != nil or route.index(askroute + "-I") != nil or route.index(askroute + "B") != nil or route.index(askroute + "C") != nil
+       return true
+     end
+     return false
+   end
 end
 
 def closest_macon(lat, lng, weekday)
@@ -109,15 +116,15 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("1","MLK and Riverside",["0"],[-83.621172,32.837522]),
   MaconStop.new("2","Coliseum Drive",["0"],[-83.618296,32.84122]),
   MaconStop.new("3","Coliseum Drive",["0"],[-83.618426,32.841512]),
-  MaconStop.new("4","Coliseum Drive and Main Street",["0"],[-83.615983,32.843738]),
-  MaconStop.new("5","Main Street and Ft Hill Street",["0"],[-83.612418,32.845216]),
+  MaconStop.new("4","Coliseum Drive and Main Street",["11-I"],[-83.615983,32.843738]),
+  MaconStop.new("5","Main Street and Ft Hill Street",["11-I"],[-83.612418,32.845216]),
   MaconStop.new("6","Main Street",["0"],[-83.608473,32.846632]),
   MaconStop.new("7","Main Street and Leaf Street",["0"],[-83.61008,32.846021]),
   MaconStop.new("8","Main Street",["0"],[-83.608501,32.846743]),
   MaconStop.new("9","Main Street",["0"],[-83.60710,32.847095]),
   MaconStop.new("10","Main Street and Short Street",["0"],[-83.607469,32.84797]),
   MaconStop.new("11","Emery HWY and Reese Street",["0"],[-83.604525,32.848368]),
-  MaconStop.new("12","Emery Hwy and Lexington Street",["0"],[-83.617477,32.848278]),
+  MaconStop.new("12","Emery Hwy and Lexington Street",["11-O"],[-83.617477,32.848278]),
   MaconStop.new("13","Jeffersonville Road and Magnolia Drive SB",["11"],[-83.600712,32.849623]),
   MaconStop.new("14","Jefersonville Road and Magnolia Drive NB",["11"],[-83.600728,32.849525]),
   MaconStop.new("15","Jeffersonville Road and Indian Cir",["11"],[-83.599319,32.850037]),
@@ -130,28 +137,28 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("22","Jeffersonville Road and Rowster Drive",["11"],[-83.590890,32.852272]),
   MaconStop.new("23","Jeffersonville Road and Millerfield Road",["11"],[-83.588797,32.852324]),
   MaconStop.new("24","Jeffersonville Road and Millerfield Road",["11"],[-83.588547,32.852434]),
-  MaconStop.new("25","Jeffersonville Road and Strozier St NB",["11"],[-83.587734,32.853690]),
+  MaconStop.new("25","Jeffersonville Road and Strozier St NB",["11-O"],[-83.587734,32.853690]),
   MaconStop.new("26","Jeffersonville Road and Strozier St SB",["11"],[-83.587895,32.853715]),
-  MaconStop.new("27","Pine Hill Drive",["11"],[-83.589776,32.861543]),
-  MaconStop.new("28","Shurling Drive",["11"],[-83.592557,32.861593]),
-  MaconStop.new("29","E. Pine Hill Drive and New Clinton Road",["0"],[-83.586312,32.86078]),
-  MaconStop.new("30","Lainey Avenue",["11"],[-83.568451,32.865903]),
-  MaconStop.new("31","Donald Avenue and Millerfield Road",["0"],[-83.582797,32.859028]),
-  MaconStop.new("32","Lainey Avenue",["11"],[-83.569252,32.866487]),
-  MaconStop.new("33","Lainey Avenue",["11"],[-83.570882,32.867891]),
+  MaconStop.new("27","Pine Hill Drive",["11-O"],[-83.589776,32.861543]),
+  MaconStop.new("28","Shurling Drive",["11-O"],[-83.592557,32.861593]),
+  MaconStop.new("29","E. Pine Hill Drive and New Clinton Road",["11-O"],[-83.586312,32.86078]),
+  MaconStop.new("30","Lainey Avenue",["11-O"],[-83.568451,32.865903]),
+  MaconStop.new("31","Donald Avenue and Millerfield Road",["11-O"],[-83.582797,32.859028]),
+  MaconStop.new("32","Lainey Avenue",["11-O"],[-83.569252,32.866487]),
+  MaconStop.new("33","Lainey Avenue",["11-O"],[-83.570882,32.867891]),
   MaconStop.new("34","Commodore Drive",["11"],[-83.574642,32.868131]),
   MaconStop.new("35","Commodore Drive",["11"],[-83.572537,32.869974]),
   MaconStop.new("36","Commodore Drive",["11"],[-83.571390,32.870722]),
   MaconStop.new("37","Millerfield Road",["11"],[-83.57068,32.863925]),
   MaconStop.new("38","Millerfield Road and Jordan Avenue",["11"],[-83.574397,32.861015]),
-  MaconStop.new("40","Coliseum Drive and Friendship",["0"],[-83.616591,32.847211]),
+  MaconStop.new("40","Coliseum Drive and Friendship",["11-O"],[-83.616591,32.847211]),
   MaconStop.new("41","Jeffersonville Road and Ocmulgee East BLVD",["0"],[-83.574193,32.841596]),
   MaconStop.new("42","Jeffersonville Road near Apartments",["0"],[-83.569513,32.842249]),
   MaconStop.new("43","Jeffersonville Road and Finneydale Drive",["0"],[-83.562255,32.84195]),
-  MaconStop.new("44","Lexington Street and Woolfolk Street",["0"],[-83.617612,32.849637]),
-  MaconStop.new("45","Woolfolk Street and Center Street",["0"],[-83.615950,32.849630]),
-  MaconStop.new("46","Lexington Street and Womack Street",["0"],[-83.614289,32.849648]),
-  MaconStop.new("47","Wolfolk Street and Maynard Street",["0"],[-83.610997,32.849634]),
+  MaconStop.new("44","Lexington Street and Woolfolk Street",["11-O"],[-83.617612,32.849637]),
+  MaconStop.new("45","Woolfolk Street and Center Street",["11-O"],[-83.615950,32.849630]),
+  MaconStop.new("46","Lexington Street and Womack Street",["11-O"],[-83.614289,32.849648]),
+  MaconStop.new("47","Wolfolk Street and Maynard Street",["11-O"],[-83.610997,32.849634]),
   MaconStop.new("48","Jordan Avenue NB",["0"],[-83.573493,32.855718]),
   MaconStop.new("49","Jordan Avenue SB",["0"],[-83.573982,32.855454]),
   MaconStop.new("50","Jordan Avenue and Recreation Road",["11"],[-83.571406,32.853555]),
@@ -178,39 +185,39 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("72","Spring Street and Riverside",["0"],[-83.630640,32.843091]),
   MaconStop.new("73","1st Street and Cherry Street",["0"],[-83.630577,32.837339]),
   MaconStop.new("74","Spring Street and Riverside",["0"],[-83.63037,32.843069]),
-  MaconStop.new("75","Emery Highway near Chi-Chesters",["0"],[-83.624675,32.848096]),
-  MaconStop.new("76","Bibb County Health Department",["0"],[-83.622284,32.847570]),
-  MaconStop.new("77","2nd Street near Gray Highway",["0"],[-83.620739,32.848677]),
-  MaconStop.new("78","Hall Street and Lexington Street",["0"],[-83.617784,32.852519]),
-  MaconStop.new("79","Hall Street",["0"],[-83.616856,32.852536]),
-  MaconStop.new("80","Hall Street and Center Street",["0"],[-83.615976,32.852552]),
-  MaconStop.new("81","Hall Street",["0"],[-83.61517,32.852549]),
-  MaconStop.new("82","Emery Highway near Chi-Chesters",["0"],[-83.625407,32.848140]),
-  MaconStop.new("83","Hall Street and Womack Street",["0"],[-83.614267,32.852545]),
-  MaconStop.new("84","Hall Street",["0"],[-83.613461,32.85250]),
-  MaconStop.new("85","Hall Street and Maynard Street",["0"],[-83.61096,32.852551]),
-  MaconStop.new("86","Hall Street",["0"],[-83.611775,32.852534]),
-  MaconStop.new("87","Hall Street and Ft Hill Street",["0"],[-83.612581,32.852537]),
-  MaconStop.new("88","Maynard Street and Taylor Street",["4"],[-83.610878,32.855416]),
-  MaconStop.new("89","Maynard Street and Williams Street",["4"],[-83.610845,32.856838]),
-  MaconStop.new("90","Maynard Street and Morrow Avenue",["4"],[-83.610787,32.858302]),
-  MaconStop.new("91","Maynard Street and Shurling Drive",["4"],[-83.610756,32.859353]),
-  MaconStop.new("92","Shurling Drive and Kitchens Street",["4"],[-83.607530,32.859648]),
-  MaconStop.new("93","Kitchens Street",["4"],[-83.607381,32.859957]),
-  MaconStop.new("94","Haywood Road",["4"],[-83.606553,32.863396]),
-  MaconStop.new("96","Kitchens Street and Haywood Road",["4"],[-83.607384,32.863400]),
-  MaconStop.new("97","Kitchens Street and Haywood Road",["4"],[-83.604501,32.863449]),
-  MaconStop.new("98","Kitchens Street",["4"],[-83.605054,32.864791]),
-  MaconStop.new("99","Kitchens Street",["4"],[-83.606683,32.866056]),
-  MaconStop.new("100","Kitchens Street",["4"],[-83.607685,32.866061]),
-  MaconStop.new("101","Kitchens Street",["4"],[-83.608210,32.86418]),
-  MaconStop.new("102","Kitchens",["4"],[-83.607487,32.862576]),
+  MaconStop.new("75","Emery Highway near Chi-Chesters",["4-O"],[-83.624675,32.848096]),
+  MaconStop.new("76","Bibb County Health Department",["4-O"],[-83.622284,32.847570]),
+  MaconStop.new("77","2nd Street near Gray Highway",["4-O"],[-83.620739,32.848677]),
+  MaconStop.new("78","Hall Street and Lexington Street",["4-O"],[-83.617784,32.852519]),
+  MaconStop.new("79","Hall Street",["4-O"],[-83.616856,32.852536]),
+  MaconStop.new("80","Hall Street and Center Street",["4-O"],[-83.615976,32.852552]),
+  MaconStop.new("81","Hall Street",["4-O"],[-83.61517,32.852549]),
+  MaconStop.new("82","Emery Highway near Chi-Chesters",["4-O"],[-83.625407,32.848140]),
+  MaconStop.new("83","Hall Street and Womack Street",["4-O"],[-83.614267,32.852545]),
+  MaconStop.new("84","Hall Street",["4-O"],[-83.613461,32.85250]),
+  MaconStop.new("85","Hall Street and Maynard Street",["4-O"],[-83.61096,32.852551]),
+  MaconStop.new("86","Hall Street",["4-O"],[-83.611775,32.852534]),
+  MaconStop.new("87","Hall Street and Ft Hill Street",["4-O"],[-83.612581,32.852537]),
+  MaconStop.new("88","Maynard Street and Taylor Street",["4-O"],[-83.610878,32.855416]),
+  MaconStop.new("89","Maynard Street and Williams Street",["4-O"],[-83.610845,32.856838]),
+  MaconStop.new("90","Maynard Street and Morrow Avenue",["4-O"],[-83.610787,32.858302]),
+  MaconStop.new("91","Maynard Street and Shurling Drive",["4-O"],[-83.610756,32.859353]),
+  MaconStop.new("92","Shurling Drive and Kitchens Street",["4-O"],[-83.607530,32.859648]),
+  MaconStop.new("93","Kitchens Street",["4-O"],[-83.607381,32.859957]),
+  MaconStop.new("94","Haywood Road",["4-O"],[-83.606553,32.863396]),
+  MaconStop.new("96","Kitchens Street and Haywood Road",["4-O"],[-83.607384,32.863400]),
+  MaconStop.new("97","Kitchens Street and Haywood Road",["4-O"],[-83.604501,32.863449]),
+  MaconStop.new("98","Kitchens Street",["4-O"],[-83.605054,32.864791]),
+  MaconStop.new("99","Kitchens Street",["4-O"],[-83.606683,32.866056]),
+  MaconStop.new("100","Kitchens Street",["4-O"],[-83.607685,32.866061]),
+  MaconStop.new("101","Kitchens Street",["4-O"],[-83.608210,32.86418]),
+  MaconStop.new("102","Kitchens",["4-O"],[-83.607487,32.862576]),
   MaconStop.new("103","Shurling Drive and Gray Highway",["4"],[-83.614736,32.859639]),
   MaconStop.new("104","Shurling Drive and Gray Highway",["4"],[-83.614979,32.859722]),
-  MaconStop.new("105","Shurling Drive and Clinton Road",["4"],[-83.617789,32.859735]),
-  MaconStop.new("108","Clinton Road",["4"],[-83.615661,32.868055]),
-  MaconStop.new("109","Clinton Road",["4"],[-83.614602,32.869431]),
-  MaconStop.new("110","Clinton Road",["4"],[-83.613296,32.871178]),
+  MaconStop.new("105","Shurling Drive and Clinton Road",["4-O"],[-83.617789,32.859735]),
+  MaconStop.new("108","Clinton Road",["4-O"],[-83.615661,32.868055]),
+  MaconStop.new("109","Clinton Road",["4-O"],[-83.614602,32.869431]),
+  MaconStop.new("110","Clinton Road",["4-O"],[-83.613296,32.871178]),
   MaconStop.new("112","Gray Highway",["4"],[-83.612999,32.86402]),
   MaconStop.new("113","Gray Highway",["4"],[-83.613522,32.862293]),
   MaconStop.new("114","Gray Highway near McAffee Towers",["4"],[-83.616265,32.85777]),
@@ -218,7 +225,7 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("116","Clinton Road and Curry Place",["4"],[-83.619135,32.856165]),
   MaconStop.new("117","Clinton Road",["4"],[-83.619576,32.85503]),
   MaconStop.new("118","Clinton Road",["4"],[-83.620440,32.852642]),
-  MaconStop.new("119","Clinton Road and Gray Highway",["4"],[-83.620867,32.851348]),
+  MaconStop.new("119","Clinton Road and Gray Highway",["4-O"],[-83.620867,32.851348]),
   MaconStop.new("120","Gray Highway",["4"],[-83.622024,32.850411]),
   MaconStop.new("121","Gray Highway",["4"],[-83.623353,32.849798]),
   MaconStop.new("122","2nd Street and Mulberry Street",["0"],[-83.628169,32.837823]),
@@ -299,11 +306,11 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("199","A Street and Ell Street",["6"],[-83.654575,32.816515]),
   MaconStop.new("200","A Street",["6"],[-83.654861,32.814997]),
   MaconStop.new("201","Ell Street and Goodwin Street",["6"],[-83.657552,32.816567]),
-  MaconStop.new("204","Pio Nono and Holley Street",["6"],[-83.662846,32.814990]),
-  MaconStop.new("205","Ell Street and Adams Street",["6"],[-83.661105,32.81663]),
-  MaconStop.new("206","Ell Street and Monroe Avenue",["6"],[-83.660275,32.816617]),
+  MaconStop.new("204","Pio Nono and Holley Street",["6-O"],[-83.662846,32.814990]),
+  MaconStop.new("205","Ell Street and Adams Street",["6-O"],[-83.661105,32.81663]),
+  MaconStop.new("206","Ell Street and Monroe Avenue",["6-O"],[-83.660275,32.816617]),
   MaconStop.new("208","Pio Nono Avenue near Home Depot",["6"],[-83.663041,32.813159]),
-  MaconStop.new("209","Pio Nono Avenue and Hightower Road",["6"],[-83.663120,32.811347]),
+  MaconStop.new("209","Pio Nono Avenue and Hightower Road",["6-O"],[-83.663120,32.811347]),
   MaconStop.new("210","Pio Nono Avenue and  Rice Mill Road",["6"],[-83.662996,32.808735]),
   MaconStop.new("211","Pio Nono Avenue and Williamson Road",["6"],[-83.663104,32.806066]),
   MaconStop.new("212","Pio Nono Avenue and Newburg Avenue",["6"],[-83.663285,32.802578]),
@@ -358,28 +365,28 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("263","Riverside Drive near Northside Drive",["5"],[-83.677070,32.890632]),
   MaconStop.new("264","Ward Street and 3rd Avenue",["5"],[-83.648521,32.84685]),
   MaconStop.new("265","Ward Street and Forest Avenue",["5"],[-83.649606,32.847210]),
-  MaconStop.new("266","3rd Avenue and Moughan Street",["5"],[-83.647020,32.846441]),
-  MaconStop.new("267","3rd Avenue and Pursley Street",["5"],[-83.645936,32.846014]),
-  MaconStop.new("268","3rd Avenue and 4th Street",["5"],[-83.643538,32.845086]),
-  MaconStop.new("269","3rd Avenue near Empire Street",["5"],[-83.645332,32.845623]),
-  MaconStop.new("270","4th Street and 2nd Avenue",["5"],[-83.644151,32.84392]),
-  MaconStop.new("271","2nd Avenue",["5"],[-83.645465,32.844301]),
-  MaconStop.new("272","2nd Avenue and Pursley Street",["5"],[-83.646800,32.844694]),
-  MaconStop.new("273","Ward Street and 2nd Street",["5"],[-83.64909,32.845462]),
+  MaconStop.new("266","3rd Avenue and Moughan Street",["5-O"],[-83.647020,32.846441]),
+  MaconStop.new("267","3rd Avenue and Pursley Street",["5-O"],[-83.645936,32.846014]),
+  MaconStop.new("268","3rd Avenue and 4th Street",["5-O"],[-83.643538,32.845086]),
+  MaconStop.new("269","3rd Avenue near Empire Street",["5-O"],[-83.645332,32.845623]),
+  MaconStop.new("270","4th Street and 2nd Avenue",["5-O"],[-83.644151,32.84392]),
+  MaconStop.new("271","2nd Avenue",["5-O"],[-83.645465,32.844301]),
+  MaconStop.new("272","2nd Avenue and Pursley Street",["5-O"],[-83.646800,32.844694]),
+  MaconStop.new("273","Ward Street and 2nd Street",["5-O"],[-83.64909,32.845462]),
   MaconStop.new("274","Sycamore Street and Walnut Street",["5"],[-83.652817,32.848405]),
   MaconStop.new("275","Clayton Street and Rogers Avenue",["5"],[-83.655258,32.848962]),
   MaconStop.new("276","Rogers Avenue",["5"],[-83.65525,32.849897]),
   MaconStop.new("277","Rogers Avenue and Neal Avenue",["5"],[-83.655183,32.851166]),
   MaconStop.new("278","Rogers Avenue and Rogers Place",["5"],[-83.654586,32.853139]),
   MaconStop.new("279","Rogers Avenue and Ingleside Avenue",["5"],[-83.654353,32.853756]),
-  MaconStop.new("280","Ingleside Avenue",["5"],[-83.64730,32.854838]),
-  MaconStop.new("281","Ingleside Avenue and Riverside Drive",["5"],[-83.645085,32.855693]),
-  MaconStop.new("282","Riverside Drive near Bibb Co Vocational Complex",["5"],[-83.643859,32.854453]),
-  MaconStop.new("283","Baxter Avenue and North Brook",["5"],[-83.643306,32.852599]),
-  MaconStop.new("284","Baxter Avenue and Mallory Drive",["5"],[-83.644562,32.852304]),
-  MaconStop.new("285","Forest Avenue",["5"],[-83.646547,32.852295]),
-  MaconStop.new("286","Forest Avenue and Sherman Avenue",["5"],[-83.648054,32.849952]),
-  MaconStop.new("287","Forest Avenue and Walnut Street",["5"],[-83.648983,32.848443]),
+  MaconStop.new("280","Ingleside Avenue",["5-O"],[-83.64730,32.854838]),
+  MaconStop.new("281","Ingleside Avenue and Riverside Drive",["5-O"],[-83.645085,32.855693]),
+  MaconStop.new("282","Riverside Drive near Bibb Co Vocational Complex",["5-O"],[-83.643859,32.854453]),
+  MaconStop.new("283","Baxter Avenue and North Brook",["5-O"],[-83.643306,32.852599]),
+  MaconStop.new("284","Baxter Avenue and Mallory Drive",["5-O"],[-83.644562,32.852304]),
+  MaconStop.new("285","Forest Avenue",["5-O"],[-83.646547,32.852295]),
+  MaconStop.new("286","Forest Avenue and Sherman Avenue",["5-O"],[-83.648054,32.849952]),
+  MaconStop.new("287","Forest Avenue and Walnut Street",["5-O"],[-83.648983,32.848443]),
   MaconStop.new("288","Pierce Avenue",["5"],[-83.66215,32.86057]),
   MaconStop.new("289","Pierce Avenue and Old Horton Road",["5"],[-83.661556,32.865111]),
   MaconStop.new("290","Pierce Avenue",["5"],[-83.662265,32.867488]),
@@ -391,10 +398,10 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("296","Riverside Drive near Wimbish Road",["5"],[-83.673164,32.886164]),
   MaconStop.new("297","Riverside Drive",["5"],[-83.674401,32.887598]),
   MaconStop.new("298","Riverside Drive near Northside Drive",["5"],[-83.676874,32.890653]),
-  MaconStop.new("299","Northside Drive near North Ingle Place",["5"],[-83.677744,32.890930]),
-  MaconStop.new("300","Northside Drive",["5"],[-83.679855,32.891841]),
-  MaconStop.new("301","Northside Drive and Holiday Drive North",["5"],[-83.687307,32.895105]),
-  MaconStop.new("302","Northside Drive and Tom Hill Sr BLVD",["5"],[-83.690188,32.896503]),
+  MaconStop.new("299","Northside Drive near North Ingle Place",["5-O"],[-83.677744,32.890930]),
+  MaconStop.new("300","Northside Drive",["5-O"],[-83.679855,32.891841]),
+  MaconStop.new("301","Northside Drive and Holiday Drive North",["5-O"],[-83.687307,32.895105]),
+  MaconStop.new("302","Northside Drive and Tom Hill Sr BLVD",["5-O"],[-83.690188,32.896503]),
   MaconStop.new("303","Tom Hill Sr and Riverside Drive",["5"],[-83.686803,32.900901]),
   MaconStop.new("304","Riverside Drive and Holiday Drive",["5"],[-83.685785,32.900246]),
   MaconStop.new("305","Riverside Drive",["5"],[-83.684519,32.899527]),
@@ -442,8 +449,8 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("347","Pio Nono Avenue near Vining Circle",["9"],[-83.662775,32.823420]),
   MaconStop.new("348","Pio Nono Avenue and Stephens Street",["9"],[-83.662688,32.822090]),
   MaconStop.new("349","Pio Nono Avenue and Aline Street",["9"],[-83.662853,32.820814]),
-  MaconStop.new("350","Anthony Road and Cedar Avenue",["9"],[-83.664494,32.820209]),
-  MaconStop.new("351","Anthony Road and Anthony Terrace",["9"],[-83.667801,32.820196]),
+  MaconStop.new("350","Anthony Road and Cedar Avenue",["9-O"],[-83.664494,32.820209]),
+  MaconStop.new("351","Anthony Road and Anthony Terrace",["9-O"],[-83.667801,32.820196]),
   MaconStop.new("353","Eisnhower Parkway and Anthony Terrace",["9"],[-83.667611,32.814610]),
   MaconStop.new("354","Eisenhower Parkyway near Pio Nono Avenue",["9"],[-83.663392,32.814487]),
   MaconStop.new("355","Eisenhower Parkway",["9"],[-83.669815,32.814672]),
@@ -453,15 +460,15 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("359","Eisenhower Parkway near Macon Mall",["9"],[-83.690438,32.815630]),
   MaconStop.new("360","Eisenhower Parkway near Macon Mall",["9"],[-83.691257,32.815474]),
   MaconStop.new("361","Eisenhower Parkway",["9"],[-83.685594,32.815183]),
-  MaconStop.new("362","Eisenhower Parkway and Bloomfield Road",["9"],[-83.698896,32.815831]),
+  MaconStop.new("362","Eisenhower Parkway and Bloomfield Road",["9-I"],[-83.698896,32.815831]),
   MaconStop.new("363","Bloomfield Road",["9"],[-83.70001,32.81383]),
-  MaconStop.new("364","Bloomfield Road and Jackson Street",["9"],[-83.701028,32.812872]),
-  MaconStop.new("365","Bloomfield Road and Walker Avenue",["9"],[-83.702152,32.811869]),
-  MaconStop.new("366","Bloomfield Road",["9"],[-83.703896,32.810258]),
-  MaconStop.new("367","Bloomfield Road",["9"],[-83.704944,32.809343]),
-  MaconStop.new("368","Bloomfield Road",["9"],[-83.70650,32.807529]),
-  MaconStop.new("369","Bloomfield Road and Chambers Road",["9"],[-83.707496,32.80637]),
-  MaconStop.new("375","Chambers Road",["9"],[-83.719864,32.806496]),
+  MaconStop.new("364","Bloomfield Road and Jackson Street",["9-O"],[-83.701028,32.812872]),
+  MaconStop.new("365","Bloomfield Road and Walker Avenue",["9-O"],[-83.702152,32.811869]),
+  MaconStop.new("366","Bloomfield Road",["9-O"],[-83.703896,32.810258]),
+  MaconStop.new("367","Bloomfield Road",["9-O"],[-83.704944,32.809343]),
+  MaconStop.new("368","Bloomfield Road",["9-O"],[-83.70650,32.807529]),
+  MaconStop.new("369","Bloomfield Road and Chambers Road",["9-O"],[-83.707496,32.80637]),
+  MaconStop.new("375","Chambers Road",["9-O"],[-83.719864,32.806496]),
   MaconStop.new("376","Macon State College",["9"],[-83.729056,32.808785]),
   MaconStop.new("377","Oglethorpe Street and Second Street",["3"],[-83.637743,32.830036]),
   MaconStop.new("378","Oglethorpe Street and Lee Street",["3"],[-83.639642,32.830691]),
@@ -532,7 +539,7 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("443","Mercer University Drive and Knight Road",["3"],[-83.740962,32.833970]),
   MaconStop.new("444","Mercer University Drive near Food Lion",["3"],[-83.743347,32.834026]),
   MaconStop.new("445","Vineville Avenue and Craft Street",["1"],[-83.646861,32.841141]),
-  MaconStop.new("447","Washington Street and College Street",["1"],[-83.638700,32.83918]),
+  MaconStop.new("447","Washington Street and College Street",["1-I"],[-83.638700,32.83918]),
   MaconStop.new("448","Vineville Avenue and Holt Avenue",["1"],[-83.64999,32.84202]),
   MaconStop.new("449","Vineville Avenue and Ward Street",["1"],[-83.650675,32.842432]),
   MaconStop.new("450","Vineville Avenue",["1"],[-83.652060,32.843317]),
@@ -552,16 +559,16 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("464","Vineville Avenue and Vista Drive",["1"],[-83.67335,32.849463]),
   MaconStop.new("465","Vineville Avenue and Hartley Avenue",["1"],[-83.674443,32.850480]),
   MaconStop.new("466","Vineville Avenue and Marshall Avenue",["1"],[-83.675553,32.851426]),
-  MaconStop.new("467","Vineville Avenue",["1"],[-83.67664,32.852372]),
-  MaconStop.new("468","Vineville Avenue",["1"],[-83.678046,32.853604]),
-  MaconStop.new("469","Vineville Avenue near Brookdale Avenue",["1"],[-83.678716,32.854175]),
-  MaconStop.new("470","Vineville Avenue",["1"],[-83.681125,32.856405]),
-  MaconStop.new("471","Vineville Avenue and Prentice Place",["1"],[-83.681690,32.856958]),
-  MaconStop.new("472","Vineville Avenue and Auburn Avenue",["1"],[-83.68273,32.857957]),
-  MaconStop.new("473","Vineville Avenue and Belvedere",["1"],[-83.683198,32.858403]),
-  MaconStop.new("474","Vineville Avenue and Albermarle",["1"],[-83.683994,32.859188]),
+  MaconStop.new("467","Vineville Avenue",["1-O"],[-83.67664,32.852372]),
+  MaconStop.new("468","Vineville Avenue",["1-O"],[-83.678046,32.853604]),
+  MaconStop.new("469","Vineville Avenue near Brookdale Avenue",["1-O"],[-83.678716,32.854175]),
+  MaconStop.new("470","Vineville Avenue",["1-O"],[-83.681125,32.856405]),
+  MaconStop.new("471","Vineville Avenue and Prentice Place",["1-O"],[-83.681690,32.856958]),
+  MaconStop.new("472","Vineville Avenue and Auburn Avenue",["1-O"],[-83.68273,32.857957]),
+  MaconStop.new("473","Vineville Avenue and Belvedere",["1-O"],[-83.683198,32.858403]),
+  MaconStop.new("474","Vineville Avenue and Albermarle",["1-O"],[-83.683994,32.859188]),
   MaconStop.new("475","Ridge Avenue and Ingleside Avenue",["1"],[-83.678642,32.856182]),
-  MaconStop.new("476","Vineville Avenue and Riverdale Drive",["1"],[-83.68485,32.859973]),
+  MaconStop.new("476","Vineville Avenue and Riverdale Drive",["1-O"],[-83.68485,32.859973]),
   MaconStop.new("477","Ridge Avenue",["1"],[-83.677701,32.855166]),
   MaconStop.new("479","Ridge Avenue and Auburn Avenue",["1"],[-83.681448,32.859018]),
   MaconStop.new("480","Ridge Avenue and Belvedere",["1"],[-83.681992,32.859464]),
@@ -569,14 +576,14 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("482","Ridge Avenue and Riverdale Drive",["1"],[-83.683964,32.86084]),
   MaconStop.new("483","Ridge Avenue and Merritt Avenue",["1"],[-83.68488,32.861589]),
   MaconStop.new("484","Ridge Avenue and Roycrest Drive",["1"],[-83.686816,32.86285]),
-  MaconStop.new("485","Vineville Avenue and West Ridge Circle",["1"],[-83.691250,32.864261]),
-  MaconStop.new("486","Vineville Avenue near Charter Hospital",["1"],[-83.694335,32.866049]),
-  MaconStop.new("487","Vineville Avenue near Charter Hospital",["1"],[-83.694250,32.866227]),
+  MaconStop.new("485","Vineville Avenue and West Ridge Circle",["1-O"],[-83.691250,32.864261]),
+  MaconStop.new("486","Vineville Avenue near Charter Hospital",["1-O"],[-83.694335,32.866049]),
+  MaconStop.new("487","Vineville Avenue near Charter Hospital",["1-O"],[-83.694250,32.866227]),
   MaconStop.new("488","New Street @ The Medical Center",["2"],[-83.635363,32.834665]),
   MaconStop.new("489","Pine Street and Spring Street",["2"],[-83.636762,32.835426]),
   MaconStop.new("490","Cotton Avenue and College Street",["2"],[-83.640358,32.836197]),
-  MaconStop.new("491","Oglethrope Street and Tatnall Street",["2"],[-83.645627,32.834263]),
-  MaconStop.new("492","College Street near RR under pass",["2"],[-83.643545,32.83476]),
+  MaconStop.new("491","Oglethrope Street and Tatnall Street",["2-O"],[-83.645627,32.834263]),
+  MaconStop.new("492","College Street near RR under pass",["2-O"],[-83.643545,32.83476]),
   MaconStop.new("493","Oglethorpre Street and Adams Street",["2"],[-83.647073,32.835096]),
   MaconStop.new("494","Adams Street",["2"],[-83.648040,32.83400]),
   MaconStop.new("495","Adams Street",["2"],[-83.648771,32.833084]),
@@ -628,54 +635,54 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("541","Napier Avenue near McKenzie Drive",["2"],[-83.687916,32.849174]),
   MaconStop.new("542","Napier Avenue and Brookdale Avenue",["2"],[-83.687838,32.852876]),
   MaconStop.new("543","Napier Avenue and Fairmont Avenue",["2"],[-83.687787,32.855301]),
-  MaconStop.new("545","Forsyth Road near Napier Avenue",["2"],[-83.69943,32.869088]),
-  MaconStop.new("546","Forsyth Road",["2"],[-83.701463,32.870179]),
-  MaconStop.new("547","Forsyth Road near Idle Hour",["2"],[-83.707176,32.87317]),
-  MaconStop.new("548","Forsyth Road near Country Club Road",["2"],[-83.70601,32.872476]),
-  MaconStop.new("549","Forsyth Road near Kroger Shopping Center",["2"],[-83.709813,32.874462]),
-  MaconStop.new("550","Forsyth Road near Kroger Shopping Center",["2"],[-83.708342,32.873794]),
-  MaconStop.new("551","Forsyth Road near Kroger Shopping Center",["2"],[-83.709603,32.87446]),
-  MaconStop.new("552","Forsyth Road and Tucker Road",["2"],[-83.710807,32.87499]),
-  MaconStop.new("553","Forsyth Road and Wesleyan Woods Drive",["2"],[-83.715779,32.876844]),
-  MaconStop.new("554","Forsyth Road and Wesleyan Woods Drive",["2"],[-83.716048,32.876748]),
-  MaconStop.new("555","Forsyth Road near Brittany Drive",["2"],[-83.722990,32.879473]),
-  MaconStop.new("556","Forsyth Road and Zebulon Road",["2"],[-83.724787,32.880207]),
+  MaconStop.new("545","Forsyth Road near Napier Avenue",["2B"],[-83.69943,32.869088]),
+  MaconStop.new("546","Forsyth Road",["2B"],[-83.701463,32.870179]),
+  MaconStop.new("547","Forsyth Road near Idle Hour",["2B"],[-83.707176,32.87317]),
+  MaconStop.new("548","Forsyth Road near Country Club Road",["2B"],[-83.70601,32.872476]),
+  MaconStop.new("549","Forsyth Road near Kroger Shopping Center",["2B"],[-83.709813,32.874462]),
+  MaconStop.new("550","Forsyth Road near Kroger Shopping Center",["2B"],[-83.708342,32.873794]),
+  MaconStop.new("551","Forsyth Road near Kroger Shopping Center",["2B"],[-83.709603,32.87446]),
+  MaconStop.new("552","Forsyth Road and Tucker Road",["2B"],[-83.710807,32.87499]),
+  MaconStop.new("553","Forsyth Road and Wesleyan Woods Drive",["2B"],[-83.715779,32.876844]),
+  MaconStop.new("554","Forsyth Road and Wesleyan Woods Drive",["2B"],[-83.716048,32.876748]),
+  MaconStop.new("555","Forsyth Road near Brittany Drive",["2B"],[-83.722990,32.879473]),
+  MaconStop.new("556","Forsyth Road and Zebulon Road",["2B"],[-83.724787,32.880207]),
   MaconStop.new("557","Riverside Drive near SS Administration",["5"],[-83.682623,32.897388]),
-  MaconStop.new("558","Hardeman and Monroe St Lane",["1"],[-83.641545,32.839983]),
+  MaconStop.new("558","Hardeman and Monroe St Lane",["1-I"],[-83.641545,32.839983]),
   MaconStop.new("559","Hardeman and Franks Lane",["1"],[-83.643928,32.840642]),
   MaconStop.new("560","Vineville and Pierce Avenue",["1"],[-83.662378,32.846135]),
   MaconStop.new("561","Vineville and Florida Street",["1"],[-83.666116,32.84621]),
-  MaconStop.new("562","Madison Street and Stewarts Lane",["5"],[-83.638951,32.843710]),
-  MaconStop.new("563","Madison Street",["5"],[-83.639488,32.842549]),
-  MaconStop.new("564","Jefferson Street and Madison Street",["5"],[-83.640026,32.841320]),
-  MaconStop.new("565","Sheraton Drive near Arkwright Road",["13"],[-83.688863,32.90633]),
-  MaconStop.new("566","Sheraton Drive",["13"],[-83.690843,32.908248]),
-  MaconStop.new("567","Sheraton Drive Near Apartments",["5"],[-83.695285,32.911197]),
-  MaconStop.new("568","Sheraton Drive",["13"],[-83.698853,32.913942]),
-  MaconStop.new("569","",["0"],[-83.702182,32.916841]),
+  MaconStop.new("562","Madison Street and Stewarts Lane",["5-O"],[-83.638951,32.843710]),
+  MaconStop.new("563","Madison Street",["5-O"],[-83.639488,32.842549]),
+  MaconStop.new("564","Jefferson Street and Madison Street",["5-O"],[-83.640026,32.841320]),
+  MaconStop.new("565","Sheraton Drive near Arkwright Road",["13-O"],[-83.688863,32.90633]),
+  MaconStop.new("566","Sheraton Drive",["13-O"],[-83.690843,32.908248]),
+  MaconStop.new("567","Sheraton Drive Near Apartments",["13-O"],[-83.695285,32.911197]),
+  MaconStop.new("568","Sheraton Drive",["13-O"],[-83.698853,32.913942]),
+  MaconStop.new("569","",["13-O"],[-83.702182,32.916841]),
   MaconStop.new("570","Sheraton Drive Near Apartments",["13"],[-83.702182,32.916841]),
-  MaconStop.new("571","Sheraton Drive at Groomes Transportation",["13"],[-83.703900,32.918191]),
-  MaconStop.new("572","Sheraton Drive and Sheraton Blvd",["13"],[-83.705222,32.919158]),
-  MaconStop.new("573","Sheraton Drive and Gateway Drive",["0"],[-83.70912,32.924791]),
-  MaconStop.new("574","Sheraton Drive and Sheraton Blvd North",["13"],[-83.707150,32.920799]),
+  MaconStop.new("571","Sheraton Drive at Groomes Transportation",["13-O"],[-83.703900,32.918191]),
+  MaconStop.new("572","Sheraton Drive and Sheraton Blvd",["13-O"],[-83.705222,32.919158]),
+  MaconStop.new("573","Sheraton Drive and Gateway Drive",["13-O"],[-83.70912,32.924791]),
+  MaconStop.new("574","Sheraton Drive and Sheraton Blvd North",["13-O"],[-83.707150,32.920799]),
   MaconStop.new("575","Sheraton Drive and Gateway Drive",["13"],[-83.709094,32.924813]),
-  MaconStop.new("576","Sheraton Drive and Riverside Drive",["13"],[-83.711247,32.924194]),
-  MaconStop.new("577","Riverside Drive and Bass Road",["13"],[-83.717500,32.936662]),
+  MaconStop.new("576","Sheraton Drive and Riverside Drive",["13-O"],[-83.711247,32.924194]),
+  MaconStop.new("577","Riverside Drive and Bass Road",["13-O"],[-83.717500,32.936662]),
   MaconStop.new("578","Riverside Drive and Hall Road",["13"],[-83.70566,32.915220]),
   MaconStop.new("579","Riverside Drive near Access Road",["13"],[-83.699347,32.910944]),
   MaconStop.new("580","Riverside Drive and Sue Drive",["13"],[-83.693979,32.907342]),
-  MaconStop.new("581","Riverside Drive and North Crest Blvd","Route",[-83.690806,32.905226]),
+  MaconStop.new("581","Riverside Drive and North Crest Blvd",["13"],[-83.690806,32.905226]),
   MaconStop.new("582","Vineville Avenue near Country Club Road",["2"],[-83.704975,32.871997]),
   MaconStop.new("583","Vineville Avenue near Idle Wild Road",["2"],[-83.702711,32.870839]),
   MaconStop.new("584","Napier Avenue and Canyon Road",["2"],[-83.698374,32.865671]),
   MaconStop.new("585","Napier Avenue and Park Street",["2"],[-83.69207,32.859069]),
   MaconStop.new("586","Napier Avenue near Apartments",["2"],[-83.689110,32.857483]),
-  MaconStop.new("587","Napier Avenue and Atlantic Avenue","Bellvue/ Log Cabin",[-83.687836,32.850410]),
+  MaconStop.new("587","Napier Avenue and Atlantic Avenue",["2"],[-83.687836,32.850410]),
   MaconStop.new("588","Mumford Road and Lawton Road",["2"],[-83.69380,32.847112]),
   MaconStop.new("589","Hollingsworth Road",["2"],[-83.696209,32.845673]),
   MaconStop.new("590","Good Will Center",["9"],[-83.731704,32.803532]),
-  MaconStop.new("592","Macon Mall",["9"],[-83.694350,32.817293]),
-  MaconStop.new("593","Anthony Terrace",["9"],[-83.667757,32.817592]),
+  MaconStop.new("592","Macon Mall",["9-O"],[-83.694350,32.817293]),
+  MaconStop.new("593","Anthony Terrace",["9-O"],[-83.667757,32.817592]),
   MaconStop.new("594","Pio Nono and Dent Street",["9"],[-83.662875,32.818668]),
   MaconStop.new("595","Pio Nono and Ell Street",["9"],[-83.662948,32.816637]),
   MaconStop.new("596","Anthony Rd and Arlington Park",["3"],[-83.683351,32.822882]),
@@ -687,14 +694,14 @@ def closest_macon(lat, lng, weekday)
   MaconStop.new("602","Rocky Creek Road near Apartments",["6"],[-83.676520,32.7862]),
   MaconStop.new("603","Pio Nono Avenue near Rice Mill Road",["6"],[-83.66834,32.792491]),
   MaconStop.new("604","Pio Nono Avenue near Pio Nono Circle",["6"],[-83.664589,32.800062]),
-  MaconStop.new("605","Mason Street and Ell Street",["6"],[-83.66195,32.816597]),
-  MaconStop.new("606","Clinton Road and Pitts Street",["4"],[-83.617794,32.862352]),
+  MaconStop.new("605","Mason Street and Ell Street",["6-O"],[-83.66195,32.816597]),
+  MaconStop.new("606","Clinton Road and Pitts Street",["4-O"],[-83.617794,32.862352]),
   MaconStop.new("607","Coliseum Drive and Clinton Street",["11"],[-83.617249,32.84300]),
-  MaconStop.new("608","Main Street and Garden Street",["11"],[-83.615099,32.844172]),
-  MaconStop.new("609","Main Street and Fairview Avenue",["11"],[-83.611102,32.845611]),
-  MaconStop.new("610","Woolfolk Street and Fort Hill Street",["11"],[-83.61265,32.849688]),
-  MaconStop.new("611","New Clinton Road and Companion Drive",["11"],[-83.587180,32.858516]),
-  MaconStop.new("612","New Clinton Road and Ollie Drive",["11"],[-83.586725,32.859745]),
+  MaconStop.new("608","Main Street and Garden Street",["11-I"],[-83.615099,32.844172]),
+  MaconStop.new("609","Main Street and Fairview Avenue",["11-I"],[-83.611102,32.845611]),
+  MaconStop.new("610","Woolfolk Street and Fort Hill Street",["11-O"],[-83.61265,32.849688]),
+  MaconStop.new("611","New Clinton Road and Companion Drive",["11-O"],[-83.587180,32.858516]),
+  MaconStop.new("612","New Clinton Road and Ollie Drive",["11-O"],[-83.586725,32.859745]),
   MaconStop.new("613","Jordan Avenue and Recreation Road",["11"],[-83.573823,32.852951]),
   MaconStop.new("614","Jordan Avenue",["11"],[-83.573816,32.853931]),
   MaconStop.new("615","Commodore Drive and Gateway Avenue",["11"],[-83.573806,32.868854]),
@@ -705,7 +712,11 @@ def closest_macon(lat, lng, weekday)
   closestDistance = 100000
   stations.each do |station|
     # if it's Saturday, don't count stops where bus is not running on Saturday
-    if(weekday == 6 and station.getroute() == ["1"])
+    if(weekday == 6 and station.getroute()[0].split("-")[0] == "1")
+      next
+    end
+    # LIBRARY FIX: can't get to library on weekdays via Route 13
+    if(weekday < 6 and station.getroute()[0].split("-")[0] == "13")
       next
     end
     dist = (station.getlat() - lat )**2 + ( station.getlng() - lng )**2
@@ -1573,7 +1584,7 @@ def gogettransit(address, gotime)
       
       busout = "<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to library from:</div>"
 
-      if (closest.getroute().index("1") != nil and gotime.wday < 6) or (closest.getroute().index("2") != nil) or (closest.getroute().index("7") != nil)
+      if ( closest.hasroute("1") and gotime.wday < 6 ) or closest.hasroute("2") or closest.hasroute("7")
         # library routes
         terminalx = -83.623976
         terminaly = 32.833738
@@ -1582,18 +1593,31 @@ def gogettransit(address, gotime)
         stopdist = ( closest.getlng() - terminalx )**2 + ( closest.getlat() - terminaly )**2
         librarydist = ( libraryx - terminalx )**2 + ( libraryy - terminaly )**2
 
-        if closest.getroute().index("1") != nil and gotime.wday < 6
+        if closest.hasroute("1") and gotime.wday < 6
           if gotime.wday < 6
             # Weekday schedule
             sched = getSchedule("1-W")
           end
-        elsif closest.getroute().index("2") != nil
-          if gotime.wday == 6
-            # Saturday schedule
-            sched = getSchedule("2-S")
-          else
-            # Weekday schedule
-            sched = getSchedule("2-W")
+
+        elsif closest.hasroute("2")
+          routes = closest.getroute()
+          if routes.index("2") != nil or routes.index("2-I") != nil or routes.index("2-O") != nil
+            if gotime.wday == 6
+              # Saturday schedule
+              sched = getSchedule("2-S")
+            else
+              # Weekday schedule
+              sched = getSchedule("2-W")
+            end
+          elsif gotime.wday == 6 or gotime.hour < 6 or gotime.hour > 18
+            # Route 2B
+            if gotime.wday == 6
+              # Saturday schedule
+              sched = getSchedule("2-S")
+            else
+              # Weekday schedule
+              sched = getSchedule("2-W")
+            end
           end
         end
 
@@ -1646,7 +1670,8 @@ def gogettransit(address, gotime)
       else
         if closest.getroute().index("0") == nil  # this route is assigned when none are known
           # look up non-library-connected routes
-          if closest.getroute().index("3") != nil
+          sendMeOutbound = false # for stops only going outbound
+          if closest.hasroute("3")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("3-S")
@@ -1654,17 +1679,23 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("3-W")
             end
+            if closest.hasroute("3-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("4") != nil
+          elsif closest.hasroute("4")
             if gotime.wday == 6
               sched = getSchedule("4-S")
             else
               sched = getSchedule("4-W")
             end
+            if closest.hasroute("4-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("5") != nil
+          elsif closest.hasroute("5")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("5-S")
@@ -1672,17 +1703,23 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("5-W")
             end
+            if closest.hasroute("5-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
             
-          elsif closest.getroute().index("6") != nil
+          elsif closest.hasroute("6")
             if gotime.wday == 6
               sched = getSchedule("6-S")
             else
               sched = getSchedule("6-W")
             end
+            if closest.hasroute("6-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("9") != nil
+          elsif closest.hasroute("9")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("9-S")
@@ -1690,9 +1727,12 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("9-W")
             end
+            if closest.hasroute("9-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("11") != nil
+          elsif closest.hasroute("11")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("11-S")
@@ -1700,9 +1740,12 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("11-W")
             end
+            if closest.hasroute("11-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("12") != nil
+          elsif closest.hasroute("12")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("12-S")
@@ -1710,9 +1753,12 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("12-W")
             end
+            if closest.hasroute("12-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
 
-          elsif closest.getroute().index("13") != nil
+          elsif closest.hasroute("13")
             if gotime.wday == 6
               # Saturday schedule
               sched = getSchedule("13-S")
@@ -1720,38 +1766,56 @@ def gogettransit(address, gotime)
               # weekday schedule
               sched = getSchedule("13-W")
             end
+            if closest.hasroute("13-O")
+              sendMeOutbound = true
+            end
             busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
           
           end
           
           dothispass = -1
           sched["times"].each do |pass|
-            stopdex = 0
-            pass.each do |stop|
-              if stopdex >= sched["turnaround"] and stop != ""
-                turntime = stop.split(":")
-                break
+            if sendMeOutbound
+              starttime = ""
+              pass.each do |stop|
+                if stop != ""
+                  turntime = stop.split(":")
+                  break
+                end
               end
-              stopdex = stopdex + 1
-            end
-            pass.reverse_each do |stop|
-              if stop != ""
-                endtime = stop.split(":")
-                break
+              pass.reverse_each do |stop|
+                if stop != ""
+                  endtime = stop.split(":")
+                  break
+                end
               end
-            end
-            if turntime[0].to_i * 60 + turntime[1].to_i >= gotime.hour * 60 + gotime.min
-              dothispass = pass
-              break
+              
+            else
+              pass.each do |stop|
+                stopdex = 0
+                if stopdex >= sched["turnaround"] and stop != ""
+                  turntime = stop.split(":")
+                  break
+                end
+                stopdex = stopdex + 1
+              end
+              pass.reverse_each do |stop|
+                if stop != ""
+                  endtime = stop.split(":")
+                  break
+                end
+              end
             end
           end
+            
           if dothispass == -1
-            busout += "<br/>There are no more inbound buses on that route today"
+            busout += "<br/>There are no more buses on that route today"
             return busout
+          elsif sendMeOutbound
+            busout += "<br/>The next bus will leave Terminal Station on this route after " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
           else
-            busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime) + " and arrive at Terminal Station at " + hmarray_to_time(endtime)
+            busout += "<br/>The next bus will go inbound on this route after " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
           end
-          
           
           # Now catch the next 2 bus from Terminal Station
           if gotime.wday == 6
