@@ -1821,10 +1821,12 @@ def gogettransit(address, gotime)
           if dothispass == -1
             busout += "<br/>There are no more buses on that route today"
             return busout
-          elsif sendMeOutbound
-            busout += "<br/>The next bus will leave Terminal Station on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
           else
-            busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
+            if sendMeOutbound == true
+              busout += "<br/>The next bus will leave Terminal Station on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
+            else
+              busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime) + " and return to Terminal Station at " + hmarray_to_time(endtime)
+            end
           end
           
           # Now catch the next 2 bus from Terminal Station
