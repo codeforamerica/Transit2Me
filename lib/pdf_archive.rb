@@ -2223,6 +2223,7 @@ get '/routeit' do
           sendMeOutbound = 1
         end
         busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
+      end
 
       # determine direction by which stop is closer to Terminal Station
       terminalx = -83.623976
