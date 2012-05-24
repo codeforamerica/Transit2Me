@@ -2037,6 +2037,7 @@ get '/routeit' do
     # load the event and its timestamp
     event = TransitEvent.first( :eventname => params['eventname'] )
     gotime = Time.new( event.dateof.split('/')[2].to_i(), event.dateof.split('/')[1].to_i(), event.dateof.split('/')[0].to_i(), event.timeof.split(':')[0].to_i(), event.timeof.split(':')[1].to_i(), 0, "-04:00" )
+    return event.dateof.split('/').length.to_s() + "--" + event.timeof.split(":").length.to_s()
 
     # No Sunday buses
     if gotime.wday == 0
@@ -2053,7 +2054,6 @@ get '/routeit' do
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.get('/service/csv/geocode?address=' + URI.escape(address))
     }
-    return res.body
     response = res.body.split(",")
     lat = Float( response[0] )
     lng = Float( response[1] )
