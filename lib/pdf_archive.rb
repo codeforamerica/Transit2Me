@@ -2042,7 +2042,7 @@ get '/routeit' do
     year = event.dateof.split('/')[2]   
     hour = event.timeof.split(':')[0]
     if event.ampm and event.ampm == "pm"
-      if hour.to_i > 12
+      if hour.to_i < 12
         hour = hour.to_i + 12
         hour = hour.to_s
       end
