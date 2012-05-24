@@ -2430,11 +2430,13 @@ get '/routeit' do
         # find latest pass reaching a turntime before event
         # then tell them when that pass leaves Terminal Station
         sched["times"].reverse_each do |pass|
+          stopdex = 0
           pass.each do |stop|
             if stopdex >= sched["turnaround"] and stop != ""
               turntime = stop.split(":")
               break
             end
+            stopdex = stopdex + 1
           end
           if turntime[0].to_i * 60 + turntime[1].to_i <= gotime.hour * 60 + gotime.min
             dothispass = pass
