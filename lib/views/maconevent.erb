@@ -8,7 +8,7 @@ $(document).ready(function(){
 });
 function findStop(){
 	var address = $("#input_address").val();
-	if(address.indexOf(",") < -1){
+	if(address.indexOf(",") == -1){
 		address += ",Macon,GA";
 	}
 	$.getJSON("/stopnear?address=" + escape( address ), function(response){

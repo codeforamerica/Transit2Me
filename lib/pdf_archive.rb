@@ -2021,7 +2021,14 @@ end
 post '/transit' do
   if params['eventname']
     t_evt = TransitEvent.create!(params)
-    erb :eventembed, :locals => { :event => t_evt }
+    erb :eventembed, :locals => { :event => t_evt, :just_created => "true" }
+  end
+end
+
+get '/event' do
+  if params['event']
+    t_evt = TransitEvent.first( :eventname => params['event'] )
+    erb :eventembed, :locals => { :event => t_evt, :just_created => "false" }
   end
 end
 
