@@ -2039,12 +2039,11 @@ get '/routeit' do
 
     day = event.dateof.split('/')[0].to_i()
     month = event.dateof.split('/')[1].to_i()
-    year = event.dateof.split('/')[2].to_i()
-    
-    return year.to_s()
-    
+    year = event.dateof.split('/')[2].to_i()    
     hour = event.timeof.split(':')[0].to_i()
     minute = event.timeof.split(':')[1].to_i()
+    return minute.to_s()
+
     gotime = Time.new( year, month, day, hour, minute, 0, "-04:00" )
 
     # No Sunday buses
