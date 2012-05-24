@@ -2108,6 +2108,7 @@ get '/routeit' do
           # Weekday schedule
           sched = getSchedule("1-W")
         end
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (1) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "2"
         routes = closest.getroute()
@@ -2129,6 +2130,7 @@ get '/routeit' do
             sched = getSchedule("2-W")
           end
         end
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (2) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "3"
         if gotime.wday == 6
@@ -2141,7 +2143,7 @@ get '/routeit' do
         if closest.hasroute("3-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "4"
         if gotime.wday == 6
@@ -2152,7 +2154,7 @@ get '/routeit' do
         if closest.hasroute("4-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "5"
         if gotime.wday == 6
@@ -2165,7 +2167,7 @@ get '/routeit' do
         if closest.hasroute("5-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i>."
             
       elsif sameroutes == "6"
         if gotime.wday == 6
@@ -2176,7 +2178,7 @@ get '/routeit' do
         if closest.hasroute("6-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "9"
         if gotime.wday == 6
@@ -2189,7 +2191,7 @@ get '/routeit' do
         if closest.hasroute("9-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "11"
         if gotime.wday == 6
@@ -2202,7 +2204,7 @@ get '/routeit' do
         if closest.hasroute("11-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "12"
         if gotime.wday == 6
@@ -2215,7 +2217,7 @@ get '/routeit' do
         if closest.hasroute("12-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i>."
 
       elsif sameroutes == "13"
         if gotime.wday == 6
@@ -2228,7 +2230,7 @@ get '/routeit' do
         if closest.hasroute("13-O")
           sendMeOutbound = 1
         end
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> to Terminal Station."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i>."
       end
 
       # determine direction by which stop is closer to Terminal Station
@@ -2277,13 +2279,12 @@ get '/routeit' do
             end
           end
           busout += "<br/>Your bus will go inbound on this route at " + hmarray_to_time(turntime)
-          busout += "<br/>Arrive by " + hmarray_to_time(endtime)
+          busout += "<br/>Arrive at event by " + hmarray_to_time(endtime)
         end
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<br/><a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
         
       else
         # move along the route away from Terminal Station
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station."
         dothispass = -1
         turntime = ""
         # find the latest bus on the schedule which reaches inbound turning point before this event
@@ -2313,7 +2314,15 @@ get '/routeit' do
               break
             end
           end
-          busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
+          endtime = ""
+          dothispass.reverse_each do |stop|
+            if stop != ""
+              endtime = stop.split(":")
+              break
+            end
+          end
+          busout += "<br/>Your bus will go outbound on this route at " + hmarray_to_time(firsttime)
+          busout += "<br/>Arrive at event by " + hmarray_to_time(endtime)
         end
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
       end
