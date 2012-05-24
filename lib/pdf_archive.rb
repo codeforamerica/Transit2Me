@@ -2053,6 +2053,7 @@ get '/routeit' do
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.get('/service/csv/geocode?address=' + URI.escape(address))
     }
+    return res.body
     response = res.body.split(",")
     lat = Float( response[0] )
     lng = Float( response[1] )
@@ -2069,7 +2070,6 @@ get '/routeit' do
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.get('/service/csv/geocode?address=' + URI.escape(gopoint))
     }
-    return res.body
     response = res.body.split(",")
     lat = Float( response[0] )
     lng = Float( response[1] )
