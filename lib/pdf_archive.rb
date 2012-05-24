@@ -2590,7 +2590,7 @@ get '/routeit' do
                 break
               end
             end
-            if mylaststop[0].to_i * 60 + mylaststop[1].to_i <= firsttime[0] * 60 + firsttime[1]
+            if mylaststop[0].to_i * 60 + mylaststop[1].to_i <= firsttime[0].to_i * 60 + firsttime[1].to_i
               dothispass = pass
               break
             end
