@@ -2467,19 +2467,20 @@ get '/routeit' do
             break
           end
         end
-        dothispass.each do |stop|
-          if stop != ""
-            firsttime = stop.split(":")
-            break
-          end
-        end
         
         # if the event cannot be reached from Terminal Station, don't bother finding first leg of the trip
         if dothispass == -1
           busout += "<br/>There are no more buses on that route today"
           return busout
         end
-        # otherwise, print accordingly
+
+        # if a pass was found, print accordingly
+        dothispass.each do |stop|
+          if stop != ""
+            firsttime = stop.split(":")
+            break
+          end
+        end
         busout += "<br/>The next bus will leave Terminal Station on this route at " + hmarray_to_time(firsttime) + " and reach the event before " + hmarray_to_time(turntime)
 
         # now find the route of the first leg of the trip - from my closest stop to Terminal Station
@@ -2620,6 +2621,11 @@ get '/routeit' do
             end
           end
           
+          # if this first leg of the trip cannot be made, don't print out results
+          if dothispass == -1
+            return "There are no more buses on that route today"
+          end
+          
           # if their stop is outbound-only, tell them to leave before this bus leaves Terminal Station
           # otherwise (most stops) tell them to leave before bus turns inbound
           if sendMeOutbound == 1
@@ -2642,11 +2648,6 @@ get '/routeit' do
               stopdex = stopdex + 1
             end
             businbound += "The next bus turns inbound on this route at " + hmarray_to_time(myturntime) + " and arrives at Terminal Station at " + hmarray_to_time(mylaststop)
-          end
-          
-          # if this first leg of the trip cannot be made, don't print out results
-          if dothispass == -1
-            return "There are no more buses on that route today"
           end
 
         else
