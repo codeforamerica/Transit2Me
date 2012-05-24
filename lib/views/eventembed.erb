@@ -15,17 +15,23 @@
 				</div>
 			</div>
 		</div>
+		<div class="container">
 		<% if just_created == "true" %>
+			<div class="row" style="margin-top:50px;">
 			<%= event.eventname %> was posted.
 			<br/>
 			Embed using code: &lt;iframe src="http://transit2me.heroku.com/event?name=<%= event.eventname %>" width="400" height="250" frameborder="0"&gt;&lt;/iframe&gt;
+			</div>
 		<% end %>
-		<h1 style="color:green;font-size:16pt;">Get here by bus, take MTA!</h1>
-		Address:
-		<form action="/geotransit" method="GET">
-			<input name="eventname" type="hidden" value="<%= event.eventname %>"/>
-			<input name="address" type="text" size="30"/>
-			<br/>
-			<input type="submit" value="Get Directions"/>
-		</form>
+			<div class="row">
+				<h1 style="color:green;font-size:16pt;">Get here by bus, take MTA!</h1>
+				Address:
+				<form action="/geotransit" method="GET">
+					<input name="eventname" type="hidden" value="<%= event.eventname %>"/>
+					<input name="address" type="text" size="30"/>
+					<br/>
+					<input type="submit" value="Get Directions"/>
+				</form>
+			</div>
+		</div>
 	</body>
