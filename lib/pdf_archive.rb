@@ -2320,7 +2320,7 @@ get '/routeit' do
             # Weekday schedule
             sched = getSchedule("1-W")
           end
-          busout += bussum + "<br/>Take bus (1) from <i>" + closest.getname() + "</i> from Terminal Station"
+          busout += bussum + "<br/>Take bus (1) from <i>" + gostation.getname() + "</i> from Terminal Station"
 
         elsif gostation.hasroute("2")
           routes = closest.getroute()
@@ -2342,7 +2342,7 @@ get '/routeit' do
               sched = getSchedule("2-W")
             end
           end
-          busout += bussum + "<br/>Take bus (2) from <i>" + closest.getname() + "</i> from Terminal Station"
+          busout += bussum + "<br/>Take bus (2) from <i>" + gostation.getname() + "</i> from Terminal Station"
 
         elsif gostation.hasroute("3")
           if gotime.wday == 6
@@ -2352,7 +2352,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("3-W")
           end
-          busout += bussum + "<br/>Take bus (3) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (3) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("4")
           if gotime.wday == 6
@@ -2360,7 +2360,7 @@ get '/routeit' do
           else
             sched = getSchedule("4-W")
           end
-          busout += bussum + "<br/>Take bus (4) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (4) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("5")
           if gotime.wday == 6
@@ -2370,7 +2370,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("5-W")
           end
-          busout += bussum + "<br/>Take bus (5) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (5) from <i>" + gostation.getname() + "</i> from Terminal Station."
             
         elsif gostation.hasroute("6")
           if gotime.wday == 6
@@ -2378,7 +2378,7 @@ get '/routeit' do
           else
             sched = getSchedule("6-W")
           end
-          busout += bussum + "<br/>Take bus (6) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (6) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("9")
           if gotime.wday == 6
@@ -2388,7 +2388,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("9-W")
           end
-          busout += bussum + "<br/>Take bus (9) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (9) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("11")
           if gotime.wday == 6
@@ -2398,7 +2398,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("11-W")
           end
-          busout += bussum + "<br/>Take bus (11) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (11) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("12")
           if gotime.wday == 6
@@ -2408,7 +2408,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("12-W")
           end
-          busout += bussum + "<br/>Take bus (12) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (12) from <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("13")
           if gotime.wday == 6
@@ -2418,7 +2418,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("13-W")
           end
-          busout += bussum + "<br/>Take bus (13) from <i>" + closest.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (13) from <i>" + gostation.getname() + "</i> from Terminal Station."
           
         end
           
@@ -2606,7 +2606,7 @@ get '/routeit' do
                 break
               end
             end
-            businbound += "The next bus leaves Terminal Station on this route at " + hmarray_to_time(myfirststop)
+            businbound += "The right bus leaves Terminal Station on this route at " + hmarray_to_time(myfirststop) + " and returns at " + hmarray_to_time(mylaststop)
           else
             myturntime = ""
             stopdex = 0
@@ -2617,7 +2617,7 @@ get '/routeit' do
               end
               stopdex = stopdex + 1
             end
-            businbound += "The next bus turns inbound on this route at " + hmarray_to_time(myturntime)
+            businbound += "The next bus turns inbound on this route at " + hmarray_to_time(myturntime) + " and arrives at Terminal Station at " + hmarray_to_time(mylaststop)
           end
           
           # if this first leg of the trip cannot be made, don't print out results
