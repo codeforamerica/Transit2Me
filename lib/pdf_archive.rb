@@ -2586,7 +2586,7 @@ get '/routeit' do
           sched["times"].reverse_each do |pass|
             pass.reverse_each do |stop|
               if stop != ""
-                mylaststop = stop
+                mylaststop = stop.split(":")
                 break
               end
             end
@@ -2630,7 +2630,7 @@ get '/routeit' do
           businbound += "Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station<br/>"
         end
   
-        return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + businbound + "<br/>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
+        return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + businbound + "<br/>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
           
       else
         # not sure - go to Terminal Station
