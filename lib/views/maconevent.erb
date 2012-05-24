@@ -7,7 +7,11 @@ $(document).ready(function(){
 	$("#dateof").datepicker();
 });
 function findStop(){
-	$.getJSON("/stopnear?address=" + escape( $("#input_address").val() ), function(response){
+	var address = $("#input_address").val();
+	if(address.indexOf(",") < -1){
+		address += ",Macon,GA";
+	}
+	$.getJSON("/stopnear?address=" + escape( address ), function(response){
 		$("#nearest_stop").html( "#" + response.id + " - " + response.name );
 	});
 }
@@ -32,6 +36,7 @@ function findStop(){
 			Add an event to Transit2Me!
 		</div>-->
 		<form action="/transit" method="POST" class="form-horizontal">
+			<input type="hidden" name="city" value="macon"/>
 			<fieldset>
 				<legend>Add an event to Transit2Me!</legend>
 				<div class="control-group">
@@ -51,8 +56,8 @@ function findStop(){
 					<label class="control-label" for="gotostation">Address</label>
 					<div class="controls">
 						<input id="input_address" type="text" name="gotostation"/>, Macon, GA
-						<a href="#" class="btn btn-info" onclick="findStop()" style="vertical-align:top;">Find Bus Stop</a>
 						<br/>
+						<a href="#" class="btn btn-info" onclick="findStop()" style="vertical-align:top;">Find Bus Stop</a>
 						<span id="nearest_stop"></span>
 					</div>
 				</div>

@@ -1932,80 +1932,87 @@ get '/transit' do
     @tevents = TransitEvent.search(params['eventname'])
     
     eventDest = @tevents.first.gotostation
-    eventMMDDYYYY = @tevents.first.dateof
-    eventTimeStamp = @tevents.first.timeof
-    eventTimeStamp = eventTimeStamp.sub(' ','')
-    eventTime = ''
-    if eventTimeStamp.split(":")[0].to_i == 0
-      eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20am"
-    elsif eventTimeStamp.split(":")[0].to_i < 12
-      eventTime = eventTimeStamp.split(":")[0] + ':' + eventTimeStamp.split(":")[1] + "%20am"      
-    elsif eventTimeStamp.split(":")[0].to_i == 12
-      eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20pm"
-    else
-      eventTime = (eventTimeStamp.split(":")[0].to_i - 12).to_s + ':' + eventTimeStamp.split(":")[1] + "%20pm"
-    end
-    closestStation = 'CONC'
-    
-    url = 'http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU'
-    url = URI.parse(url)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get('/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU')
-    }
-    bartschedule = res.body
+    if eventDest.index(',') != nil
+      # Macon Event
+      
 
-    narrative = ''
-    trips = bartschedule.split('<trip')
-    tripCount = 0
-    trips.each do |trip|
-      tripCount = tripCount + 1
-      if tripCount == 1
-        next
+    else
+      # SF / BART Event
+      eventMMDDYYYY = @tevents.first.dateof
+      eventTimeStamp = @tevents.first.timeof
+      eventTimeStamp = eventTimeStamp.sub(' ','')
+      eventTime = ''
+      if eventTimeStamp.split(":")[0].to_i == 0
+        eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20am"
+      elsif eventTimeStamp.split(":")[0].to_i < 12
+        eventTime = eventTimeStamp.split(":")[0] + ':' + eventTimeStamp.split(":")[1] + "%20am"      
+      elsif eventTimeStamp.split(":")[0].to_i == 12
+        eventTime = '12:' + eventTimeStamp.split(":")[1] + "%20pm"
+      else
+        eventTime = (eventTimeStamp.split(":")[0].to_i - 12).to_s + ':' + eventTimeStamp.split(":")[1] + "%20pm"
       end
-      narrative = narrative + '<ol>'
-      legs = trip.split('<leg')
-      legCount = 0
-      legs.each do |leg|
-        legCount = legCount + 1
-        if legCount == 1
+      closestStation = 'CONC'
+    
+      url = 'http://api.bart.gov/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU'
+      url = URI.parse(url)
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        http.get('/api/sched.aspx?cmd=arrive&orig=' + closestStation + '&dest=' + eventDest + '&date=' + eventMMDDYYYY + '&b=2&a=0&l=0&time=' + eventTime + '&key=PJHS-I4ER-TEQY-MHSU')
+      }
+      bartschedule = res.body
+
+      narrative = ''
+      trips = bartschedule.split('<trip')
+      tripCount = 0
+      trips.each do |trip|
+        tripCount = tripCount + 1
+        if tripCount == 1
           next
         end
-        origin = leg.slice( leg.index('origin') + 8 .. leg.length )
-        origin = origin.slice( 0 .. origin.index('"') - 1 )
-        origin = bart_id_to_name(origin)
+        narrative = narrative + '<ol>'
+        legs = trip.split('<leg')
+        legCount = 0
+        legs.each do |leg|
+          legCount = legCount + 1
+          if legCount == 1
+            next
+          end
+          origin = leg.slice( leg.index('origin') + 8 .. leg.length )
+          origin = origin.slice( 0 .. origin.index('"') - 1 )
+          origin = bart_id_to_name(origin)
 
-        originTime = leg.slice( leg.index('origTimeMin') + 13 .. leg.length )
-        originTime = originTime.slice( 0 .. originTime.index('"') - 1 )
+          originTime = leg.slice( leg.index('origTimeMin') + 13 .. leg.length )
+          originTime = originTime.slice( 0 .. originTime.index('"') - 1 )
 
-        trainhead = leg.slice( leg.index('trainHeadStation') + 18 .. leg.length )
-        trainhead = trainhead.slice(0 .. trainhead.index('"') - 1)
-        trainhead = bart_id_to_name(trainhead)
+          trainhead = leg.slice( leg.index('trainHeadStation') + 18 .. leg.length )
+          trainhead = trainhead.slice(0 .. trainhead.index('"') - 1)
+          trainhead = bart_id_to_name(trainhead)
 
-        destination = leg.slice( leg.index('destination') + 13 .. leg.length )
-        destination = destination.slice( 0 .. destination.index('"') - 1)
-        destination = bart_id_to_name(destination)
+          destination = leg.slice( leg.index('destination') + 13 .. leg.length )
+          destination = destination.slice( 0 .. destination.index('"') - 1)
+          destination = bart_id_to_name(destination)
 
-        destinationTime = leg.slice( leg.index('destTimeMin') + 13 .. leg.length )
-        destinationTime = destinationTime.slice( 0 .. destinationTime.index('"') - 1)
+          destinationTime = leg.slice( leg.index('destTimeMin') + 13 .. leg.length )
+          destinationTime = destinationTime.slice( 0 .. destinationTime.index('"') - 1)
 
-        if legCount == 2
-          narrative = narrative + '<li>Go to ' + origin + ' BART Station</li>'
-          narrative = narrative + '<li>Take the ' + originTime + ' train toward ' + trainhead + '</li>'
+          if legCount == 2
+            narrative = narrative + '<li>Go to ' + origin + ' BART Station</li>'
+            narrative = narrative + '<li>Take the ' + originTime + ' train toward ' + trainhead + '</li>'
+          end
+          if legCount >= legs.length
+            narrative = narrative + '<li>Exit at the ' + destination + ' BART Station around ' + destinationTime
+          else
+            narrative = narrative + '<li>Transfer at the ' + destination + ' BART Station around ' + destinationTime
+          end
         end
-        if legCount >= legs.length
-          narrative = narrative + '<li>Exit at the ' + destination + ' BART Station around ' + destinationTime
-        else
-          narrative = narrative + '<li>Transfer at the ' + destination + ' BART Station around ' + destinationTime
+        narrative = narrative + '</ol>'
+      end
+      if bartschedule.index('strong') != nil
+        if bartschedule.index('pounds') != nil
+          carbon = bartschedule.slice( bartschedule.index('strong') + 7 .. bartschedule.index('pounds') - 2 )
         end
       end
-      narrative = narrative + '</ol>'
+      erb :transitposted, :locals => { :narrative => narrative, :carbon => carbon }
     end
-    if bartschedule.index('strong') != nil
-      if bartschedule.index('pounds') != nil
-        carbon = bartschedule.slice( bartschedule.index('strong') + 7 .. bartschedule.index('pounds') - 2 )
-      end
-    end
-    erb :transitposted, :locals => { :narrative => narrative, :carbon => carbon }
   else
     erb :transit
   end
@@ -2014,6 +2021,7 @@ end
 post '/transit' do
   if params['eventname']
     t_evt = TransitEvent.create!(params)
+    erb :eventembed, :locals => { :event => t_evt }
   end
 end
 

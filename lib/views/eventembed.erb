@@ -1,0 +1,27 @@
+	<head>
+		<title>Transit2Me - Event Embed</title>
+		<link href="../bootstrap.min.css" rel="stylesheet" type="text/css" media="screen"/>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">
+						Transit2Me
+					</a>
+					<form class="navbar-search pull-right">
+						<input type="text" class="search-query" placeholder="Find Event"/>
+					</form>
+				</div>
+			</div>
+		</div>
+		<%= t_evt.eventname %> was posted.
+		<h1 style="color:green;font-size:16pt;">Get here by bus, take MTA!</h1>
+		Address:
+		<form action="/geotransit" method="GET">
+			<input name="eventname" type="hidden" value="<%= t_evt.eventname %>"/>
+			<input name="address" type="text" size="30"/>
+			<br/>
+			<input type="submit" value="Get Directions"/>
+		</form>
+	</body>
