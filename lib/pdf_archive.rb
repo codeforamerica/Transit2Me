@@ -2037,12 +2037,11 @@ get '/routeit' do
     # load the event and its timestamp
     event = TransitEvent.first( :eventname => params['eventname'] )
 
-    day = event.dateof.split('/')[0].to_i()
-    month = event.dateof.split('/')[1].to_i()
-    year = event.dateof.split('/')[2].to_i()    
-    hour = event.timeof.split(':')[0].to_i()
-    minute = event.timeof.split(':')[1].to_i()
-    return minute.to_s()
+    day = event.dateof.split('/')[0]
+    month = event.dateof.split('/')[1]
+    year = event.dateof.split('/')[2]   
+    hour = event.timeof.split(':')[0]
+    minute = event.timeof.split(':')[1]
 
     gotime = Time.new( year, month, day, hour, minute, 0, "-04:00" )
 
