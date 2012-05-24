@@ -2084,8 +2084,8 @@ get '/routeit' do
     turntime = [ ]
     endtime = [ ]
     firsttime = [ ]
-      
-    busout = "<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>"
+
+    busout = ""
 
     # look for routes shared between the start and end stops
     sameroutes = nil
@@ -2307,7 +2307,7 @@ get '/routeit' do
         else
           busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
         end
-        return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
+        return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
       end
     else
       # take a route toward Terminal Station, then transfer
@@ -2634,7 +2634,7 @@ get '/routeit' do
           
       else
         # not sure - go to Terminal Station
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station."
+        busout += "<h3>" + address + "</h3><div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station."
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
       end
     end
