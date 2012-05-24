@@ -2283,8 +2283,9 @@ get '/routeit' do
         
       else
         # move along the route away from Terminal Station
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station. Arrive at library."
+        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> outbound from Terminal Station."
         dothispass = -1
+        turntime = ""
         # find the latest bus on the schedule which reaches inbound turning point before this event
         # direct them to catch it at the time it starts the route (usually when leaving Terminal Station)
         sched["times"].reverse_each do |pass|
@@ -2302,16 +2303,16 @@ get '/routeit' do
             break
           end
         end
-        # firsttime
-        pass.each do |stop|
-          if stop != ""
-            firsttime = stop.split(":")
-            break
-          end
-        end
         if dothispass == -1
           busout += "<br/>There are no more outbound buses today"
         else
+          firsttime = ""
+          dothispass.each do |stop|
+            if stop != ""
+              firsttime = stop.split(":")
+              break
+            end
+          end
           busout += "<br/>The next bus will go outbound on this route at " + hmarray_to_time(firsttime)
         end
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
