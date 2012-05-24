@@ -2027,7 +2027,7 @@ end
 
 get '/event' do
   if params['name']
-    t_evt = TransitEvent.first( :eventname => params['event'] )
+    t_evt = TransitEvent.first( :eventname => params['name'] )
     erb :eventembed, :locals => { :event => t_evt, :just_created => "false" }
   end
 end
