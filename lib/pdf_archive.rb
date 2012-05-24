@@ -2030,6 +2030,10 @@ get '/wherenow2' do
 end
 
 get '/' do
+  erb :maconevent
+end
+
+get '/eventsf' do
   erb :transit
 end
 

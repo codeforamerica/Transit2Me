@@ -1,0 +1,81 @@
+	<head>
+		<title>Transit2Me - Add Event</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+$(document).ready(function(){
+	$("#dateof").datepicker();
+});
+function findStop(){
+	$.getJSON("/stopnear?address=" + escape( $("#input_address").val() ), function(response){
+		$("#nearest_stop").html( "#" + response.id + " - " + response.name );
+	});
+}
+		</script>
+		<link href="../bootstrap.min.css" rel="stylesheet" type="text/css" media="screen"/>
+		<link href="../jquerystyle.css" rel="stylesheet" type="text/css" media="screen"/>
+	</head>
+	<body>
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="brand" href="#">
+						Transit2Me
+					</a>
+					<form class="navbar-search pull-right">
+						<input type="text" class="search-query" placeholder="Find Event"/>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--<div class="well">
+			Add an event to Transit2Me!
+		</div>-->
+		<form action="/transit" method="POST" class="form-horizontal">
+			<fieldset>
+				<legend>Add an event to Transit2Me!</legend>
+				<div class="control-group">
+					<label class="control-label" for="eventname">Event's Name</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="eventname" name="eventname"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="eventrunner">Organizer</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="eventrunner" name="eventrunner"/>
+						<input id="eventrunnerid" name="eventrunnerid" type="hidden" value="-"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="gotostation">Address</label>
+					<div class="controls">
+						<input id="input_address" type="text" name="gotostation"/>, Macon, GA
+						<a href="#" class="btn btn-info" onclick="findStop()" style="vertical-align:top;">Find Bus Stop</a>
+						<br/>
+						<span id="nearest_stop"></span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="date_of">Event's Date</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="dateof" name="dateof"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="time_of">Event's Time</label>
+					<div class="controls">
+						<input type="text" id="timeof" name="timeof" value="12:00"/>
+						<select name="ampm">
+							<option value="am">AM</option>
+							<option value="pm">PM</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">Save changes</button>
+					<button class="btn">Cancel</button>
+				</div>
+			</fieldset>
+		</form>
+	</body>
