@@ -2308,21 +2308,20 @@ get '/routeit' do
           busout += "<br/>There are no more outbound buses today"
         else
           firsttime = ""
+          turntime = ""
+          stopdex = 0
           dothispass.each do |stop|
-            if stop != ""
+            if stop != "" and firsttime == ""
               firsttime = stop.split(":")
+            end
+            if stopdex >= sched["turnaround"] and stop != ""
+              turntime = stop.split(":")
               break
             end
-          end
-          endtime = ""
-          dothispass.reverse_each do |stop|
-            if stop != ""
-              endtime = stop.split(":")
-              break
-            end
+            stopdex = stopdex + 1
           end
           busout += "<br/>Your bus will go outbound on this route at " + hmarray_to_time(firsttime)
-          busout += "<br/>Arrive at event by " + hmarray_to_time(endtime)
+          busout += "<br/>Arrive at event by " + hmarray_to_time(turntime)
         end
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n<div style='background-color:silver;border-bottom:1px solid #444;padding:2px;width:100%;'>Directions to event from:</div>" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
       end
