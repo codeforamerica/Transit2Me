@@ -2041,6 +2041,14 @@ get '/routeit' do
     month = event.dateof.split('/')[0]
     year = event.dateof.split('/')[2]   
     hour = event.timeof.split(':')[0]
+    if event.ampm and event.ampm == "pm"
+      if hour.to_i > 12
+        hour = hour.to_i + 12
+        hour = hour.to_s
+      end
+    elsif hour == "12" and event.ampm and event.ampm == "am"
+      hour = "0"
+    end
     minute = event.timeof.split(':')[1]
     gotime = Time.new( year, month, day, hour, minute, 0, "-04:00" )
 

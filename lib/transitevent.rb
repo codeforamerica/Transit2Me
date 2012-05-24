@@ -8,6 +8,7 @@ class TransitEvent
   key :timeof, String
   key :eventrunnerid, String
   key :gotostation, String
+  key :ampm, String
   timestamps!
 
   searches :eventname, :eventrunner, :gotostation
