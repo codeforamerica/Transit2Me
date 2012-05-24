@@ -2461,6 +2461,8 @@ get '/routeit' do
         # now find the route of the first leg of the trip - from my closest stop to Terminal Station
         # respect outbound-only bus stop rules
         businbound = "";
+        myfirststop = "";
+        mylaststop = "";
         
         if closest.getroute().index("0") == nil  # this route is assigned when none are known
           # look up non-library-connected routes
