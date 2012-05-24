@@ -2036,8 +2036,8 @@ get '/routeit' do
   if(params['address'])
     # load the event and its timestamp
     event = TransitEvent.first( :eventname => params['eventname'] )
-    gotime = Time.new( event.dateof.split('/')[2].to_i(), event.dateof.split('/')[1].to_i(), event.dateof.split('/')[0].to_i(), event.timeof.split(':')[0].to_i(), event.timeof.split(':')[1].to_i(), 0, "-04:00" )
     return event.dateof.split('/').length.to_s() + "--" + event.timeof.split(":").length.to_s()
+    gotime = Time.new( event.dateof.split('/')[2].to_i(), event.dateof.split('/')[1].to_i(), event.dateof.split('/')[0].to_i(), event.timeof.split(':')[0].to_i(), event.timeof.split(':')[1].to_i(), 0, "-04:00" )
 
     # No Sunday buses
     if gotime.wday == 0
