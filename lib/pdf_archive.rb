@@ -2037,12 +2037,11 @@ get '/routeit' do
     # load the event and its timestamp
     event = TransitEvent.first( :eventname => params['eventname'] )
 
-    day = event.dateof.split('/')[0]
-    month = event.dateof.split('/')[1]
+    day = event.dateof.split('/')[1]
+    month = event.dateof.split('/')[0]
     year = event.dateof.split('/')[2]   
     hour = event.timeof.split(':')[0]
     minute = event.timeof.split(':')[1]
-    return year + "-" + month + "-" + day + "-" + hour + "-" + minute
     gotime = Time.new( year, month, day, hour, minute, 0, "-04:00" )
 
     # No Sunday buses
