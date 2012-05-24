@@ -2241,7 +2241,6 @@ get '/routeit' do
 
       if startdist > enddist
         # move closer to Terminal Station
-        busout += "<h3>" + address + "</h3>" + bussum + "<br/>Take a bus from <i>" + closest.getname() + "</i> toward Terminal Station. Arrive at event."
         dothispass = -1
         # find the latest bus on the schedule which reaches Terminal Station before this event
         # direct them to catch it at the inbound turning time
@@ -2258,19 +2257,27 @@ get '/routeit' do
             break
           end
         end
-        # inbound turning time
-        stopdex = 0
-        dothispass.each do |stop|
-          if stopdex >= sched["turnaround"] and stop != ""
-            turntime = stop.split(":")
-            break
-          end
-          stopdex = stopdex + 1
-        end
         if dothispass == -1
           busout += "<br/>There are no more inbound buses today"
         else
-          busout += "<br/>The next bus will go inbound on this route at " + hmarray_to_time(turntime)
+          # inbound turning time
+          stopdex = 0
+          dothispass.each do |stop|
+            if stopdex >= sched["turnaround"] and stop != ""
+              turntime = stop.split(":")
+              break
+            end
+            stopdex = stopdex + 1
+          end
+          endtime = ""
+          dothispass.reverse_each do |stop|
+            if stop != ""
+              endtime = stop.split(":")
+              break
+            end
+          end
+          busout += "<br/>Your bus will go inbound on this route at " + hmarray_to_time(turntime)
+          busout += "<br/>Arrive by " + hmarray_to_time(endtime)
         end
         return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<br/><a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
         
@@ -2320,7 +2327,7 @@ get '/routeit' do
             # Weekday schedule
             sched = getSchedule("1-W")
           end
-          busout += bussum + "<br/>Take bus (1) from <i>" + gostation.getname() + "</i> from Terminal Station"
+          busout += bussum + "<br/>Take bus (1) to <i>" + gostation.getname() + "</i> from Terminal Station"
 
         elsif gostation.hasroute("2")
           routes = closest.getroute()
@@ -2342,7 +2349,7 @@ get '/routeit' do
               sched = getSchedule("2-W")
             end
           end
-          busout += bussum + "<br/>Take bus (2) from <i>" + gostation.getname() + "</i> from Terminal Station"
+          busout += bussum + "<br/>Take bus (2) to <i>" + gostation.getname() + "</i> from Terminal Station"
 
         elsif gostation.hasroute("3")
           if gotime.wday == 6
@@ -2352,7 +2359,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("3-W")
           end
-          busout += bussum + "<br/>Take bus (3) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (3) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("4")
           if gotime.wday == 6
@@ -2360,7 +2367,7 @@ get '/routeit' do
           else
             sched = getSchedule("4-W")
           end
-          busout += bussum + "<br/>Take bus (4) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (4) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("5")
           if gotime.wday == 6
@@ -2370,7 +2377,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("5-W")
           end
-          busout += bussum + "<br/>Take bus (5) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (5) to <i>" + gostation.getname() + "</i> from Terminal Station."
             
         elsif gostation.hasroute("6")
           if gotime.wday == 6
@@ -2378,7 +2385,7 @@ get '/routeit' do
           else
             sched = getSchedule("6-W")
           end
-          busout += bussum + "<br/>Take bus (6) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (6) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("9")
           if gotime.wday == 6
@@ -2388,7 +2395,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("9-W")
           end
-          busout += bussum + "<br/>Take bus (9) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (9) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("11")
           if gotime.wday == 6
@@ -2398,7 +2405,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("11-W")
           end
-          busout += bussum + "<br/>Take bus (11) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (11) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("12")
           if gotime.wday == 6
@@ -2408,7 +2415,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("12-W")
           end
-          busout += bussum + "<br/>Take bus (12) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (12) to <i>" + gostation.getname() + "</i> from Terminal Station."
 
         elsif gostation.hasroute("13")
           if gotime.wday == 6
@@ -2418,7 +2425,7 @@ get '/routeit' do
             # weekday schedule
             sched = getSchedule("13-W")
           end
-          busout += bussum + "<br/>Take bus (13) from <i>" + gostation.getname() + "</i> from Terminal Station."
+          busout += bussum + "<br/>Take bus (13) to <i>" + gostation.getname() + "</i> from Terminal Station."
           
         end
           
