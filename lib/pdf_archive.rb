@@ -2021,6 +2021,22 @@ end
 post '/transit' do
   if params['eventname']
     t_evt = TransitEvent.create!(params)
+    
+    # add latitude and longitude to 
+    address = t_evt.gotostation
+    if(address.downcase.index('macon') == nil)
+      address += ",Macon,GA"
+    end
+    url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(address)
+    url = URI.parse(url)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.get('/service/csv/geocode?address=' + URI.escape(address))
+    }
+    response = res.body.split(",")
+    t_evt.set(:gotostation => t_evt.gotostation + "|" + response[0] + "|" + response[1])
+    t_evt.reload
+
+    # print widget with its embed code
     erb :eventembed, :locals => { :event => t_evt, :just_created => "true" }
   end
 end
@@ -2073,20 +2089,10 @@ get '/routeit' do
     closest = closest_macon(lat, lng, gotime.wday)
 
     # convert event address to its nearest bus stop
-    # TODO: set the bus stop once, before entering into the database
-    gopoint = event.gotostation
-    if(gopoint.downcase.index('macon') == nil)
-      gopoint += ",Macon,GA"
-    end
-    url = 'http://geocoder.us/service/csv/geocode?address=' + URI.escape(gopoint)
-    url = URI.parse(url)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-      http.get('/service/csv/geocode?address=' + URI.escape(gopoint))
-    }
-    response = res.body.split(",")
-    lat = Float( response[0] )
-    lng = Float( response[1] )
-    gostation = closest_macon(lat, lng, gotime.wday)
+    # gotostation is stored as ADDRESS, Macon, GA|LATITUDE|LONGITUDE
+    lat = event.gotostation.split("|")[ event.gotostation.split("|").length-2 ]
+    lng = event.gotostation.split("|")[ event.gotostation.split("|").length-1 ]
+    gostation = closest_macon(lat.to_f, lng.to_f, gotime.wday)
 
     bussum = ''
     turntime = [ ]
