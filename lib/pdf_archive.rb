@@ -1500,6 +1500,25 @@ get '/json' do
   end
 end
 
+get '/library' do
+  if params['address']
+    if params['date']
+      timestamp = params['date'].split(",")
+      return gogettransit(params['address'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
+    else
+      return gogettransit(params['address'], (Time.now()-60*60*4)  ) # needs to be real EST/EDT
+    end
+  elsif params['route']
+    if params['date']
+      timestamp = params['date'].split(",")
+      return gogettransit('Route:' + params['route'], Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" ))
+    else
+      return gogettransit('Route:' + params['route'], (Time.now()-60*60*4) ) # needs to be real EST/EDT
+    end
+  end
+  erb :georequest, :locals => { :event => params['event'] }
+end
+
 get '/geotransit' do
   if params['address']
     if params['date']
