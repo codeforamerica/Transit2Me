@@ -1829,13 +1829,16 @@ def gogettransit(address, gotime)
             end
           end
           
-          # Now catch the next 2 bus from Terminal Station
+          # Now catch the next 1 bus from Terminal Station
+          # Unless it's Saturday, where you take the 2 bus
+          libraryroutenum = "1"
           if gotime.wday == 6
             # Saturday schedule
             sched = getSchedule("2-S")
+            libraryroutenum = "2"
           else
             # Weekday schedule
-            sched = getSchedule("2-W")
+            sched = getSchedule("1-W")
           end
           
           sched["times"].each do |pass|
@@ -1850,7 +1853,7 @@ def gogettransit(address, gotime)
               break
             end
           end
-          busout += "<br/>Then you catch the next Route 2 bus, which leaves at " + hmarray_to_time(firsttime)
+          busout += "<br/>Then you catch the next Route " + libraryroutenum + " bus, which leaves at " + hmarray_to_time(firsttime)
           
           return "<!DOCTYPE html>\n<html>\n<head>\n<title>Transit Directions</title>\n</head>\n<body style='font-family:arial;'>\n" + busout + "\n<a href='javascript:history.back()'>&larr; New Address</a></body>\n</html>"
           
