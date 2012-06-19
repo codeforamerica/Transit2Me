@@ -17,6 +17,7 @@ function display(stopdetails){
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + visit.intime + ", " + visit.outtime + "<br/>";
   }
   document.getElementById("popopper").appendChild(nexttimes);
+  document.getElementById("popopper").style.display = "block";
 }
 
 function init(){
@@ -48,7 +49,9 @@ function init(){
             document.body.appendChild(s);
           }
         },
-        off: function(){ }
+        off: function(){
+          document.getElementById("popopper").style.display = "none";
+        }
       });
     });
   baseIcon = L.Icon.extend({
@@ -113,9 +116,16 @@ html, body {
   position:absolute;
   top:50px;
   }
+  #popopper{
+position:fixed;
+bottom:10px;
+left:10px;
+background-color:#fff;
+padding:4px;
+  }
   </style>
 </head>
 <body onload="init()">
   <div id="map"></div>
-  <div id="popopper" style="position:fixed;bottom:10px;left:10px;"></div>
+  <div id="popopper"></div>
 </body>
