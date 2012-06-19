@@ -1514,7 +1514,7 @@ get '/stopnear' do
   closestStations = closest_macon(lat, lng, 1)  # send Monday so we see all stops
   closest = closestStations[0]
   routePrintOut = [ ]
-  gotime = Time.now
+  gotime = Time.now() - 60 * 60 * 4
   closestStations.each do |station|
     intime = "NONE"
     station.getintimes().each do |time|
