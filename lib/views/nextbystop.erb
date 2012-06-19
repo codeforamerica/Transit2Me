@@ -48,6 +48,43 @@ html, body {
   padding: 0;
   margin: 0;
 }
+.wax-tooltip {
+  z-index:999999;
+  position:absolute;
+  background:#FFF;
+  color:#000;
+  padding:10px;
+  left:10px;
+  bottom:10px;
+  max-width:300px;
+  opacity:1;
+  -webkit-transition:opacity .5s;
+  -moz-transition:opacity .5s;
+  }
+
+.wax-movetip {
+  position:absolute;
+  z-index:999999;
+  background:#333;
+  color:#fff;
+  padding:10px;
+  max-width:300px;
+}
+
+
+.wax-tooltip.hide { opacity:0; }
+
+.wax-tooltip .close {
+  display:block;
+  position:absolute;
+  top:0px;
+  right:0px;
+  }
+
+.wax-mobile-body .wax-tooltip {
+  position:absolute;
+  top:50px;
+  }
   </style>
 </head>
 <body onload="init()">
