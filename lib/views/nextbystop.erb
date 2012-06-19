@@ -23,12 +23,11 @@ function init(){
       .tilejson(tilejson)
       .on(wax.tooltip().animate(false).parent(map._container).events())
       .on({
-        on: function() {
-          console.log('on');
+        on: function(){
+          var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
+          
         },
-        off: function() {
-          console.log('off');
-        }
+        off: function(){ }
       });
     });
   baseIcon = L.Icon.extend({

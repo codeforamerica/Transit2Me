@@ -665,7 +665,7 @@ get '/stopbyid' do
   closestStations = [ ]
   stations.each do |station|
     dist = (station.getlat() - lat )**2 + ( station.getlng() - lng )**2
-    if(station.getid() == id)
+    if(station.getid() == params['id'])
       closestStations.push(station)
     end
   end
