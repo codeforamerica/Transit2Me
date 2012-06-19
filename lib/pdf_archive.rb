@@ -1525,12 +1525,12 @@ get '/stopnear' do
       end
     end
     outtime = "NONE"
-    station.getouttimes().reverse_each do |time|
+    station.getouttimes().each do |time|
       turntime = time.split(":")
-      if(turntime[0].to_i * 60 + turntime[1].to_i <= gotime.hour * 60 + gotime.min)
+      if(turntime[0].to_i * 60 + turntime[1].to_i > gotime.hour * 60 + gotime.min)
+        outtime = time
         break
       end
-      outtime = time
     end
     routePrintOut.push('{ "route": ' + station.getroute()[0] + ', "intime": "' + intime + '", "outtime": "' + outtime + '"}');
   end
