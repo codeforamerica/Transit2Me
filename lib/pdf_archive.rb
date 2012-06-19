@@ -659,6 +659,7 @@ def closest_macon(lat, lng, weekday)
   ]
   closestStation = nil
   closestDistance = 100000
+  closestStationVersions = [ ]
   stations.each do |station|
     # if it's Saturday, don't count stops where bus is not running on Saturday
     if(weekday == 6 and station.getroute()[0].split("-")[0] == "1")
