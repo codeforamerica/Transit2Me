@@ -6,6 +6,7 @@
   <script type="text/javascript" src="/wax.leaf.min.js"></script>
   <script type="text/javascript">
 var baseIcon, map;
+var knowTimes = { };
 
 function init(){
   map = new L.Map('map');
@@ -25,7 +26,16 @@ function init(){
       .on({
         on: function(){
           var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
-          
+          if(knowTimes[ stopnum ]){
+            // already requested this stop
+          }
+          else{
+            knowTimes[ stopnum ] = true;
+            var s = document.createElement("script");
+            s.type = "text/javascript";
+            s.src = "/stopbyid?jsonp=display&id=" + ;
+            document.body.appendChild(s);
+          }
         },
         off: function(){ }
       });
