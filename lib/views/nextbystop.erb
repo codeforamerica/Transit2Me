@@ -21,8 +21,16 @@ function init(){
     wax.leaf.interaction()
       .map(map)
       .tilejson(tilejson)
-      .on(wax.tooltip().animate(false).parent(map._container).events());
-  });
+      .on(wax.tooltip().animate(false).parent(map._container).events())
+      .on({
+        on: function() {
+          console.log('on');
+        },
+        off: function() {
+          console.log('off');
+        }
+      });
+    });
   baseIcon = L.Icon.extend({
     iconUrl: "/images/marker.png",
     shadowUrl: "/images/marker-shadow.png",
