@@ -7,14 +7,30 @@
   <script type="text/javascript">
 var baseIcon, map;
 var knowTimes = { };
-
+function timeConvert(time){
+  var hour, minute, ampm;
+  hour = time.split(":")[0] * 1;
+  minute = time.split(":")[1] * 1;
+  ampm = "am";
+  if(hour >= 12){
+    ampm = "pm";
+  }
+  if(hour == 0){
+    hour = 12;
+  }
+  else if(hour > 12){
+    hour -= 12;
+  }
+  return hour + ":" + minute + " " + ampm;
+}
 function display(stopdetails){
   //console.log(stopdetails);
+  document.getElementById("popopper").innerHTML = "";
   var nexttimes = document.createElement('p');
   nexttimes.innerHTML = "";
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
-    nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + visit.intime + ", " + visit.outtime + "<br/>";
+    nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + ", " + timeConvert(visit.outtime) + "<br/>";
   }
   document.getElementById("popopper").appendChild(nexttimes);
   document.getElementById("popopper").style.display = "block";
