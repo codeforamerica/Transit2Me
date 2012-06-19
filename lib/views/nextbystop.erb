@@ -32,7 +32,7 @@ function display(stopdetails){
   	var visit = stopdetails.routes[v];
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + ", " + timeConvert(visit.outtime) + "<br/>";
   }
-  knowTimes[stopdetails.id] = nexttimes.innerHTML;
+  knowTimes[ stopdetails.id ] = nexttimes.innerHTML;
   document.getElementById("popopper").appendChild(nexttimes);
   document.getElementById("popopper").style.display = "block";
 }
@@ -55,15 +55,15 @@ function init(){
       .on({
         on: function(){
           var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
-          if(knowTimes[ stopnum ]){
+          if(knowTimes[ stopnum ] && knowTimes[ stopnum ] != "a"){
             // already requested this stop
             document.getElementById("popopper").innerHTML = "";
             var nexttimes = document.createElement('p');
             nexttimes.innerHTML = knowTimes[ stopnum ];
             document.getElementById("popopper").appendChild(nexttimes);
           }
-          else{
-            knowTimes[ stopnum ] = true;
+          else if(knowTimes[ stopnum ] != "a"){
+            knowTimes[ stopnum ] = "a";
             var s = document.createElement("script");
             s.type = "text/javascript";
             s.src = "/stopbyid?jsonp=display&id=" + stopnum;
