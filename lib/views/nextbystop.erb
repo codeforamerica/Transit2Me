@@ -16,7 +16,7 @@ function display(stopdetails){
   	var visit = stopdetails[v];
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + visit.intime + ", " + visit.outtime + "<br/>";
   }
-  document.getElementById("info").appendChild(nexttimes);
+  document.getElementById("popopper").appendChild(nexttimes);
 }
 
 function init(){
@@ -83,7 +83,7 @@ html, body {
   color:#000;
   padding:10px;
   left:10px;
-  bottom:10px;
+  bottom:40px;
   max-width:300px;
   opacity:1;
   -webkit-transition:opacity .5s;
@@ -117,4 +117,5 @@ html, body {
 </head>
 <body onload="init()">
   <div id="map"></div>
+  <div id="popopper" style="position:fixed;bottom:10px;left:10px;"></div>
 </body>
