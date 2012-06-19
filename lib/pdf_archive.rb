@@ -1494,6 +1494,10 @@ post '/geotransit' do
   gogettransit(params['address'], (Time.now()-60*60*4) )  # needs to be real EST/EDT
 end
 
+get '/nextmap' do
+  erb :nextbystop
+end
+
 get '/stopnear' do
   content_type :json
 

@@ -1,0 +1,51 @@
+<head>
+  <title>Next Buses Map</title>
+  <link rel="stylesheet" href="/leaflet.css" type="text/css"/>
+  <!--[if lte IE 8]><link rel="stylesheet" href="/leaflet.ie.css" /><![endif]-->
+  <script type="text/javascript" src="/leaflet.js"></script>
+  <script type="text/javascript" src="/wax.leaf.min.js"></script>
+  <script type="text/javascript">
+var baseIcon, map;
+
+function init(){
+  map = new L.Map('map');
+  /*var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; OpenStreetMap contributors. Tiles by Code for America',
+    minZoom: 14,
+    maxZoom: 17
+  });
+  map.addLayer(maconbus);*/
+  map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
+  wax.tilejson('http://api.tiles.mapbox.com/v3/jllord.mta.jsonp', function(tilejson) {
+    map.addLayer(new wax.leaf.connector(tilejson));
+  });
+  baseIcon = L.Icon.extend({
+    iconUrl: "/images/marker.png",
+    shadowUrl: "/images/marker-shadow.png",
+    iconSize: new L.Point(30, 36),
+    shadowSize: new L.Point(42, 30),
+    iconAnchor: new L.Point(15, 18),
+    popupAnchor: new L.Point(0, -12)
+  });
+  
+  
+}
+  </script>
+  <style type="text/css">
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+#map{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+  </style>
+</head>
+<body onload="init()">
+  <div id="map"></div>
+</body>
