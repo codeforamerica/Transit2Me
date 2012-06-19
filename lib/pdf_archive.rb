@@ -1532,7 +1532,7 @@ get '/stopnear' do
         break
       end
     end
-    routePrintOut.push('{ route:' + station.getroute()[0] + ', intime: "' + intime + '", outtime: "' + outtime + '"}');
+    routePrintOut.push('{ "route": ' + station.getroute()[0] + ', "intime": "' + intime + '", "outtime": "' + outtime + '"}');
   end
   return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ ' + closest.getroute().join(',') + ' ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] }'
 end
