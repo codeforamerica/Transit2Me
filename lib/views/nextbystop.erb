@@ -61,6 +61,7 @@ function init(){
             var nexttimes = document.createElement('p');
             nexttimes.innerHTML = knowTimes[ stopnum ];
             document.getElementById("popopper").appendChild(nexttimes);
+            document.getElementById("popopper").style.display = "block";
           }
           else if(knowTimes[ stopnum ] != "a"){
             knowTimes[ stopnum ] = "a";
