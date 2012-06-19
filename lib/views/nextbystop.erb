@@ -10,7 +10,7 @@ var knowTimes = { };
 function timeConvert(time){
   var hour, minute, ampm;
   hour = time.split(":")[0] * 1;
-  minute = time.split(":")[1] * 1;
+  minute = time.split(":")[1];
   ampm = "am";
   if(hour >= 12){
     ampm = "pm";
