@@ -1565,7 +1565,7 @@ def gogettransit(address, gotime)
       #  closest = closest_macon(lat, lng, gotime.wday)
       #end
       # assume Macon for now
-      closest = closest_macon(lat, lng, gotime.wday)
+      closest = closest_macon(lat, lng, gotime.wday)[0]
     else
       closest = MaconStop.new("000","No Place",address.split(":")[1],[0,0])
       lat = 0
@@ -2085,13 +2085,13 @@ get '/routeit' do
     response = res.body.split(",")
     lat = Float( response[0] )
     lng = Float( response[1] )
-    closest = closest_macon(lat, lng, gotime.wday)
+    closest = closest_macon(lat, lng, gotime.wday)[0]
 
     # convert event address to its nearest bus stop
     # gotostation is stored as ADDRESS, Macon, GA|LATITUDE|LONGITUDE
     lat = event.gotostation.split("|")[ event.gotostation.split("|").length-2 ]
     lng = event.gotostation.split("|")[ event.gotostation.split("|").length-1 ]
-    gostation = closest_macon(lat.to_f, lng.to_f, gotime.wday)
+    gostation = closest_macon(lat.to_f, lng.to_f, gotime.wday)[0]
 
     bussum = ''
     turntime = [ ]
