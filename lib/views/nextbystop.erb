@@ -16,7 +16,7 @@ function display(stopdetails){
   	var visit = stopdetails[v];
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + visit.intime + ", " + visit.outtime + "<br/>";
   }
-  document.body.appendChild(nexttimes);
+  document.getElementById("info").appendChild(nexttimes);
 }
 
 function init(){
