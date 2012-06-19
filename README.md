@@ -3,14 +3,21 @@
 Organizers list events, and receive a badge which they can embed on their website.
 Visitors see a box where they can enter their address and receive transit directions to arrive at your event.
 
-DEBUG: change time zone to local, not UTC or fixed time
-
-Roadmap: Track pledges to take public transit, importing events from Google Calendar, support for GTFS
+Roadmap: Timezones, track pledges to take public transit, importing events from Google Calendar, support for GTFS
 
 The project supports these transit systems:
 <ul>
 <li>BART in San Francisco</li>
-<li>Macon-Bibb County Transit buses (in progress)</li>
+<li>Macon-Bibb County Transit buses</li>
+</ul>
+
+API calls:
+<ul>
+<h3>Retrieving Stops</h3>
+<li>/stopnear?address=1000%20Houston%20Ave</li>
+<li>/stopbylatlng?lat=32.8&lng=-83.63</li>
+<h3>Embedding an Event</h3>
+<li>/routeit?eventname=My+Event&address=1180%20Washington%20Ave</li>
 </ul>
 
 ## Setup
