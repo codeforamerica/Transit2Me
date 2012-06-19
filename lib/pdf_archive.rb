@@ -1510,11 +1510,39 @@ get '/stopnear' do
   lat = Float( response[0] )
   lng = Float( response[1] )
 
-  closest = ''
-  closestStations = closest_macon(lat, lng, 1)  # send Monday so we see all stops
+  gotime = Time.now() - 60 * 60 * 4
+  closestStations = closest_macon(lat, lng, gotime.wday)
   closest = closestStations[0]
   routePrintOut = [ ]
+  closestStations.each do |station|
+    intime = "NONE"
+    station.getintimes().each do |time|
+      turntime = time.split(":")
+      if(turntime[0].to_i * 60 + turntime[1].to_i > gotime.hour * 60 + gotime.min)
+        intime = time
+        break
+      end
+    end
+    outtime = "NONE"
+    station.getouttimes().each do |time|
+      turntime = time.split(":")
+      if(turntime[0].to_i * 60 + turntime[1].to_i > gotime.hour * 60 + gotime.min)
+        outtime = time
+        break
+      end
+    end
+    routePrintOut.push('{ "route": ' + station.getroute()[0] + ', "intime": "' + intime + '", "outtime": "' + outtime + '"}');
+  end
+  return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ ' + closest.getroute().join(',') + ' ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] }'
+end
+
+get '/stopbylatlng' do
+  content_type :json
+
   gotime = Time.now() - 60 * 60 * 4
+  closestStations = closest_macon(Float( params["lat"] ), Float( params["lng"] ), gotime.wday)
+  closest = closestStations[0]
+  routePrintOut = [ ]
   closestStations.each do |station|
     intime = "NONE"
     station.getintimes().each do |time|
