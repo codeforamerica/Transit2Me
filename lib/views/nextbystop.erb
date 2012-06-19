@@ -12,8 +12,8 @@ function display(stopdetails){
   //console.log(stopdetails);
   var nexttimes = document.createElement('p');
   nexttimes.innerHTML = "";
-  for(var v=0;v<stopdetails.length;v++){
-  	var visit = stopdetails[v];
+  for(var v=0;v<stopdetails.routes.length;v++){
+  	var visit = stopdetails.routes[v];
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + visit.intime + ", " + visit.outtime + "<br/>";
   }
   document.getElementById("popopper").appendChild(nexttimes);
