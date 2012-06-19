@@ -8,6 +8,10 @@
 var baseIcon, map;
 var knowTimes = { };
 
+function display(stopdetails){
+  console.log(stopdetails);
+}
+
 function init(){
   map = new L.Map('map');
   /*var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
@@ -33,7 +37,7 @@ function init(){
             knowTimes[ stopnum ] = true;
             var s = document.createElement("script");
             s.type = "text/javascript";
-            s.src = "/stopbyid?jsonp=display&id=" + ;
+            s.src = "/stopbyid?jsonp=display&id=" + stopnum;
             document.body.appendChild(s);
           }
         },
