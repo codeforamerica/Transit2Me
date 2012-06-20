@@ -30,7 +30,7 @@ function display(stopdetails){
   nexttimes.innerHTML = "";
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
-    nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + ", " + timeConvert(visit.outtime) + "<br/>";
+    nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + " inbound, " + timeConvert(visit.outtime) + " outbound<br/>";
   }
   knowTimes[ stopdetails.id ] = nexttimes.innerHTML;
   document.getElementById("popopper").appendChild(nexttimes);
