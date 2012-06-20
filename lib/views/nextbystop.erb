@@ -8,6 +8,9 @@
 var baseIcon, map;
 var knowTimes = { };
 function timeConvert(time){
+  if(time == "NONE"){
+    return "None";
+  }
   var hour, minute, ampm;
   hour = time.split(":")[0] * 1;
   minute = time.split(":")[1];
