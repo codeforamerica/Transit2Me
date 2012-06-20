@@ -719,9 +719,9 @@ get '/stopbyid' do
     routePrintOut.push('{ "route": "' + station.getroute()[0] + '", "intime": "' + intime + '", "outtime": "' + outtime + '"}');
   end
   if(params['jsonp'])
-    return params['jsonp'] + '({ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ ' + closest.getroute().join(',') + ' ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] });'
+    return params['jsonp'] + '({ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ "' + closest.getroute().join('","') + '" ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] });'
   else
-    return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ ' + closest.getroute().join(',') + ' ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] }'
+    return '{ "id": "' + closest.getid() + '", "name":"' + closest.getname() + '", "routes": [ "' + closest.getroute().join('","') + '" ], "latlng": [ ' + closest.getlat().to_s + ',' + closest.getlng().to_s + ' ], "routes": [ ' + routePrintOut.join(',') + ' ] }'
   end
 
 end
