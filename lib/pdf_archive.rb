@@ -1171,7 +1171,9 @@ get '/stopbyid' do
   gotime = Time.now() - 60 * 60 * 4
 
   stations = ""
-  if(gotime.wday == 6)
+  if(gotime.wday == 0):
+    stations = [ ]
+  elsif(gotime.wday == 6)
     # saturday schedule
     stations = get_saturday_stations()
   else
