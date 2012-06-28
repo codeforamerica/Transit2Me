@@ -1218,7 +1218,7 @@ end
 
 def closest_macon(lat, lng, weekday)
   stations = ""
-  if(gotime.wday == 6)
+  if(weekday == 6)
     # saturday schedule
     stations = get_saturday_stations()
   else
