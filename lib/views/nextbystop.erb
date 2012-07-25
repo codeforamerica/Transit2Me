@@ -36,7 +36,7 @@ function display(stopdetails){
     nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + " inbound, " + timeConvert(visit.outtime) + " outbound<br/>";
   }
   knowTimes[ stopdetails.id ] = nexttimes.innerHTML;
-  document.getElementById("popopper").appendChild(nexttimes);
+  document.getElementById("popopper").innerHTML += "<p>" + nexttimes.innerHTML + "</p>";
   document.getElementById("popopper").style.display = "block";
 }
 
