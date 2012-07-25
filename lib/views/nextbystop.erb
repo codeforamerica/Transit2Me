@@ -5,7 +5,7 @@
   <script type="text/javascript" src="/leaflet.js"></script>
   <script type="text/javascript" src="/wax.leaf.min.js"></script>
   <script type="text/javascript">
-var baseIcon, map;
+var baseIcon, map, activeStop;
 var knowTimes = { };
 function timeConvert(time){
   if(time == "NONE"){
@@ -28,7 +28,7 @@ function timeConvert(time){
 }
 function display(stopdetails){
   //console.log(stopdetails);
-  document.getElementById("popopper").innerHTML = "";
+  document.getElementById("popopper").innerHTML = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b><br><i>on</i> route <b>' + activeStop.routename + '</b><br><i>at</i> <b>' + activeStop.routename + '</b></p></div></div>';
   var nexttimes = document.createElement('p');
   nexttimes.innerHTML = "";
   for(var v=0;v<stopdetails.routes.length;v++){
@@ -57,8 +57,12 @@ function init(){
       //.on(wax.tooltip().animate(false).parent(map._container).events())
       .on({
         on: function(e){
-          (wax.tooltip().animate(false).parent(map._container).events()).on(e);
-          var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
+          //(wax.tooltip().animate(false).parent(map._container).events()).on(e);
+          activeStop = { };
+          activeStop.stopname = e.data.Location;
+          activeStop.stopnum = e.data.OBJECTID;
+          activeStop.routename = e.data.Route;
+          var stopnum = activeStop.stopnum;
           if(knowTimes[ stopnum ] && knowTimes[ stopnum ] != "a"){
             // already requested this stop
             document.getElementById("popopper").innerHTML = "";
@@ -144,7 +148,7 @@ html, body {
 }
 #popopper{
   position:fixed;
-  top:98px;
+  top:10px;
   right:10px;
   background-color:#fff;
   padding:4px;
