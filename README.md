@@ -5,6 +5,8 @@ Visitors see a box where they can enter their address and receive transit direct
 
 Roadmap: Timezones, track pledges to take public transit, importing events from Google Calendar, support for GTFS
 
+Missing data: first run of Route 1, checking of inbound / outbound times on other routes
+
 The project supports these transit systems:
 <ul>
 <li>BART in San Francisco</li>
