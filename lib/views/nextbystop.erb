@@ -51,10 +51,11 @@ function init(){
   map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
   wax.tilejson('http://api.tiles.mapbox.com/v3/jllord.mta.jsonp', function(tilejson) {
     map.addLayer(new wax.leaf.connector(tilejson));
+    console.log(wax.tooltip().animate(false).parent(map._container).events);
     wax.leaf.interaction()
       .map(map)
       .tilejson(tilejson)
-      .on(wax.tooltip().animate(false).parent(map._container).events())
+      .on()
       .on({
         on: function(){
           var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
