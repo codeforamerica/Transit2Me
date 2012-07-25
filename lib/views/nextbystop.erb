@@ -57,7 +57,7 @@ function init(){
       //.on(wax.tooltip().animate(false).parent(map._container).events())
       .on({
         on: function(e){
-          (wax.tooltip().animate(false).parent(map._container).events()).on();
+          (wax.tooltip().animate(false).parent(map._container).events()).on(e);
           var stopnum = document.getElementById("info").children[0].children[0].innerHTML;
           if(knowTimes[ stopnum ] && knowTimes[ stopnum ] != "a"){
             // already requested this stop
