@@ -29,14 +29,13 @@ function timeConvert(time){
 function display(stopdetails){
   //console.log(stopdetails);
   var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b><br><i>on</i> route <b>' + activeStop.routename + '</b><br><i>at</i> <b>' + activeStop.routename + '</b></p></div><br/>';
-  var nexttimes = document.createElement('p');
-  nexttimes.innerHTML = "";
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
-    nexttimes.innerHTML += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + " inbound, " + timeConvert(visit.outtime) + " outbound<br/>";
+    teaser += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + " inbound, " + timeConvert(visit.outtime) + " outbound<br/>";
   }
-  knowTimes[ stopdetails.id ] = nexttimes.innerHTML;
-  document.getElementById("popopper").innerHTML = teaser + "<p>" + nexttimes.innerHTML + "</p></div>";
+  teaser += "<p>" + nexttimes.innerHTML + "</p></div>";
+  document.getElementById("popopper").innerHTML = teaser;
+  knowTimes[ stopdetails.id ] = teaser;
   document.getElementById("popopper").style.display = "block";
 }
 
@@ -160,6 +159,9 @@ i {font-family: 'IM Fell French Canon', Garamond, Baskerville, Times New Roman; 
 #teaserbox {border-top: 3px solid #333; }
 #icon {float: left;  margin: 2px 10px 0px 0px;}
 #info {float: left; margin: 7px 10px 0px 0px;)
+#teaserbox p{
+  display: block;
+}
   </style>
 </head>
 <body onload="init()">
