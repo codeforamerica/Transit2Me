@@ -28,7 +28,7 @@ function timeConvert(time){
 }
 function display(stopdetails){
   //console.log(stopdetails);
-  var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b><br><i>on</i> route <b>' + activeStop.routename + '</b><br><i>at</i> <b>' + activeStop.routename + '</b></p></div><p>';
+  var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b><br><i>on</i> route <b>' + activeStop.routename + '</b><br><i>at</i> <b>' + activeStop.routename + '</b></p></div><br/><p>';
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
     teaser += "Next Rt " + visit.route + " buses: " + timeConvert(visit.intime) + " inbound, " + timeConvert(visit.outtime) + " outbound<br/>";
