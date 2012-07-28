@@ -6,7 +6,9 @@ Transit2Me has two components:
 
 - Scripts to build a transit schedule from GPS tracking data and KML of bus stops.
 
-- An interactive map (nextbystop.erb) combining MapBox tiles and your transit schedule
+- An interactive map (nextbystop.erb) combining your MapBox map and your transit schedule
+<br/>
+Visit <a href="https://github.com/codeforamerica/Transit-Map-in-TileMill/">Transit-Map-in-TileMill</a> to see how the map is made in TileMill and uploaded to MapBox!
 
 <img src="http://i.imgur.com/VEzJU.png"/>
 <br/>
