@@ -2,6 +2,8 @@
 
 All open source and available under a BSD license.
 
+Written for the <a href="https://github.com/codeforamerica/Transit2Me/tree/master/utilities">Macon-Bibb County Transit Authority</a> by <a href="http://codeforamerica.org">Code for America</a>.
+
 ## buswrite.py
 
 ### What it does
