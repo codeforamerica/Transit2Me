@@ -4,7 +4,7 @@ Transit2Me has two components:
 
 1) Utilities (Beta)
 
-- Scripts to build a transit schedule from GPS tracking data and KML of bus stops.
+- Scripts to build a transit schedule and animated Google Earth map from GPS tracking data and list of bus stops.
 
 - An interactive map (nextbystop.erb) combining your MapBox map and your transit schedule
 <br/>
