@@ -7,6 +7,10 @@ Bundler.require
 require 'uri'
 require 'net/http'
 
+# allow iframe embed
+set :protection, :except => :frame_options
+disable :protection
+
 # Application module
 module Transit2Me
   def self.environment
