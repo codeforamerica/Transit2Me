@@ -28,14 +28,31 @@ function timeConvert(time){
 }
 function display(stopdetails){
   //console.log(stopdetails);
-  var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b><br><i>on</i> route <b>' + activeStop.routename + '</b><br><i>at</i> <b>' + activeStop.stopname + '</b></p></div><div style="clear:both;"></div><div id="timebox"><p>';
-  teaser += '<b>The next buses at this stop:</b><ul>';
+  var stopByName = {
+    "1": "Vineville/Charter Hospital",
+    "2": "Bellevue/Zebulon/Log Cabin",
+    "3": "West Macon",
+    "4": "North Highland",
+    "5": "Ocmulgee",
+    "6": "Westgate",
+    "9": "Macon Mall",
+    "11": "East Macon",
+    "12": "Houston",
+    "13": "North Macon",
+    "WR BIRD": ""
+  };
+  var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b>';
+  //teaser += '<br><i>on</i> route <b>' + activeStop.routename + '</b>';
+  teaser += '<br><i>at</i> <b>' + activeStop.stopname + '</b></p></div><div style="clear:both;">';
+  teaser += '<b>The next buses at this stop:</b>';
+  teaser += '</div><div id="timebox"><p>';
+  teaser += '<ul>';
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
-    teaser += "<li><b>Route " + visit.route + " buses:</b> " + timeConvert(visit.intime) + " <span class='directionstyle'>inbound</span>, " + timeConvert(visit.outtime) + " <span class='directionstyle'>outbound</span></li>";
+    teaser += "<li><b>#" + visit.route + " " + stopByName["" + visit.route] + ":</b> " + timeConvert(visit.intime) + " <span class='directionstyle'>inbound</span>, " + timeConvert(visit.outtime) + " <span class='directionstyle'>outbound</span></li>";
   }
   teaser += "</ul></p>";
-  teaser += "<p>An <span class='directionstyle'>inbound</span> bus's direction is towards Terminal Station, an <span class='directionstyle'>outbound</span> bus's direction is leaving Terminal Station.</p>";
+  teaser += "<p>An <span class='directionstyle'>inbound</span> bus's direction is towards Terminal Station; an <span class='directionstyle'>outbound</span> bus's direction is leaving Terminal Station.</p>";
   teaser += "</div></div>";
   document.getElementById("popopper").innerHTML = teaser;
   knowTimes[ stopdetails.id ] = teaser;
@@ -44,22 +61,14 @@ function display(stopdetails){
 
 function init(){
   map = new L.Map('map');
-  /*var maconbus = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/jllord.mta/{z}/{x}/{y}.png', {
-    attribution: 'Map data &copy; OpenStreetMap contributors. Tiles by Code for America',
-    minZoom: 14,
-    maxZoom: 17
-  });
-  map.addLayer(maconbus);*/
   map.setView(new L.LatLng( 32.833353,-83.623488 ), 15);
   wax.tilejson('http://api.tiles.mapbox.com/v3/jllord.mta.jsonp', function(tilejson) {
     map.addLayer(new wax.leaf.connector(tilejson));
     wax.leaf.interaction()
       .map(map)
       .tilejson(tilejson)
-      //.on(wax.tooltip().animate(false).parent(map._container).events())
       .on({
         on: function(e){
-          //(wax.tooltip().animate(false).parent(map._container).events()).on(e);
           activeStop = { };
           activeStop.stopname = e.data.Location;
           activeStop.stopnum = e.data.OBJECTID;
@@ -156,8 +165,9 @@ html, body {
   border: 1px dotted #E4E7E4;
   max-width: 400px;
   padding: 5px;
+  padding-top: 0;
+  padding-right: 0;
 }
-
 .wax-tooltip {max-width: 600px !important;}
 p, li {font-family: 'Quicksand', Gotham Rounded, Arial; font-size: 13px; color: #333;}
 i {font-family: 'IM Fell French Canon', Garamond, Baskerville, Times New Roman; font-style: italic; font-size: 16px; font-weight: 400;}

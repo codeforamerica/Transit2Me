@@ -45,3 +45,23 @@ We used the Android application "My Tracks", but you could use other GPS tracker
 
 ### Get the source
 https://gist.github.com/3179172
+
+## ColumnPopulator.py
+
+### What it does
+QGIS script to transform shapefile data
+
+Reads a RouteNames column (Macon Mall, East Macon, Houston) to fill individual columns (Route1, Route2, Route3)
+
+### Get the source
+https://gist.github.com/3299769
+
+## MultiColumnPopulator.py
+
+### What it does
+QGIS script to transform shapefile data
+
+Reads code from Transit2Me (listing routes available at each stop) to fill individual columns (Route1, Route2, Route3)
+
+### Get the source
+https://gist.github.com/3299980
