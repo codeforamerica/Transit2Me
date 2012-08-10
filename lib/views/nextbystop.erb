@@ -45,10 +45,11 @@ function display(stopdetails){
     "WR BIRD": ""
   };
   var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b>';
-  //teaser += '<br><i>on</i> route <b>' + activeStop.routename + '</b>';
+  teaser += '<br><i>on</i> route <b>' + activeStop.routename + '</b>';
   teaser += '<br><i>at</i> <b>' + activeStop.stopname + '</b>';
-  teaser += '<br><b>The next buses at this stop:</b>';
+  //teaser += '<br><b>The next buses at this stop:</b>';
   teaser += '</p></div><div style="clear:both;"></div><div id="timebox"><p>';
+  teaser += '<br><b>The next buses at this stop:</b>'
   teaser += '<ul>';
   for(var v=0;v<stopdetails.routes.length;v++){
   	var visit = stopdetails.routes[v];
