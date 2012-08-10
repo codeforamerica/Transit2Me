@@ -2228,6 +2228,10 @@ get '/nextmap' do
   erb :nextbystop
 end
 
+get '/addaddress' do
+  erb :addaddress
+end
+
 get '/stopnear' do
   content_type :json
 
