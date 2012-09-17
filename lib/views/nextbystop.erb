@@ -27,6 +27,13 @@ function timeConvert(time){
   return hour + ":" + minute + " " + ampm;
 }
 function display(stopdetails){
+  if(typeof stopdetails.running !== 'undefined'){
+    // no buses to this stop on this day
+    var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info">No buses to this stop today.</div></div>';
+    document.getElementById("popopper").innerHTML = teaser;
+    document.getElementById("popopper").style.display = "block";
+    return;
+  }
   //console.log(stopdetails);
   var stopByName = {
     "1": "Vineville/Charter Hospital",

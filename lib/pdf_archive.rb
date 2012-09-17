@@ -1340,8 +1340,7 @@ get '/stopbyid' do
 
   stations = ""
   if(gotime.wday == 0)
-    stations = [ ]
-    return '{ }'
+    return '{ running: "not running" }'
   elsif(gotime.wday == 6)
     # saturday schedule
     stations = get_saturday_stations()
@@ -1350,10 +1349,17 @@ get '/stopbyid' do
     stations = get_stations()
   end
   closestStations = [ ]
+  foundstation = 0
   stations.each do |station|
     if(station.getid() == params['id'])
       closestStations.push(station)
+      foundstation = 1
+      break
     end
+  end
+  if(foundstation == 0)
+    # possibly Saturday + Route 1? Bus is not running at this stop on this day
+    return '{ running: "not running" }'
   end
 
   closest = closestStations[0]
