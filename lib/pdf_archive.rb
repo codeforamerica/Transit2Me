@@ -1340,7 +1340,11 @@ get '/stopbyid' do
 
   stations = ""
   if(gotime.wday == 0)
-    return '{ running: "not running" }'
+    if(params['jsonp'])
+      return params['jsonp'] + '({ running: "not running" });'
+    else
+      return '{ running: "not running" }'
+    end
   elsif(gotime.wday == 6)
     # saturday schedule
     stations = get_saturday_stations()
@@ -1359,7 +1363,11 @@ get '/stopbyid' do
   end
   if(foundstation == 0)
     # possibly Saturday + Route 1? Bus is not running at this stop on this day
-    return '{ running: "not running" }'
+    if(params['jsonp'])
+      return params['jsonp'] + '({ running: "not running" });'
+    else
+      return '{ running: "not running" }'
+    end
   end
 
   closest = closestStations[0]
