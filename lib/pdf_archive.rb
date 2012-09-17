@@ -1341,6 +1341,7 @@ get '/stopbyid' do
   stations = ""
   if(gotime.wday == 0)
     stations = [ ]
+    return '{ }'
   elsif(gotime.wday == 6)
     # saturday schedule
     stations = get_saturday_stations()
