@@ -1358,7 +1358,6 @@ get '/stopbyid' do
     if(station.getid() == params['id'])
       closestStations.push(station)
       foundstation = 1
-      break
     end
   end
   if(foundstation == 0)
