@@ -2245,10 +2245,6 @@ post '/geotransit' do
 end
 
 get '/nextmap' do
-  erb :nextbystop
-end
-
-get '/mbmap' do
   erb :mapboxv
 end
 
