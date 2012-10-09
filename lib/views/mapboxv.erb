@@ -1,0 +1,173 @@
+<head>
+  <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.6/mapbox.js'></script>
+  <style>
+    body { margin:0; padding:0; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+.wax-tooltip {
+  z-index:999999;
+  position:absolute;
+  background:#FFF;
+  color:#000;
+  padding:10px;
+  top:10px;
+  right:10px;
+  max-width:300px;
+  opacity:1;
+  -webkit-transition:opacity .5s;
+  -moz-transition:opacity .5s;
+  }
+
+.wax-movetip {
+  position:absolute;
+  z-index:999999;
+  background:#333;
+  color:#fff;
+  padding:10px;
+  max-width:300px;
+}
+
+.wax-tooltip.hide { opacity:0; }
+
+.wax-tooltip .close {
+  display:block;
+  position:absolute;
+  top:0px;
+  right:0px;
+  }
+
+.wax-mobile-body .wax-tooltip {
+  position:absolute;
+  top:50px;
+}
+#popopper{
+  z-index:999;
+  position:fixed;
+  top:10px;
+  right:10px;
+  background-color: #fff;
+  border: 1px dotted #E4E7E4;
+  max-width: 400px;
+  padding: 5px;
+  padding-top: 0;
+  padding-right: 0;
+}
+.wax-tooltip {max-width: 600px !important;}
+p, li {font-family: 'Quicksand', Gotham Rounded, Arial; font-size: 13px; color: #333;}
+i {font-family: 'IM Fell French Canon', Garamond, Baskerville, Times New Roman; font-style: italic; font-size: 16px; font-weight: 400;}
+#teaserbox {float: left;}
+#icon {float: left;  margin: 10px 10px;}
+#info {float: left; margin: 10px 10px;}
+#timebox {float: left; margin: 0px 10px; margin-top:-16px;}
+ul, li {line-height: 1em; list-style: none; margin: 0px 0px 0px 8px; padding: 0px;}
+.directionstyle {text-transform: uppercase; font-size: 10px;}
+  </style>
+  <script type="text/javascript">
+var baseIcon, map, activeStop;
+var knowTimes = { };
+function timeConvert(time){
+  if(time == "NONE"){
+    return "None";
+  }
+  var hour, minute, ampm;
+  hour = time.split(":")[0] * 1;
+  minute = time.split(":")[1];
+  ampm = "am";
+  if(hour >= 12){
+    ampm = "pm";
+  }
+  if(hour == 0){
+    hour = 12;
+  }
+  else if(hour > 12){
+    hour -= 12;
+  }
+  return hour + ":" + minute + " " + ampm;
+}
+function display(stopdetails){
+  if(typeof stopdetails.running !== 'undefined'){
+    // no buses to this stop on this day
+    var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>No buses to this stop today.</p></div></div>';
+    document.getElementById("popopper").innerHTML = teaser;
+    document.getElementById("popopper").style.display = "block";
+    return;
+  }
+  //console.log(stopdetails);
+  var stopByName = {
+    "1": "Vineville/Charter Hospital",
+    "2": "Bellevue/Zebulon/Log Cabin",
+    "2B": "Bellevue/Zebulon/Log Cabin",
+    "3": "West Macon",
+    "4": "North Highland",
+    "5": "Ocmulgee",
+    "6": "Westgate",
+    "9": "Macon Mall",
+    "11": "East Macon",
+    "12": "Houston",
+    "12B": "Houston",
+    "12C": "Houston",
+    "13": "North Macon",
+    "WR BIRD": ""
+  };
+  var teaser = '<div id="teaserbox"><div id="icon"><img src="http://jlord.us/map/bus.png" height="75px"></div><div id="info"><p>stop number <b>' + activeStop.stopnum + '</b>';
+  teaser += '<br><i>on</i> route <b>' + activeStop.routename + '</b>';
+  teaser += '<br><i>at</i> <b>' + activeStop.stopname + '</b>';
+  //teaser += '<br><b>The next buses at this stop:</b>';
+  teaser += '</p></div><div style="clear:both;"></div><div id="timebox"><p>';
+  teaser += '<br><b>The next buses at this stop:</b>'
+  teaser += '<ul>';
+  for(var v=0;v<stopdetails.routes.length;v++){
+  	var visit = stopdetails.routes[v];
+    teaser += "<li><b>#" + visit.route + " " + stopByName["" + visit.route] + ":</b> " + timeConvert(visit.intime) + " <span class='directionstyle'>inbound</span>, " + timeConvert(visit.outtime) + " <span class='directionstyle'>outbound</span></li>";
+  }
+  teaser += "</ul></p>";
+  teaser += "<p>An <span class='directionstyle'>inbound</span> bus's direction is towards Terminal Station; an <span class='directionstyle'>outbound</span> bus's direction is leaving Terminal Station.</p>";
+  teaser += "</div></div>";
+  document.getElementById("popopper").innerHTML = teaser;
+  knowTimes[ stopdetails.id ] = teaser;
+  document.getElementById("popopper").style.display = "block";
+}
+  </script>
+</head>
+<body>
+<div id='map'></div>
+<div id='popopper'></div>
+<script type="text/javascript">
+    mapbox.load('jllord.mta', function(o) {
+        var map = mapbox.map('map');
+        map.addLayer(o.layer).zoom(15).center({ lat: 32.833353, lon: -83.623488 });
+    	map.interaction.on({
+        	on: function(o) {
+            	// This will only listen to mousemoves. You can also look
+            	// for clicks or any other event or combination of events.
+            	if (o.e.type === 'mousemove' || o.e.type === 'click') {
+          activeStop = { };
+          activeStop.stopname = o.data.Location;
+          activeStop.stopnum = o.data.OBJECTID;
+          activeStop.routename = o.data.Route;
+          var stopnum = activeStop.stopnum;
+          if(knowTimes[ stopnum ] && knowTimes[ stopnum ] != "a"){
+            // already requested this stop
+            document.getElementById("popopper").innerHTML = "";
+            var nexttimes = document.createElement('p');
+            nexttimes.innerHTML = knowTimes[ stopnum ];
+            document.getElementById("popopper").appendChild(nexttimes);
+            document.getElementById("popopper").style.display = "block";
+          }
+          else if(knowTimes[ stopnum ] != "a"){
+            knowTimes[ stopnum ] = "a";
+            var s = document.createElement("script");
+            s.type = "text/javascript";
+            s.src = "/stopbyid?jsonp=display&id=" + stopnum;
+            document.body.appendChild(s);
+          }
+                }
+        	},
+        	// When the mouse leaves the feature, clear this bit of
+        	// interactivity
+        	off: function() {
+            	currency.innerHTML = '';
+        	}
+    	});
+    });
+</script>
+</body>

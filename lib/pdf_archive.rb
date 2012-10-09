@@ -2248,6 +2248,10 @@ get '/nextmap' do
   erb :nextbystop
 end
 
+get '/mbmap' do
+  erb :mapboxv
+end
+
 get '/addaddress' do
   erb :addaddress
 end
