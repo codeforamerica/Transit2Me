@@ -137,7 +137,7 @@ function display(stopdetails){
     mapbox.load('jllord.mta', function(o) {
         map = mapbox.map('map');
         map.addLayer(o.layer).zoom(15).center({ lat: 32.833353, lon: -83.623488 });
-        //map.interaction.auto();
+        map.interaction.auto();
     	map.interaction.on({
         	on: function(o) {
             	// This will only listen to mousemoves. You can also look
