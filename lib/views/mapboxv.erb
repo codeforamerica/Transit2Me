@@ -132,14 +132,18 @@ function display(stopdetails){
 <div id='map'></div>
 <div id='popopper'></div>
 <script type="text/javascript">
+	var map;
+	var mytime = null;
     mapbox.load('jllord.mta', function(o) {
-        var map = mapbox.map('map');
+        map = mapbox.map('map');
         map.addLayer(o.layer).zoom(15).center({ lat: 32.833353, lon: -83.623488 });
     	map.interaction.on({
         	on: function(o) {
             	// This will only listen to mousemoves. You can also look
             	// for clicks or any other event or combination of events.
             	if (o.e.type === 'mousemove' || o.e.type === 'click') {
+        
+          window.clearTimeout(mytime);
           activeStop = { };
           activeStop.stopname = o.data.Location;
           activeStop.stopnum = o.data.OBJECTID;
@@ -165,7 +169,10 @@ function display(stopdetails){
         	// When the mouse leaves the feature, clear this bit of
         	// interactivity
         	off: function() {
-            	currency.innerHTML = '';
+        		window.clearTimeout(mytime);
+            	mytime = setTimeout(function(){
+            	  document.getElementById("popopper").style.display = "none";
+            	}, 1000);
         	}
     	});
     });
