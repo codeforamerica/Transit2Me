@@ -141,6 +141,7 @@ function display(stopdetails){
 	var mytime = null;
     mapbox.load('jllord.mta', function(o) {
         map = mapbox.map('map');
+        map.ui.zoomer.add();
         map.addLayer(o.layer).zoom(15).center({ lat: 32.833353, lon: -83.623488 });
         map.interaction.auto();
     	map.interaction.on({
