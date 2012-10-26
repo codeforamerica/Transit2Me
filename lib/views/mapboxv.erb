@@ -200,8 +200,8 @@ function display(stopdetails){
 </head>
 <body>
 <div id='map'></div>
-<a href="#" class="zoomer zoomin">+</a>
-<a href="#" class="zoomer zoomout">-</a>
+<a href="javascript:map.zoomBy(1);void(0);" class="zoomer zoomin">+</a>
+<a href="javascript:map.zoomBy(-1);void(0);" class="zoomer zoomout">-</a>
 <div id='popopper'></div>
 <div id='licensing'>2012 street data &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors</div>
 <script type="text/javascript">
@@ -210,12 +210,6 @@ function display(stopdetails){
     mapbox.load('jllord.mta', function(o) {
         map = mapbox.map('map');
         map.ui.zoomer.add();
-        document.getElementsByClassName('zoomout')[0].onclick = function(e){
-          map.zoomBy(-1);
-        };
-        document.getElementsByClassName('zoomin')[0].onclick = function(e){
-          map.zoomBy(1);
-        };
         map.addLayer(o.layer).zoom(15).center({ lat: 32.833353, lon: -83.623488 });
         map.interaction.auto();
     	map.interaction.on({
