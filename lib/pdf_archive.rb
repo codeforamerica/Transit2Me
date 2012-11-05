@@ -1336,7 +1336,7 @@ end
 get '/stopbyid' do
   content_type :json
 
-  gotime = Time.now() - 60 * 60 * 4
+  gotime = Time.now() - 60 * 60 * 5
 
   stations = ""
   if(gotime.wday == 0)
@@ -2268,7 +2268,7 @@ get '/stopnear' do
   lat = Float( response[0] )
   lng = Float( response[1] )
 
-  gotime = Time.now() - 60 * 60 * 4
+  gotime = Time.now() - 60 * 60 * 5
   closestStations = closest_macon(lat, lng, gotime.wday)
   closest = closestStations[0]
   routePrintOut = [ ]
@@ -2297,7 +2297,7 @@ end
 get '/stopbylatlng' do
   content_type :json
 
-  gotime = Time.now() - 60 * 60 * 4
+  gotime = Time.now() - 60 * 60 * 5
   closestStations = closest_macon(Float( params["lat"] ), Float( params["lng"] ), gotime.wday)
   closest = closestStations[0]
   routePrintOut = [ ]
