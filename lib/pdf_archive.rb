@@ -2036,10 +2036,10 @@ get '/json' do
   content_type :json
 
   if params['route']
-    gotime = (Time.now()-60*60*4) 
+    gotime = (Time.now()-60*60*5) 
     if(params['date'])
       timestamp = params['date'].split(",")
-      gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-04:00" )
+      gotime = Time.new( timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], 0, "-05:00" )
     end
     
     currentbuses = "{\"route\": " + params['route'] + ",\"timestamp\":\"" + gotime.to_s + "\",\"active_buses\": ["
@@ -2852,7 +2852,7 @@ get '/routeit' do
       hour = "0"
     end
     minute = event.timeof.split(':')[1]
-    gotime = Time.new( year, month, day, hour, minute, 0, "-04:00" )
+    gotime = Time.new( year, month, day, hour, minute, 0, "-05:00" )
 
     # No Sunday buses
     if gotime.wday == 0
